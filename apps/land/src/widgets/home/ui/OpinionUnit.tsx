@@ -1,4 +1,5 @@
-import { cn, parse } from '@/shared/utils';
+import { cn } from '@soup/utils';
+import { parse } from '@/shared/utils';
 
 interface OpinionUnitProps {
   reversed: boolean;
