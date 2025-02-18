@@ -20,9 +20,9 @@ export default function OpinionUnit({
   if (reversed) {
     return (
       <div className="flex h-fit w-full gap-x-2">
-        <div className="h-38 flex w-full justify-end">
+        <div className="h-38 flex w-full justify-end text-end">
           <OpinionBox reversed={reversed}>
-            <div>{parse(text)}</div>
+            <div className="font-medium">{parse(text)}</div>
           </OpinionBox>
         </div>
         <Icon image={image} />
@@ -34,7 +34,7 @@ export default function OpinionUnit({
       <Icon image={image} />
       <div className="h-38 flex w-full justify-start">
         <OpinionBox>
-          <div>{parse(text)}</div>
+          <div className="font-medium">{parse(text)}</div>
         </OpinionBox>
       </div>
     </div>
@@ -55,7 +55,7 @@ function OpinionBox({ children, reversed = false }: OpinionBoxProps) {
     <div
       className={cn(
         reversed ? 'talkboxLeft' : 'talkboxRight',
-        'border-border boxShadow px-18 flex items-center justify-center border-[1px]',
+        'border-border boxShadow flex items-center justify-center text-nowrap border-[1px] px-[113.5px] py-[44.5px] text-lg lg:text-lg',
       )}
     >
       {children}

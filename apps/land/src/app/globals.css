@@ -15,6 +15,10 @@
   --color-border: rgb(218, 212, 207);
   --breakpoint-lg: 1920px;
   --breakpoint-md: 1024px;
+  --font-weight-light: 300;
+  --font-weight-medium: 400;
+  --font-weight-semibold: 500;
+  --font-weight-bold: 600;
 }
 
 @layer base {
