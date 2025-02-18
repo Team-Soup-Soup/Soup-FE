@@ -1,0 +1,77 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable-dynamic-subset.css');
+@import 'tailwindcss';
+
+@theme {
+  --text-sm: 14px;
+  --text-md: 16px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+
+  --color-text-dark: rgb(61, 56, 47);
+  --color-text-light: rgb(159, 156, 149);
+  --color-sub: rgb(234, 230, 220);
+  --color-important: rgb(255, 0, 0);
+  --color-point: rgb(255, 166, 0);
+  --color-dash-board: rgb(255, 255, 255);
+  --color-main-board: rgb(253, 253, 253);
+  --color-share-like: rgb(245, 244, 241);
+  --color-dash-board-border: rgb(218, 212, 207);
+  --color-vote-section: rgb(248, 241, 227);
+  --color-free-section: rgb(237, 237, 237);
+  --color-notice-section: rgb(255, 217, 147);
+  --color-peer-review-section: rgb(248, 241, 227);
+  --color-planer-section: rgb(241, 240, 238);
+
+  --font-pretendard: 'Pretendard', 'sans-serif';
+
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+
+  --radius-auth: 10px;
+}
+
+:root {
+  font-family:
+    'Pretendard Variable',
+    Pretendard,
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    'Helvetica Neue',
+    'Segoe UI',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    'Malgun Gothic',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    sans-serif;
+  font-size: 14px;
+}
+
+@media (max-width: 1024px) {
+  body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .box-shadow {
+    box-shadow: 8px 8px 8px 0px rgba(0, 0, 0, 0.08);
+  }
+}
