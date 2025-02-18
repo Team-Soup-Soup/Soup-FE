@@ -12,7 +12,7 @@ import { CAROUSEL_DATA } from '@/widgets/home/model';
 
 export default function FeatureCarousel() {
   return (
-    <div className="pb-20 pt-16">
+    <div className="pt-22 pb-40">
       <div className="swiper-container flex h-[500px] w-[894px] overflow-x-scroll md:h-[559px] md:w-[1000px]">
         <Swiper
           pagination={{ clickable: true }}

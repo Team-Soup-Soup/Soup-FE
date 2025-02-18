@@ -18,7 +18,7 @@ export const OPINION = [
   {
     id: 'opinion1',
     reversed: false,
-    text: '매번 하나의 프로젝트에서 여러 서비스들을 번갈아 사용하는데,\n프로젝트 진행이 어렵고 불편해요.',
+    text: '매번 하나의 프로젝트에서 여러 서비스까지,\n번갈아 사용하다 보니, 프로젝트 진행이 어렵고 불편해요.',
     image: '/images/people-1.png',
   },
   {
