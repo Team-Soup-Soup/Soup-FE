@@ -22,7 +22,7 @@ export default function OpinionUnit({
       <div className="flex h-fit w-full gap-x-2">
         <div className="h-38 flex w-full justify-end text-end">
           <OpinionBox reversed={reversed}>
-            <div className="font-semibold">{parse(text)}</div>
+            <div className="font-medium">{parse(text)}</div>
           </OpinionBox>
         </div>
         <Icon image={image} />
@@ -34,7 +34,7 @@ export default function OpinionUnit({
       <Icon image={image} />
       <div className="h-38 flex w-full justify-start">
         <OpinionBox>
-          <div className="font-semibold">{parse(text)}</div>
+          <div className="font-medium">{parse(text)}</div>
         </OpinionBox>
       </div>
     </div>
