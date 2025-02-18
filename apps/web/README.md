@@ -1,50 +1,59 @@
-# React + TypeScript + Vite
+## Soup: Student & Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### 웹 애플리케이션 레포지토리입니다.
 
-Currently, two official plugins are available:
+### Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**FSD** 아키텍처를 적용하였습니다.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```plain text
+src/
+│
+├── app/                   // 엔트리 포인트 및 글로벌 설정
+│   ├── index.tsx
+│   ├── App.tsx
+│   └── providers/         // 리덕스, 라우터, i18n 등 글로벌 상태 관리 및 설정
+│
+├── pages/                 // 라우팅 단위의 페이지 컴포넌트
+│   ├── HomePage/
+│   │   ├── index.tsx
+│   │   └── ui/
+│   │       └── HomePageLayout.tsx
+│   └── DetailPage/
+│       ├── index.tsx
+│       └── ui/
+│           └── DetailPageLayout.tsx
+│
+├── widgets/               // 여러 Feature를 조합한 UI 블록
+│   └── Header/
+│       ├── index.tsx
+│       ├── model/
+│       │   └── useHeader.ts
+│       └── ui/
+│           └── Header.tsx
+│
+├── features/              // 특정 기능 담당 모듈
+│   └── SearchBar/
+│       ├── index.tsx
+│       ├── model/
+│       │   ├── useSearch.ts
+│       │   └── searchSlice.ts
+│       └── ui/
+│           └── SearchBar.tsx
+│
+├── entities/              // 도메인 객체 및 관련 로직
+│   └── Product/
+│       ├── index.ts
+│       ├── model/
+│       │   └── useProduct.ts
+│       └── ui/
+│           └── ProductCard.tsx
+│
+└── shared/                // 공용 UI 컴포넌트, 스타일, 유틸리티
+    ├── ui/
+    │   └── Button.tsx
+    ├── lib/
+    │   └── api.ts
+    └── config/
+        └── constants.ts
 ```
