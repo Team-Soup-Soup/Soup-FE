@@ -26,6 +26,9 @@ importers:
 
   apps/land:
     dependencies:
+      '@soup/utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
       next:
         specifier: ^15.1.6
         version: 15.1.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
