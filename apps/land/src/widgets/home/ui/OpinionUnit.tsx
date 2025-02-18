@@ -55,7 +55,7 @@ function OpinionBox({ children, reversed = false }: OpinionBoxProps) {
     <div
       className={cn(
         reversed ? 'talkboxLeft' : 'talkboxRight',
-        'border-border boxShadow px-18 flex items-center justify-center border-[1px] p-4',
+        'border-border boxShadow px-18 flex items-center justify-center border-[1px]',
       )}
     >
       {children}
