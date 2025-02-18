@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import LandHeaderImg from '../../../../public/images/land-header.png';
 import OpinionUnit from './OpinionUnit';
 
 import { OPINION, TEXT } from '@/widgets/home/model';
@@ -10,13 +9,13 @@ export default function HomeContainer() {
   return (
     <div className="flex w-full flex-col">
       <Header />
-      <div className="mt-20 box-border flex flex-col items-center justify-center">
-        <p className="text-text-light pb-4 text-lg">
+      <div className="mt-40 box-border flex flex-col items-center justify-center">
+        <p className="text-text-light pb-6 text-lg font-light">
           {TEXT.HOME.LAND_QUESTION}
         </p>
-        <p className="text-xl">{TEXT.HOME.LAND_MESSAGE_1}</p>
+        <p className="text-xl font-medium">{TEXT.HOME.LAND_MESSAGE_1}</p>
         <p className="text-xl font-bold">{TEXT.HOME.LAND_MESSAGE_2}</p>
-        <div className="mt-20 flex h-fit w-[68%] flex-col gap-y-8">
+        <div className="mt-20 flex h-fit w-[69%] flex-col gap-y-[57px]">
           {OPINION.map((data) => (
             <OpinionUnit
               key={data.id}
@@ -26,8 +25,8 @@ export default function HomeContainer() {
             />
           ))}
         </div>
-        <div className="mt-24 flex flex-col items-center justify-center">
-          <p className="text-xl">{TEXT.HOME.FEATURE_INTRODUCE_1}</p>
+        <div className="mt-45 flex flex-col items-center justify-center">
+          <p className="text-xl font-medium">{TEXT.HOME.FEATURE_INTRODUCE_1}</p>
           <p className="text-xl font-bold">{TEXT.HOME.FEATURE_INTRODUCE_2}</p>
         </div>
         <FeatureCarousel />
@@ -38,22 +37,29 @@ export default function HomeContainer() {
 
 function Header() {
   return (
-    <div className="relative flex size-fit">
-      <div className="absolute inset-0 box-border flex size-full flex-col justify-center gap-y-4 px-10 text-white md:px-40">
-        <div>
-          {parse(TEXT.HEADER.TITLE, [
-            'text-md md:text-lg',
-            'text-xl md:text-2xl font-bold',
-          ])}
+    <div className="relative flex h-[505px] w-full bg-cover bg-no-repeat">
+      <div className="absolute inset-0 z-20 box-border flex h-[505px] w-[896px] justify-start pl-[80px] pr-[110px] font-medium text-white md:justify-end">
+        <div className="mb-[55px] mt-[137px] flex flex-col place-items-start gap-y-4">
+          <div>{parse(TEXT.HEADER.TITLE, ['text-xl ', 'text-2xl '])}</div>
+          <div className="text-lg">{parse(TEXT.HEADER.SUBTITLE)}</div>
+          <div className="flex w-full justify-end">
+            <button className="border-text-dark rounded-4xl mt-[66px] h-fit w-fit cursor-pointer border-[1px] bg-black/20 px-9 py-3 text-xl focus:outline-none">
+              바로 시작하기
+            </button>
+          </div>
         </div>
-        <div className="hidden text-sm md:block">
-          {parse(TEXT.HEADER.SUBTITLE)}
-        </div>
-        <button className="border-text-dark rounded-4xl md:text-md w-fit cursor-pointer border-[1px] bg-black/20 p-4 py-2 text-sm focus:outline-none md:px-6 md:py-4">
-          바로 시작하기
-        </button>
       </div>
-      <Image alt="landing-header" src={LandHeaderImg} priority={true} />
+      <Image
+        src="/images/land-header-circle.png"
+        alt="circle"
+        width={896}
+        height={505}
+        className="absolute z-10"
+      />
+      <div
+        className="size-full bg-cover bg-center"
+        style={{ backgroundImage: 'url(/images/land-header-people.png)' }}
+      ></div>
     </div>
   );
 }
