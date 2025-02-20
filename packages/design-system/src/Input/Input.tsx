@@ -35,7 +35,7 @@ const Input = ({
           id={id}
           ref={inputRef}
           className={cn(
-            'text-light border-main-board-border focus:border-point rounded-[10px] border p-[10px] font-light focus:outline-none',
+            'text-light border-main-board-border focus:border-point size-full rounded-[10px] border p-[10px] font-light focus:outline-none',
             isSearch && 'pl-[44px]',
             inputClassName,
           )}
