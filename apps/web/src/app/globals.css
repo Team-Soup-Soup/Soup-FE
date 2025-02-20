@@ -29,6 +29,8 @@
   --container-lg: 1024px;
   --container-xl: 1280px;
   --container-2xl: 1536px;
+
+  --radius-auth: 10px;
 }
 
 :root {
@@ -67,5 +69,9 @@
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  .box-shadow {
+    box-shadow: 8px 8px 8px 0px rgba(0, 0, 0, 0.08);
   }
 }
