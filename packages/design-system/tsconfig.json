@@ -2,8 +2,12 @@
   "extends": "../config/tsconfig.package.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "target": "esnext"
+    "target": "ES2017"
   },
   "include": ["src/**/*", "src/stories/**/*"],
-  "exclude": ["node_modules", "dist", "./src/**/*.stories.*"]
+  "exclude": ["node_modules", "dist", "./src/**/*.stories.*"],
+  "build": {
+    "outDir": "storybook-static",
+    "emptyOutDir": true
+  }
 }
