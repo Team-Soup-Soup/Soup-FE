@@ -78,6 +78,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@soup/design-system':
+        specifier: workspace:*
+        version: link:../../packages/design-system
       '@types/react-router-dom':
         specifier: ^5.3.3
         version: 5.3.3
