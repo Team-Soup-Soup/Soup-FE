@@ -25,7 +25,7 @@ const Input = ({
   return (
     <div className={cn('flex flex-col', className)}>
       {label && (
-        <label htmlFor={id} className={cn('mb-2 text-xs', labelClassName)}>
+        <label htmlFor={id} className={cn('text-md mb-2', labelClassName)}>
           {label}
           {required && <span className="ml-0.5 text-red-500">*</span>}
         </label>
@@ -35,7 +35,7 @@ const Input = ({
           id={id}
           ref={inputRef}
           className={cn(
-            'text-light border-lock-dark focus:border-point rounded-[10px] border p-[10px] font-light focus:outline-none',
+            'text-light border-main-board-border focus:border-point rounded-[10px] border p-[10px] font-light focus:outline-none',
             isSearch && 'pl-[44px]',
             inputClassName,
           )}
