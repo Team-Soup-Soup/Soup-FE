@@ -1,5 +1,5 @@
 import type { StorybookConfig } from '@storybook/react-vite';
-import { dirname, join } from 'path';
+import path, { dirname, join } from 'path';
 
 function getAbsolutePath(value: string): any {
   return dirname(require.resolve(join(value, 'package.json')));
@@ -21,6 +21,12 @@ const config: StorybookConfig = {
   framework: getAbsolutePath('@storybook/react-vite'),
   docs: {
     autodocs: 'tag',
+  },
+  viteFinal: async (config) => {
+    if (config && config.build) {
+      config.build.outDir = path.resolve(__dirname, '../dist');
+    }
+    return config;
   },
 };
 export default config;
