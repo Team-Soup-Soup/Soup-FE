@@ -25,7 +25,10 @@ const Input = ({
   return (
     <div className={cn('flex flex-col', className)}>
       {label && (
-        <label htmlFor={id} className={cn('text-md mb-2', labelClassName)}>
+        <label
+          htmlFor={id}
+          className={cn('text-md text-dark mb-2', labelClassName)}
+        >
           {label}
           {required && <span className="ml-0.5 text-red-500">*</span>}
         </label>
