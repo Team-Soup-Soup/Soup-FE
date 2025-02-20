@@ -40,3 +40,4 @@ yarn-error.log*
 
 *storybook.log
 .cache
+storybook-static/
