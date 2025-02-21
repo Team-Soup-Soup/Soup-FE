@@ -1,4 +1,4 @@
-import './globals.css';
+import '@soup/config/globals.css';
 
 export * from './Button';
 export * from './Checkbox';

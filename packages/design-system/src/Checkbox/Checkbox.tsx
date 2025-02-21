@@ -3,7 +3,7 @@ import { cn } from '@soup/utils';
 
 export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
-  label?: string;
+  label?: string | React.JSX.Element;
   checkboxClassName?: string;
   labelClassName?: string;
 }
@@ -29,7 +29,7 @@ const Checkbox = ({
         checked={checked}
         onChange={onChange}
         className={cn(
-          'accent-point size-[18px] cursor-pointer rounded-[2.5px]',
+          'checked:bg-point checkbox border-main-board-border relative size-[18px] cursor-pointer appearance-none rounded-[2.5px] border-[1px]',
           checkboxClassName,
         )}
         {...rest}

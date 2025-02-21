@@ -27,6 +27,7 @@ const Button = ({
       className={cn(
         buttonVariants({ color, size, locked, loading }),
         className,
+        'cursor-pointer',
       )}
       disabled={loading || locked}
       {...rest}
