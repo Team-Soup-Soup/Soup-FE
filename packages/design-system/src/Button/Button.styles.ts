@@ -8,11 +8,12 @@ export const buttonVariants = cva(
         point:
           'bg-point text-white border-point hover:bg-point-dark font-semibold',
         sub: 'bg-sub text-point border-point hover:bg-sub-dark',
-        normal: 'bg-normal hover:bg-normal-dark border-button text-dark',
+        normal:
+          'bg-normal hover:bg-normal-dark border-main-board-border text-dark',
       },
       size: {
         lg: 'py-[12px] px-[28px]',
-        md: 'py-[8px] px-[20px]',
+        md: 'py-[8px] px-[20px] ',
         sm: 'px-[12px] text-sm',
       },
       locked: {
