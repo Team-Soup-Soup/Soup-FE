@@ -27,7 +27,7 @@ const Input = ({
       {label && (
         <label
           htmlFor={id}
-          className={cn('text-md text-dark mb-2', labelClassName)}
+          className={cn('text-md text-dark mb-2 font-light', labelClassName)}
         >
           {label}
           {required && <span className="ml-0.5 text-red-500">*</span>}

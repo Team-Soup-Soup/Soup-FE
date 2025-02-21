@@ -3,7 +3,7 @@ import { cn } from '@soup/utils';
 
 export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
-  label?: string;
+  label?: string | React.JSX.Element;
   checkboxClassName?: string;
   labelClassName?: string;
 }
