@@ -6,6 +6,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   labelClassName?: string;
   inputClassName?: string;
   isSearch?: boolean;
+  length?: string;
 }
 
 const Input = ({
@@ -14,6 +15,7 @@ const Input = ({
   labelClassName,
   inputClassName,
   isSearch,
+  length,
   required,
   className,
   children,
@@ -34,6 +36,11 @@ const Input = ({
         </label>
       )}
       <div className="relative inline-flex items-center">
+        {length && (
+          <span className="text-light absolute right-[10px] place-items-center">
+            {length}
+          </span>
+        )}
         <input
           id={id}
           ref={inputRef}
