@@ -13,7 +13,9 @@
     "@soup/config": "workspace:*",
     "@soup/design-system": "workspace:^",
     "@soup/utils": "workspace:*",
+    "@tanstack/react-query": "^5.66.9",
     "@types/react-router-dom": "^5.3.3",
+    "jotai": "^2.12.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5"
