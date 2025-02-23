@@ -63,7 +63,7 @@ export default function CreateProjectModal() {
               />
             </div>
           </div>
-          <div className="mt-[24px] flex justify-end">
+          <div className="mb-[24px] mt-[36px] flex justify-end">
             <Button
               size="lg"
               color="normal"

@@ -37,7 +37,7 @@ export default function Modal({
     >
       <div
         className={cn(
-          'border-main-board-border box-shadow rounded-[20px] bg-white px-[40px] pb-[20px]',
+          'border-main-board-border box-shadow min-h-[196px] min-w-[500px] rounded-[20px] bg-white px-[40px] pb-[20px]',
           className,
         )}
       >
@@ -53,7 +53,13 @@ export default function Modal({
 }
 
 function ModalBody({ className, children }: ModalBodyProps) {
-  return <div className={cn('py-[20px]', className)}>{children}</div>;
+  return (
+    <div
+      className={cn('flex min-h-[176px] flex-col justify-between', className)}
+    >
+      {children}
+    </div>
+  );
 }
 
 Modal.Body = ModalBody;
