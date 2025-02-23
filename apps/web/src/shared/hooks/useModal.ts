@@ -23,5 +23,6 @@ export function useModal({ key }: UseModalProps) {
 }
 
 export function useModalState({ key }: UseModalProps) {
-  return useAtomValue(modalAtom)[key];
+  const modal = useAtomValue(modalAtom)[key] || { isOpen: false };
+  return modal;
 }

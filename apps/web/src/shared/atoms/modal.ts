@@ -6,11 +6,12 @@ type ModalInfo = {
   [key in Modal]: { isOpen: boolean };
 };
 
-export const modalAtom = atom<ModalInfo>({
-  [MODAL.CREATE_PROJECT]: {
-    isOpen: false,
-  },
-});
+const modals = Object.keys(MODAL).reduce((acc, key) => {
+  acc[key as Modal] = { isOpen: false };
+  return acc;
+}, {} as ModalInfo);
+
+export const modalAtom = atom<ModalInfo>(modals);
 
 export const updateModal = atom(
   null,
