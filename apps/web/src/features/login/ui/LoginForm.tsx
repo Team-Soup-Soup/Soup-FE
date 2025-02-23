@@ -5,7 +5,7 @@ import { Input } from '@soup/design-system';
 
 import { LoginOption } from '~/features/login/ui';
 import { type UserInfo } from '~/features/login/types';
-import { useSubmit } from '../model';
+import { useSubmit } from '~/features/login/model';
 
 export default function LoginForm() {
   const { register, handleSubmit } = useForm<UserInfo>();
