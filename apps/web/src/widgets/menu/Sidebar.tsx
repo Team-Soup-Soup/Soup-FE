@@ -1,5 +1,5 @@
 import React from 'react';
-import { CreateProjectModal, LogoutModal } from '~/pages/home/ui';
+import { CreateProjectModal, LogoutModal, SettingModal } from '~/pages/home/ui';
 import { MODAL } from '~/shared/constants';
 import { useModal } from '~/shared/hooks';
 
@@ -8,6 +8,7 @@ export default function Sidebar() {
     key: MODAL.CREATE_PROJECT,
   });
   const { openModal: logoutModal } = useModal({ key: MODAL.LOGOUT });
+  const { openModal: settingModal } = useModal({ key: MODAL.SETTING });
 
   return (
     <>
@@ -42,7 +43,10 @@ export default function Sidebar() {
             <p className="text-dark text-md font-light">홍길동</p>
           </div>
           <div className="flex justify-end gap-[16px] pr-[32px]">
-            <button className="text-light text-sm hover:cursor-pointer">
+            <button
+              className="text-light text-sm hover:cursor-pointer"
+              onClick={settingModal}
+            >
               설정
             </button>
             <button
@@ -56,6 +60,7 @@ export default function Sidebar() {
       </div>
       <CreateProjectModal />
       <LogoutModal />
+      <SettingModal />
     </>
   );
 }
