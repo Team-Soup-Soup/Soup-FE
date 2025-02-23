@@ -17,7 +17,7 @@ export const buttonVariants = cva(
         sm: 'px-[12px] text-sm',
       },
       locked: {
-        true: 'cursor-not-allowed bg-lock text-light border-button hover:bg-lock',
+        true: 'cursor-not-allowed bg-lock text-light hover:bg-lock',
       },
       loading: {
         true: 'relative cursor-wait',
