@@ -8,7 +8,7 @@ const getStatusText = (
 ) => {
   if (id === 'EMAIL') {
     if (!clicked) return;
-    return validStatus ? '' : '*코드가 틀렸습니다';
+    return validStatus ? '*인증 완료' : '*코드가 틀렸습니다';
   }
   if (id === 'ID') {
     if (!clicked) return '*아이디 중복 확인 필요';
