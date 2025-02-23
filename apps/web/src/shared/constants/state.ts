@@ -1,0 +1,4 @@
+export const CREATE_PROJECT_MAX_LENGTH = {
+  NAME: 15,
+  DESCRIPTION: 30,
+};
