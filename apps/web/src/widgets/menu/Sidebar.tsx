@@ -1,17 +1,23 @@
 import React from 'react';
-import { CreateProjectModal } from '~/pages/home/ui';
+import { CreateProjectModal, LogoutModal } from '~/pages/home/ui';
 import { MODAL } from '~/shared/constants';
 import { useModal } from '~/shared/hooks';
 
 export default function Sidebar() {
-  const { openModal } = useModal({ key: MODAL.CREATE_PROJECT });
+  const { openModal: createProjectModal } = useModal({
+    key: MODAL.CREATE_PROJECT,
+  });
+  const { openModal: logoutModal } = useModal({ key: MODAL.LOGOUT });
 
   return (
     <>
       <div className="box-shadow border-main-board-border flex h-screen w-[270px] flex-col justify-between border-r py-[32px] text-center">
         <div>
           <div className="ml-[174px] flex gap-[16px]">
-            <button className="hover:cursor-pointer" onClick={openModal}>
+            <button
+              className="hover:cursor-pointer"
+              onClick={createProjectModal}
+            >
               <img src="/icons/project_plus.svg" alt="프로젝트 생성" />
             </button>
             <button>
@@ -36,12 +42,20 @@ export default function Sidebar() {
             <p className="text-dark text-md font-light">홍길동</p>
           </div>
           <div className="flex justify-end gap-[16px] pr-[32px]">
-            <button className="text-light text-sm">설정</button>
-            <button className="text-light text-sm">로그아웃</button>
+            <button className="text-light text-sm hover:cursor-pointer">
+              설정
+            </button>
+            <button
+              className="text-light text-sm hover:cursor-pointer"
+              onClick={logoutModal}
+            >
+              로그아웃
+            </button>
           </div>
         </div>
       </div>
       <CreateProjectModal />
+      <LogoutModal />
     </>
   );
 }
