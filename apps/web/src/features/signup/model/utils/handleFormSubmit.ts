@@ -6,4 +6,5 @@ export const handleFormSubmit = (data: SignupInfo) => {
 
 export const handleButtonSubmit = (target: string) => {
   console.log(target);
+  return target === '222222';
 };
