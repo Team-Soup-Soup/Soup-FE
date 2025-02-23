@@ -5,7 +5,7 @@ import { PATH } from '~/shared/constants';
 
 import { LoginPage } from '~/pages/login/ui';
 import { SignupPage } from '~/pages/signup/ui';
-import { FindIdPage, FindPwPage } from '~/pages/findAccount/ui';
+import { FindIdPage, FindPwPage } from '~/pages/find-account/ui';
 
 export const AuthRoutes: RouteObject = {
   element: <AuthLayout />,
