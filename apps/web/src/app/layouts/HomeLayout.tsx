@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { Sidebar } from '~/widgets/menu';
+import { Sidebar } from '~/widgets/menu/ui';
 
 export default function HomeLayout(): React.ReactElement {
   return (

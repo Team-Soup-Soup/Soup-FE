@@ -1,7 +1,7 @@
 import { useAtomValue, useSetAtom } from 'jotai';
-import { modalAtom, updateModal } from '../atoms/modal';
 import type { Modal } from '../types';
 import { useCallback } from 'react';
+import { modalAtom, updateModal } from '../atoms';
 
 interface UseModalProps {
   key: Modal;
