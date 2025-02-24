@@ -1,0 +1,101 @@
+import { cn } from '@soup/utils';
+import React, { useEffect } from 'react';
+import { projectList } from '~/mocks';
+import { MODAL } from '~/shared/constants';
+import { useModal } from '~/shared/hooks';
+import { useProject, useProjectState } from '~/shared/hooks/useProject';
+import { Profile } from '~/shared/ui';
+import {
+  AlarmModal,
+  CreateProjectModal,
+  LogoutModal,
+  SettingModal,
+} from '~/widgets/modal/ui';
+
+export default function Sidebar() {
+  const { openModal: createProjectModal } = useModal({
+    key: MODAL.CREATE_PROJECT,
+  });
+  const { openModal: logoutModal } = useModal({ key: MODAL.LOGOUT });
+  const { openModal: settingModal } = useModal({ key: MODAL.SETTING });
+  const { openModal: alarmModal } = useModal({ key: MODAL.ALARM });
+
+  const { changeProject } = useProject();
+  const selected = useProjectState();
+
+  const handleProjectClick = (name: string) => {
+    changeProject(name);
+  };
+
+  useEffect(() => {
+    if (projectList.length) {
+      changeProject(projectList[0].project);
+    }
+  }, [changeProject]);
+
+  return (
+    <>
+      <div className="box-shadow border-main-board-border flex h-screen w-[270px] flex-col justify-between border-r py-[32px] text-center">
+        <div>
+          <div className="ml-[174px] flex gap-[16px]">
+            <button
+              className="hover:cursor-pointer"
+              onClick={createProjectModal}
+            >
+              <img src="/icons/project_plus.svg" alt="프로젝트 생성" />
+            </button>
+            <button className="hover:cursor-pointer" onClick={alarmModal}>
+              <img src="/icons/bell_activate.svg" alt="알람" />
+            </button>
+          </div>
+          <div className="bg-lock mx-[8px] mt-[42px] flex h-[42px] w-[254px] items-center gap-[10px] rounded-[10px] p-[10px]">
+            <img src="/icons/project.svg" alt="프로젝트 생성" />
+            <span>프로젝트</span>
+          </div>
+          <div className="text-md text-dark mx-[32px] my-[16px] flex flex-col items-start gap-4 font-light">
+            {projectList.length > 0 ? (
+              projectList.map(({ project }) => (
+                <button
+                  key={project}
+                  className={cn(
+                    'hover:cursor-pointer',
+                    project === selected &&
+                      'border-point border-bold text-point border-l-3 pl-3',
+                  )}
+                  onClick={() => handleProjectClick(project)}
+                >
+                  <span>{project}</span>
+                </button>
+              ))
+            ) : (
+              <p className="text-light mt-[12px]">
+                참여중인 프로젝트가 없습니다
+              </p>
+            )}
+          </div>
+        </div>
+        <div className="flex flex-col gap-8">
+          <Profile image="" name="홍길동" />
+          <div className="flex justify-end gap-[16px] pr-[32px]">
+            <button
+              className="text-light hover:text-dark text-sm hover:cursor-pointer"
+              onClick={settingModal}
+            >
+              설정
+            </button>
+            <button
+              className="text-light hover:text-dark text-sm hover:cursor-pointer"
+              onClick={logoutModal}
+            >
+              로그아웃
+            </button>
+          </div>
+        </div>
+      </div>
+      <CreateProjectModal />
+      <LogoutModal />
+      <SettingModal />
+      <AlarmModal />
+    </>
+  );
+}
