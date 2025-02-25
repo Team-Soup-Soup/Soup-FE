@@ -106,7 +106,7 @@ export default function SettingModal() {
             label="이름"
             value={name}
             onChange={handleNameInputChange}
-            length={`${name.length}/${PROFILE_MAX_LENGTH.NAME}자`}
+            maxLength={PROFILE_MAX_LENGTH.NAME}
             inputClassName="bg-lock border-none text-md px-[30px]"
             placeholder="이름을 입력해주세요"
           />

@@ -45,7 +45,7 @@ export default function CreateProjectModal() {
                 id="projectName"
                 name="projectName"
                 value={projectName}
-                length={`${projectName.length}/${CREATE_PROJECT_MAX_LENGTH.NAME}자`}
+                maxLength={CREATE_PROJECT_MAX_LENGTH.NAME}
                 onChange={handleInputChange}
                 placeholder="프로젝트 이름을 입력해주세요."
                 inputClassName="bg-lock h-[42px] w-[520px] border-none"
@@ -59,7 +59,7 @@ export default function CreateProjectModal() {
                 id="projectDescription"
                 name="projectDescription"
                 value={projectDescription}
-                length={`${projectDescription.length}/${CREATE_PROJECT_MAX_LENGTH.DESCRIPTION}자`}
+                maxLength={CREATE_PROJECT_MAX_LENGTH.DESCRIPTION}
                 onChange={handleInputChange}
                 placeholder="한 줄 소개를 적어주세요."
                 inputClassName="bg-lock h-[42px] w-[520px] border-none"
