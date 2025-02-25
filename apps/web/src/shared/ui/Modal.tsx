@@ -1,35 +1,42 @@
 import { cn } from '@soup/utils';
 import React, { PropsWithChildren, useEffect } from 'react';
+import { useModal } from '../hooks';
+import type { ModalItem } from '../types';
 
 interface ModalProps extends PropsWithChildren {
+  modalKey: ModalItem;
   title?: string;
   className?: string;
-  closeModal: () => void;
 }
-
+interface ModalHeaderProps {
+  title: string;
+  className?: string;
+}
 interface ModalBodyProps extends PropsWithChildren {
   className?: string;
 }
+interface ModalFooterProps extends PropsWithChildren {
+  className?: string;
+}
 
-export default function Modal({
-  title,
-  className,
-  closeModal,
-  children,
-}: ModalProps) {
+export default function Modal({ modalKey, className, children }: ModalProps) {
+  const { closeModal } = useModal();
+
   useEffect(() => {
     const escKeyModalClose = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        closeModal();
+        closeModal(modalKey);
+        console.log('Escape');
       }
     };
     document.addEventListener('keydown', escKeyModalClose);
 
     return () => document.removeEventListener('keydown', escKeyModalClose);
-  }, [closeModal]);
+  }, [closeModal, modalKey]);
 
   return (
     <div
+      id={modalKey}
       className={cn(
         'bg-black/12.5 fixed inset-0 z-30 flex items-center justify-center',
       )}
@@ -40,28 +47,44 @@ export default function Modal({
           className,
         )}
       >
-        {title && (
-          <p className="text-light place-items-start py-[20px] text-start">
-            {title}
-          </p>
-        )}
         {children}
       </div>
     </div>
   );
 }
 
+function ModalHeader({ title, className }: ModalHeaderProps) {
+  return (
+    <p
+      className={cn(
+        'text-light place-items-start py-[20px] text-start',
+        className,
+      )}
+    >
+      {title}
+    </p>
+  );
+}
 function ModalBody({ className, children }: ModalBodyProps) {
   return (
     <div
-      className={cn('flex min-h-[176px] flex-col justify-between', className)}
+      className={cn('flex min-h-[124px] flex-col justify-between', className)}
     >
       {children}
     </div>
   );
 }
+function ModalFooter({ className, children }: ModalFooterProps) {
+  return (
+    <div className={cn('mb-[16px] mt-[36px] flex', className)}>{children}</div>
+  );
+}
 
+Modal.Header = ModalHeader;
 Modal.Body = ModalBody;
+Modal.Footer = ModalFooter;
 
 Modal.displayName = 'Modal';
+ModalHeader.displayName = 'ModalHeader';
 ModalBody.displayName = 'ModalBody';
+ModalFooter.displayName = 'ModalFooter';

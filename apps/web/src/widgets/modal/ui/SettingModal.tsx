@@ -214,7 +214,8 @@ export default function SettingModal() {
 
   return (
     isOpen && (
-      <Modal title="설정" closeModal={() => closeModal(MODAL.SETTING)}>
+      <Modal modalKey={MODAL.SETTING}>
+        <Modal.Header title="설정" />
         <Modal.Body className="font-light">
           <ul className="mb-16 flex gap-[32px]">
             {Object.values(SETTING_ITEM).map((item) => (
@@ -232,20 +233,20 @@ export default function SettingModal() {
             ))}
           </ul>
           <div className="w-[520px]">{render[view]}</div>
-          <div className="mt-20 flex justify-between">
-            <button className="text-light text-sm font-light hover:cursor-pointer">
-              회원탈퇴하기
-            </button>
-            <Button
-              size="lg"
-              color="normal"
-              onClick={() => closeModal(MODAL.SETTING)}
-              locked={!isValidSave}
-            >
-              저장하기
-            </Button>
-          </div>
         </Modal.Body>
+        <Modal.Footer className="mt-20 justify-between">
+          <button className="text-light text-sm font-light hover:cursor-pointer">
+            회원탈퇴하기
+          </button>
+          <Button
+            size="lg"
+            color="normal"
+            onClick={() => closeModal(MODAL.SETTING)}
+            locked={!isValidSave}
+          >
+            저장하기
+          </Button>
+        </Modal.Footer>
       </Modal>
     )
   );

@@ -33,10 +33,8 @@ export default function CreateProjectModal() {
 
   return (
     isOpen && (
-      <Modal
-        title="프로젝트 생성"
-        closeModal={() => closeModal(MODAL.CREATE_PROJECT)}
-      >
+      <Modal title="프로젝트 생성" modalKey={MODAL.CREATE_PROJECT}>
+        <Modal.Header title="프로젝트 생성" />
         <Modal.Body className="flex flex-col gap-8 font-light">
           <div className="flex flex-col gap-2">
             <p>프로젝트 이름</p>
@@ -66,7 +64,7 @@ export default function CreateProjectModal() {
               />
             </div>
           </div>
-          <div className="mb-[24px] mt-[36px] flex justify-end">
+          <Modal.Footer className="justify-end">
             <Button
               size="lg"
               color="normal"
@@ -75,7 +73,7 @@ export default function CreateProjectModal() {
             >
               생성하기
             </Button>
-          </div>
+          </Modal.Footer>
         </Modal.Body>
       </Modal>
     )
