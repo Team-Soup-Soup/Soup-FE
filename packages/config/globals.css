@@ -82,10 +82,10 @@
 @layer utilities {
   .logo {
     color: var(--color-point, #ffa600);
-    font-family: 'seolleimcool-SemiBold';
+    font-family: 'GumiRomanceTTF';
     font-size: 46px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     line-height: normal;
   }
 
@@ -121,8 +121,8 @@
 }
 
 @font-face {
-  font-family: 'seolleimcool-SemiBold';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/seolleimcool-SemiBold.woff2')
+  font-family: 'GumiRomanceTTF';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiRomanceTTF.woff2')
     format('woff2');
   font-weight: normal;
   font-style: normal;
