@@ -36,7 +36,7 @@ export default function AlarmModal() {
     isOpen && (
       <div className="border-main-board-border box-shadow absolute left-[214px] top-[60px] z-10 h-[400px] min-w-[600px] max-w-[626px] rounded-[20px] border bg-white px-[40px]">
         <p className="text-light py-[20px] text-start">알림</p>
-        <div className="text-dark font-light">
+        <div className="font-light">
           <div className="mb-[20px] flex gap-[42px]">
             {sort.map((item) => (
               <Radio
@@ -57,7 +57,7 @@ export default function AlarmModal() {
                     <Header.Item>/</Header.Item>
                     <Header.Item>{sort}</Header.Item>
                   </Header>
-                  <div className="text-dark flex justify-between font-light">
+                  <div className="flex justify-between font-light">
                     <p>{content}</p>
                     <p className="text-light">{createdAt}</p>
                   </div>

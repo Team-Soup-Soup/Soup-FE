@@ -33,8 +33,7 @@ export default function CreateProjectModal() {
 
   return (
     isOpen && (
-      <Modal title="프로젝트 생성" closeModal={closeModal}>
-        <Modal.Body className="text-dark flex flex-col gap-8 font-light">
+        <Modal.Body className="flex flex-col gap-8 font-light">
           <div className="flex flex-col gap-2">
             <p>프로젝트 이름</p>
             <div>

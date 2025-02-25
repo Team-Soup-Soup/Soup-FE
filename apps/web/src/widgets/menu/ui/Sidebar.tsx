@@ -52,7 +52,7 @@ export default function Sidebar() {
             <img src="/icons/project.svg" alt="프로젝트 생성" />
             <span>프로젝트</span>
           </div>
-          <div className="text-md text-dark mx-[32px] my-[16px] flex flex-col items-start gap-4 font-light">
+          <div className="text-md mx-[32px] my-[16px] flex flex-col items-start gap-4 font-light">
             {projectList.length > 0 ? (
               projectList.map(({ project }) => (
                 <button
