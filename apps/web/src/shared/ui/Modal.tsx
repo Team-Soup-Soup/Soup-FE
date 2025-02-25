@@ -20,7 +20,6 @@ export default function Modal({
   useEffect(() => {
     const escKeyModalClose = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        console.log('esc');
         closeModal();
       }
     };

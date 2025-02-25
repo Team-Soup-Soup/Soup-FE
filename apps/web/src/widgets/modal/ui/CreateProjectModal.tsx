@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Input } from '@soup/design-system';
 
 export default function CreateProjectModal() {
-  const { closeModal } = useModal({ key: MODAL.CREATE_PROJECT });
+  const { closeModal } = useModal();
   const { isOpen } = useModalState({ key: MODAL.CREATE_PROJECT });
   const [projectName, setProjectName] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
@@ -33,6 +33,10 @@ export default function CreateProjectModal() {
 
   return (
     isOpen && (
+      <Modal
+        title="프로젝트 생성"
+        closeModal={() => closeModal(MODAL.CREATE_PROJECT)}
+      >
         <Modal.Body className="flex flex-col gap-8 font-light">
           <div className="flex flex-col gap-2">
             <p>프로젝트 이름</p>
@@ -66,7 +70,7 @@ export default function CreateProjectModal() {
             <Button
               size="lg"
               color="normal"
-              onClick={closeModal}
+              onClick={() => closeModal(MODAL.CREATE_PROJECT)}
               locked={!isValidProject}
             >
               생성하기

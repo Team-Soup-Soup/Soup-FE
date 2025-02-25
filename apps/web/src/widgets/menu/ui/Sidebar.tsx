@@ -4,7 +4,8 @@ import { projectList } from '~/mocks';
 import { MODAL } from '~/shared/constants';
 import { useModal } from '~/shared/hooks';
 import { useProject, useProjectState } from '~/shared/hooks/useProject';
-import { Profile } from '~/shared/ui';
+import type { ModalItem } from '~/shared/types';
+import { IconButton, Profile } from '~/shared/ui';
 import {
   AlarmModal,
   CreateProjectModal,
@@ -13,18 +14,15 @@ import {
 } from '~/widgets/modal/ui';
 
 export default function Sidebar() {
-  const { openModal: createProjectModal } = useModal({
-    key: MODAL.CREATE_PROJECT,
-  });
-  const { openModal: logoutModal } = useModal({ key: MODAL.LOGOUT });
-  const { openModal: settingModal } = useModal({ key: MODAL.SETTING });
-  const { openModal: alarmModal } = useModal({ key: MODAL.ALARM });
-
+  const { openModal } = useModal();
   const { changeProject } = useProject();
   const selected = useProjectState();
 
   const handleProjectClick = (name: string) => {
     changeProject(name);
+  };
+  const handleModal = (key: ModalItem) => {
+    openModal(key);
   };
 
   useEffect(() => {
@@ -79,13 +77,13 @@ export default function Sidebar() {
           <div className="flex justify-end gap-[16px] pr-[32px]">
             <button
               className="text-light hover:text-dark text-sm hover:cursor-pointer"
-              onClick={settingModal}
+              onClick={() => handleModal(MODAL.SETTING)}
             >
               설정
             </button>
             <button
               className="text-light hover:text-dark text-sm hover:cursor-pointer"
-              onClick={logoutModal}
+              onClick={() => handleModal(MODAL.LOGOUT)}
             >
               로그아웃
             </button>

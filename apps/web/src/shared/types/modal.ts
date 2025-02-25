@@ -1,3 +1,3 @@
 import { MODAL } from '../constants';
 
-export type Modal = (typeof MODAL)[keyof typeof MODAL];
+export type ModalItem = (typeof MODAL)[keyof typeof MODAL];

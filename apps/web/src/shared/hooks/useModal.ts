@@ -1,22 +1,22 @@
 import { useAtomValue, useSetAtom } from 'jotai';
-import type { Modal } from '../types';
+import type { ModalItem } from '../types';
 import { useCallback } from 'react';
 import { modalAtom, updateModal } from '../atoms';
 
 interface UseModalProps {
-  key: Modal;
+  key: ModalItem;
 }
 
-export function useModal({ key }: UseModalProps) {
+export function useModal() {
   const setModal = useSetAtom(updateModal);
 
   const openModal = useCallback(
-    () => setModal({ key, isOpen: true }),
-    [key, setModal],
+    (key: ModalItem) => setModal({ key, isOpen: true }),
+    [setModal],
   );
   const closeModal = useCallback(
-    () => setModal({ key, isOpen: false }),
-    [key, setModal],
+    (key: ModalItem) => setModal({ key, isOpen: false }),
+    [setModal],
   );
 
   return { openModal, closeModal };

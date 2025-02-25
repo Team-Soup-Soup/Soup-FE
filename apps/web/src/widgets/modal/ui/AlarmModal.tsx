@@ -2,13 +2,13 @@ import { MODAL } from '~/shared/constants';
 import { useModal, useModalState } from '~/shared/hooks';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Header, Radio } from '@soup/design-system';
-import { alarmList } from '~/mocks';
+import { alarmList, projectList } from '~/mocks';
 
 export default function AlarmModal() {
-  const { closeModal } = useModal({ key: MODAL.ALARM });
+  const { closeModal } = useModal();
   const { isOpen } = useModalState({ key: MODAL.ALARM });
 
-  const sort = ['전체', '프로젝트1'];
+  const sort = ['전체', ...projectList.map(({ project }) => project)];
 
   const [view, setView] = useState(sort[0]);
   const sortedAlarmList =
@@ -16,21 +16,20 @@ export default function AlarmModal() {
       ? alarmList.filter((alarm) => alarm.project === view)
       : alarmList;
 
+  const handleSortRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setView(e.target.name);
+  };
+
   useEffect(() => {
     const escKeyModalClose = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        console.log('esc');
-        closeModal();
+        closeModal(MODAL.ALARM);
       }
     };
     document.addEventListener('keydown', escKeyModalClose);
 
     return () => document.removeEventListener('keydown', escKeyModalClose);
   }, [closeModal]);
-
-  const handleSortRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setView(e.target.name);
-  };
 
   return (
     isOpen && (

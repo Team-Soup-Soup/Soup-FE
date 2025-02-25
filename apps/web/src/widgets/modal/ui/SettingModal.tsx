@@ -17,7 +17,7 @@ const securityInitialState = {
 };
 
 export default function SettingModal() {
-  const { closeModal } = useModal({ key: MODAL.SETTING });
+  const { closeModal } = useModal();
   const { isOpen } = useModalState({ key: MODAL.SETTING });
 
   const [view, setView] = useState(SETTING_ITEM.PROFILE);
@@ -50,7 +50,6 @@ export default function SettingModal() {
       [e.target.name]: !prev[e.target.name],
     }));
   };
-
   const handleSecurityInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSecurityInputValues((prev) => ({
       ...prev,
@@ -215,8 +214,8 @@ export default function SettingModal() {
 
   return (
     isOpen && (
-      <Modal title="설정" closeModal={closeModal}>
-        <Modal.Body className="text-dark font-light">
+      <Modal title="설정" closeModal={() => closeModal(MODAL.SETTING)}>
+        <Modal.Body className="font-light">
           <ul className="mb-16 flex gap-[32px]">
             {Object.values(SETTING_ITEM).map((item) => (
               <li
@@ -240,7 +239,7 @@ export default function SettingModal() {
             <Button
               size="lg"
               color="normal"
-              onClick={closeModal}
+              onClick={() => closeModal(MODAL.SETTING)}
               locked={!isValidSave}
             >
               저장하기
