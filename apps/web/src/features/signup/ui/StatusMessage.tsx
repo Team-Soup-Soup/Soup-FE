@@ -12,7 +12,7 @@ const getStatusText = (
   }
   if (id === 'ID') {
     if (!clicked) return '*아이디 중복 확인 필요';
-    return validStatus ? '*사용 가능' : '*아이디 중복 확인';
+    return validStatus ? '*사용 가능' : '*이미 사용중인 아이디입니다';
   }
 };
 
