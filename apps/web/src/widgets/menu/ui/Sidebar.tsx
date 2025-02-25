@@ -36,18 +36,19 @@ export default function Sidebar() {
       <div className="box-shadow border-main-board-border flex h-screen w-[270px] flex-col justify-between border-r py-[32px] text-center">
         <div>
           <div className="ml-[174px] flex gap-[16px]">
-            <button
-              className="hover:cursor-pointer"
-              onClick={createProjectModal}
-            >
-              <img src="/icons/project_plus.svg" alt="프로젝트 생성" />
-            </button>
-            <button className="hover:cursor-pointer" onClick={alarmModal}>
-              <img src="/icons/bell_activate.svg" alt="알람" />
-            </button>
+            <IconButton
+              name="프로젝트 생성"
+              icon="/icons/project_plus.svg"
+              onClick={() => handleModal(MODAL.CREATE_PROJECT)}
+            />
+            <IconButton
+              name="알람"
+              icon="/icons/bell_activate.svg"
+              onClick={() => handleModal(MODAL.ALARM)}
+            />
           </div>
           <div className="bg-lock mx-[8px] mt-[42px] flex h-[42px] w-[254px] items-center gap-[10px] rounded-[10px] p-[10px]">
-            <img src="/icons/project.svg" alt="프로젝트 생성" />
+            <img src="/icons/project.svg" alt="프로젝트" />
             <span>프로젝트</span>
           </div>
           <div className="text-md mx-[32px] my-[16px] flex flex-col items-start gap-4 font-light">
@@ -55,6 +56,8 @@ export default function Sidebar() {
               projectList.map(({ project }) => (
                 <button
                   key={project}
+                  id={project}
+                  name={project}
                   className={cn(
                     'hover:cursor-pointer',
                     project === selected &&
