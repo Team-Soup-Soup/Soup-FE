@@ -23,6 +23,7 @@ export default function FormInput({
         formConfig.button && 'flex-1',
         disabled && 'text-main-board-border',
       )}
+      type={UserProperty[id]}
       disabled={!!disabled}
       {...register(UserProperty[id], { required: true })}
     />
