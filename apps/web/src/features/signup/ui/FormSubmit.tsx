@@ -1,5 +1,6 @@
-import { Checkbox } from '@soup/design-system';
 import React, { useState } from 'react';
+
+import { Checkbox } from '@soup/design-system';
 
 export default function FormSubmit() {
   const [checked, setChecked] = useState(false);

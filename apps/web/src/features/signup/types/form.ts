@@ -1,4 +1,4 @@
-import type { UseFormRegister, UseFormWatch } from 'react-hook-form';
+import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { type SignupInfo } from '~/features/signup/types';
 
 export type FormItem = 'NAME' | 'ID' | 'EMAIL' | 'PW';
@@ -14,17 +14,12 @@ export interface FormInputProps {
   id: FormItem;
   register: UseFormRegister<SignupInfo>;
   disabled?: boolean;
-  labelClassName?: string;
+  className?: string;
+  errors?: boolean;
 }
 
-export interface FormUnitProps extends FormInputProps {
-  button?: boolean;
-  watch?: UseFormWatch<SignupInfo>;
-}
-
-export interface VerificationStatus {
-  isMainSubmitted: boolean;
-  isSubSubmitted: boolean;
-  isIdVerified: boolean;
-  isEmailVerified: boolean;
+export interface FormUnitProps {
+  id: FormItem;
+  errors: FieldErrors<SignupInfo>;
+  register: UseFormRegister<SignupInfo>;
 }
