@@ -9,6 +9,7 @@ import {
   clickedState,
   FORM,
   handleFormSubmit,
+  USER,
   validState,
 } from '~/features/signup/model';
 import type {
@@ -74,7 +75,7 @@ export default function SignupForm() {
       username: true,
     }));
     setValid((prev) => ({ ...prev, username: true }));
-    clearErrors('username');
+    clearErrors(USER.ID);
   };
 
   const handleEmailValidation = () => {
@@ -89,7 +90,7 @@ export default function SignupForm() {
       ...prev,
       email: true,
     }));
-    clearErrors('email');
+    clearErrors(USER.EMAIL);
   };
 
   return (
@@ -120,7 +121,7 @@ export default function SignupForm() {
         )}
         <Description content={FORM.EMAIL.description || ''} />
       </div>
-      <FormUnit id={'PW'} errors={errors} register={register} />
+      <FormUnit id="PW" errors={errors} register={register} />
       <FormSubmit />
     </form>
   );

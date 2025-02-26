@@ -3,7 +3,7 @@ import React from 'react';
 import { cn } from '@soup/utils';
 
 import { FormUnitProps } from '~/features/signup/types';
-import { FORM, UserProperty } from '~/features/signup/model';
+import { FORM, USER } from '~/features/signup/model';
 import { FormInput } from '~/features/signup/ui';
 
 const Description = ({ content }: { content: string }) => (
@@ -19,7 +19,7 @@ export default function FormUnit({ id, errors, register }: FormUnitProps) {
           id === 'NAME' ? 'left-10' : 'left-18',
         )}
       >
-        {errors[UserProperty[id]] && errors[UserProperty[id]]?.message}
+        {errors[USER[id]] && errors[USER[id]]?.message}
       </p>
       <FormInput id={id} register={register} />
       <Description content={FORM[id].description || ''} />

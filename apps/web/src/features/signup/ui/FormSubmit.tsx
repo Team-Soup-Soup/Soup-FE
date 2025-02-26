@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Checkbox } from '@soup/design-system';
+import { Button, Checkbox } from '@soup/design-system';
 
 export default function FormSubmit() {
   const [checked, setChecked] = useState(false);
@@ -18,12 +18,15 @@ export default function FormSubmit() {
           </>
         }
       />
-      <input
+      <Button
+        color="normal"
+        size="lg"
         type="submit"
-        value="회원가입 하기"
         disabled={!checked}
         className="bg-point hover:bg-point-dark auth-button disabled:bg-main-board-border font-semibold text-white disabled:pointer-events-none"
-      />
+      >
+        회원가입 하기
+      </Button>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import { Input } from '@soup/design-system';
 import { cn } from '@soup/utils';
 
-import { FORM, UserProperty } from '~/features/signup/model';
+import { FORM, USER } from '~/features/signup/model';
 import { FormInputProps } from '~/features/signup/types';
 
 export default function FormInput({
@@ -23,9 +23,9 @@ export default function FormInput({
         disabled && 'text-main-board-border',
         className,
       )}
-      type={UserProperty[id]}
+      type={USER[id]}
       disabled={!!disabled}
-      {...register(UserProperty[id], { required: true })}
+      {...register(USER[id], { required: true })}
     />
   );
 }

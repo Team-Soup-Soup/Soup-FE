@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cn } from '@soup/utils';
-import { FORM, UserProperty } from '../model';
+import { FORM, USER } from '../model';
 import { formState, FormUnitProps, SignupInfoProp } from '../types';
 import FormInput from './FormInput';
 import { Button } from '@soup/design-system';
@@ -20,7 +20,7 @@ export default function FormUnitWithButton({
   handler,
   isFormValid,
 }: ButtonedUnitProps) {
-  const formId = UserProperty[id] as 'username' | 'email';
+  const formId = USER[id] as 'username' | 'email';
   return (
     <div className="relative flex w-full items-end">
       <p
@@ -29,8 +29,8 @@ export default function FormUnitWithButton({
           valid[formId] ? 'text-point' : 'text-important',
         )}
       >
-        {errors[UserProperty[id]]
-          ? errors[UserProperty[id]]?.message
+        {errors[USER[id]]
+          ? errors[USER[id]]?.message
           : valid[formId] && '*인증 완료'}
       </p>
       <FormInput id={id} register={register} />
@@ -38,7 +38,7 @@ export default function FormUnitWithButton({
         color="normal"
         size="sm"
         className="ml-3 h-[39px]"
-        locked={!isFormValid(UserProperty[id])}
+        locked={!isFormValid(USER[id])}
         type="button"
         onClick={handler}
       >
