@@ -5,14 +5,14 @@ import { PATH } from '~/shared/constants';
 
 import { LoginPage } from '~/pages/login/ui';
 import { SignupPage } from '~/pages/signup/ui';
-import { FindIdPage, FindPwPage } from '~/pages/find-account/ui';
+import { FindAccountPage } from '~/pages/find-account/ui';
 
 export const AuthRoutes: RouteObject = {
   element: <AuthLayout />,
   children: [
     { path: PATH.LOGIN, element: <LoginPage /> },
     { path: PATH.SIGNUP, element: <SignupPage /> },
-    { path: PATH.FIND_ID, element: <FindIdPage /> },
-    { path: PATH.FIND_PW, element: <FindPwPage /> },
+    { path: PATH.FIND_ID, element: <FindAccountPage id="ID" /> },
+    { path: PATH.FIND_PW, element: <FindAccountPage id="PW" /> },
   ],
 };
