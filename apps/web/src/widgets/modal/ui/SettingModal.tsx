@@ -47,7 +47,7 @@ export default function SettingModal() {
   const handleToggleClick = (e: ChangeEvent<HTMLInputElement>) => {
     setProfileToggleValues((prev) => ({
       ...prev,
-      [e.target.name]: !prev[e.target.name],
+      [e.target.name]: e.target.checked,
     }));
   };
   const handleSecurityInputChange = (e: ChangeEvent<HTMLInputElement>) => {
