@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Button, Input } from '@soup/design-system';
 
 export default function EmailVerification({
