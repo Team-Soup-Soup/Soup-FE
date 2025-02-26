@@ -4,6 +4,7 @@ import { Modal } from '~/shared/ui';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { cn } from '@soup/utils';
 import { Button, Input, Toggle } from '@soup/design-system';
+import { isValidName, isValidPassword } from '../utils';
 
 const toggleInitialState = {
   postComment: true,
@@ -61,12 +62,13 @@ export default function SettingModal() {
     let isValid = false;
     switch (view) {
       case SETTING_ITEM.PROFILE:
-        isValid = name.length > 0 && name.length <= PROFILE_MAX_LENGTH.NAME;
+        isValid = isValidName(name);
         break;
       case SETTING_ITEM.SECURITY:
-        isValid =
-          securityInputValue.nowPassword.length > 8 &&
-          securityInputValue.newPassword.length > 8;
+        isValid = isValidPassword(
+          securityInputValue.nowPassword,
+          securityInputValue.newPassword,
+        );
         break;
     }
     setIsValidSave(isValid);
