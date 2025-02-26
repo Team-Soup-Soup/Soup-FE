@@ -6,9 +6,17 @@ export const checkValidation = (
 ): boolean => {
   switch (id) {
     case 'email':
-      return /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(target);
+      return checkEmailValidation(target);
     case 'username':
-      return target?.length >= 5;
+      return checkUserNameValidation(target);
   }
   return false;
+};
+
+const checkEmailValidation = (target: string) => {
+  return /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(target);
+};
+
+const checkUserNameValidation = (target: string) => {
+  return target?.length >= 5;
 };
