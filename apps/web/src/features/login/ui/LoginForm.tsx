@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Input } from '@soup/design-system';
+import { Button, Input } from '@soup/design-system';
 
 import { LoginOption } from '~/features/login/ui';
 import { type UserInfo } from '~/features/login/types';
@@ -26,11 +26,13 @@ export default function LoginForm() {
         {...register('password', { required: '비밀번호를 입력하세요' })}
       />
       <LoginOption className="mb-11" />
-      <input
+      <Button
+        size="lg"
         className="bg-point hover:bg-point-dark auth-button font-semibold text-white"
         type="submit"
-        value="로그인 하기"
-      />
+      >
+        로그인 하기
+      </Button>
     </form>
   );
 }
