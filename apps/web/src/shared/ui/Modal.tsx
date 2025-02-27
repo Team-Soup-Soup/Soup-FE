@@ -8,7 +8,7 @@ interface ModalProps extends PropsWithChildren {
   title?: string;
   className?: string;
 }
-interface ModalHeaderProps {
+interface ModalHeaderProps extends PropsWithChildren {
   title: string;
   className?: string;
 }
@@ -53,16 +53,19 @@ export default function Modal({ modalKey, className, children }: ModalProps) {
   );
 }
 
-function ModalHeader({ title, className }: ModalHeaderProps) {
+function ModalHeader({ title, className, children }: ModalHeaderProps) {
   return (
-    <p
-      className={cn(
-        'text-light place-items-start py-[20px] text-start',
-        className,
-      )}
-    >
-      {title}
-    </p>
+    <>
+      <p
+        className={cn(
+          'text-light place-items-start py-[20px] text-start',
+          className,
+        )}
+      >
+        {title}
+      </p>
+      {children}
+    </>
   );
 }
 function ModalBody({ className, children }: ModalBodyProps) {

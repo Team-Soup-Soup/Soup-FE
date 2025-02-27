@@ -217,8 +217,7 @@ export default function SettingModal() {
   return (
     isOpen && (
       <Modal modalKey={MODAL.SETTING}>
-        <Modal.Header title="설정" />
-        <Modal.Body className="font-light">
+        <Modal.Header title="설정">
           <ul className="mb-16 flex gap-[32px]">
             {Object.values(SETTING_ITEM).map((item) => (
               <li
@@ -234,6 +233,8 @@ export default function SettingModal() {
               </li>
             ))}
           </ul>
+        </Modal.Header>
+        <Modal.Body className="font-light">
           <div className="w-[520px]">{render[view]}</div>
         </Modal.Body>
         <Modal.Footer className="mt-20 justify-between">
