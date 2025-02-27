@@ -1,3 +1,3 @@
-export type formState = {
+export type FormState = {
   [key in 'username' | 'email']: boolean;
 };

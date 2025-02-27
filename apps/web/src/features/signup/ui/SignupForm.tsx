@@ -13,9 +13,9 @@ import {
   validState,
 } from '~/features/signup/model';
 import type {
-  formState,
+  FormState,
   SignupInfo,
-  SignupInfoProp,
+  SignupItem,
 } from '~/features/signup/types';
 import {
   FormSubmit,
@@ -29,8 +29,8 @@ const Description = ({ content }: { content: string }) => (
 );
 
 export default function SignupForm() {
-  const [clicked, setClicked] = useState<formState>(clickedState);
-  const [valid, setValid] = useState<formState>(validState);
+  const [clicked, setClicked] = useState<FormState>(clickedState);
+  const [valid, setValid] = useState<FormState>(validState);
   const schema = z.object({
     userId: z.string().min(1, '*'),
     username: z
@@ -67,7 +67,7 @@ export default function SignupForm() {
     resolver: zodResolver(schema),
   });
 
-  const isFormValid = (key: SignupInfoProp) => checkValidation(watch(key), key);
+  const isFormValid = (key: SignupItem) => checkValidation(watch(key), key);
 
   const handleUsernameValidation = () => {
     setClicked((prev) => ({

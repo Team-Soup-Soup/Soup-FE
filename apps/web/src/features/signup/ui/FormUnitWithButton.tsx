@@ -1,15 +1,20 @@
 import React from 'react';
 
-import { cn } from '@soup/utils';
-import { FORM, USER } from '../model';
-import { formState, FormUnitProps, SignupInfoProp } from '../types';
-import FormInput from './FormInput';
 import { Button } from '@soup/design-system';
+import { cn } from '@soup/utils';
+
+import { FORM, USER } from '~/features/signup/model';
+import type {
+  FormState,
+  FormUnitProps,
+  SignupItem,
+} from '~/features/signup/types';
+import { FormInput } from '~/features/signup/ui';
 
 interface ButtonedUnitProps extends FormUnitProps {
-  valid: formState;
+  valid: FormState;
   handler: () => void;
-  isFormValid: (key: SignupInfoProp) => boolean;
+  isFormValid: (key: SignupItem) => boolean;
 }
 
 export default function FormUnitWithButton({
