@@ -1,10 +1,9 @@
-import { MODAL } from '../constants';
+import { MODAL, SECURITY, SETTING_ITEM } from '../constants';
 
 export type ModalItem = (typeof MODAL)[keyof typeof MODAL];
 
 export type SecuritySettingItem = {
-  nowPassword: string;
-  newPassword: string;
+  [key in (typeof SECURITY)[keyof typeof SECURITY]]: string;
 };
 
 export type ProfileSettingItem = {
@@ -17,3 +16,5 @@ export type ProfileSettingItem = {
     questionComment: boolean;
   };
 };
+
+export type SettingItem = (typeof SETTING_ITEM)[keyof typeof SETTING_ITEM];
