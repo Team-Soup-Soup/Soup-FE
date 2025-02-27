@@ -8,4 +8,10 @@ export const SETTING_ITEM = {
   SECURITY: '보안설정',
 };
 
-export const PROFILE_MAX_LENGTH = { NAME: 10 };
+export const SETTING_MAX_LENGTH = {
+  NAME: 10,
+};
+
+export const SETTING_MIN_LENGTH = {
+  PASSWORD: 8,
+};
