@@ -27,6 +27,4 @@ export const FORM: Record<FormItem, FormField> = {
   },
 };
 
-export const FORM_LABELS: (keyof typeof FORM)[] = Object.keys(
-  FORM,
-) as (keyof typeof FORM)[];
+export const FORM_LABELS: FormItem[] = Object.keys(FORM) as FormItem[];

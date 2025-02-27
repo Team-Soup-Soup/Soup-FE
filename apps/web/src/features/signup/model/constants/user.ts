@@ -1,8 +1,6 @@
-import { FormItem, SignupInfoProp } from '~/features/signup/types';
-
-export const USER: Record<FormItem, SignupInfoProp> = {
+export const USER = {
   NAME: 'userId',
   ID: 'username',
   EMAIL: 'email',
   PW: 'password',
-};
+} as const;

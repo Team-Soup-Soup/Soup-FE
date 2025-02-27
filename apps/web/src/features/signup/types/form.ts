@@ -1,7 +1,8 @@
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { type SignupInfo } from '~/features/signup/types';
+import { USER } from '~/features/signup/model';
 
-export type FormItem = 'NAME' | 'ID' | 'EMAIL' | 'PW';
+export type FormItem = keyof typeof USER;
 
 export type FormField = {
   label: string;

@@ -1,8 +1,10 @@
-export type SignupInfoProp = keyof SignupInfo;
+import { USER } from '../model';
+
+export type SignupItem = keyof SignupInfo;
 
 export type SignupInfo = {
-  userId: string;
-  username: string;
-  email: string;
-  password: string;
+  [USER.NAME]: string;
+  [USER.ID]: string;
+  [USER.EMAIL]: string;
+  [USER.PW]: string;
 };
