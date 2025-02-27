@@ -1,49 +1,53 @@
 import { Input } from '@soup/design-system';
 import { useForm } from 'react-hook-form';
-import React, { useEffect } from 'react';
+import React, { useCallback, useImperativeHandle } from 'react';
 import { cn } from '@soup/utils';
-import { SETTING_MIN_LENGTH } from '~/shared/constants';
+import { SECURITY, SETTING_MIN_LENGTH } from '~/shared/constants';
 import type { SecuritySettingItem } from '~/shared/types';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 interface SecuritySettingProps {
-  isClickedSaveButton: boolean;
-  setIsClickedSaveButton: (state: boolean) => void;
+  ref: React.Ref<{
+    handleSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
+  }>;
 }
 
-export default function SecuritySetting({
-  isClickedSaveButton,
-  setIsClickedSaveButton,
-}: SecuritySettingProps) {
+const schema = z.object({
+  [SECURITY.NOW_PASSWORD]: z.string().min(1, '현재 비밀번호를 입력해주세요'),
+  [SECURITY.NEW_PASSWORD]: z
+    .string()
+    .min(8)
+    .refine((password) =>
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(password),
+    ),
+});
+
+export default function SecuritySetting({ ref }: SecuritySettingProps) {
   const {
     handleSubmit,
     register,
     formState: { errors, isValid },
     reset,
   } = useForm({
-    defaultValues: {
-      nowPassword: '',
-      newPassword: '',
-    },
     mode: 'onChange',
+    resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: SecuritySettingItem) => {
-    console.log(data);
-    reset();
-  };
+  useImperativeHandle(ref, () => ({
+    handleSubmit: handleSubmit(onSubmit),
+  }));
 
-  useEffect(() => {
-    if (isClickedSaveButton) {
-      if (isValid) {
-        handleSubmit(onSubmit)();
-      } else {
-        setIsClickedSaveButton(false);
-      }
-    }
-  }, [isClickedSaveButton]);
+  const onSubmit = useCallback(
+    (data: SecuritySettingItem) => {
+      console.log(data);
+      reset();
+    },
+    [reset],
+  );
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-[62px]">
         <div className="flex flex-col gap-[8px]">
           <label htmlFor="id">아이디</label>
@@ -81,7 +85,7 @@ export default function SecuritySetting({
                 required: true,
                 minLength: SETTING_MIN_LENGTH.PASSWORD,
                 pattern:
-                    /^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                  /^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
               })}
             />
             <p

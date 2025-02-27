@@ -1,40 +1,31 @@
 import { MODAL, SETTING_ITEM } from '~/shared/constants';
 import { useModalState } from '~/shared/hooks';
 import { Modal } from '~/shared/ui';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { cn } from '@soup/utils';
 import { Button } from '@soup/design-system';
 import { ProfileSetting, SecuritySetting } from './setting';
+import type { SettingItem } from '~/shared/types';
 
 export default function SettingModal() {
   const { isOpen } = useModalState({ key: MODAL.SETTING });
 
-  const [view, setView] = useState(SETTING_ITEM.PROFILE);
-  const [isClickedSaveButton, setIsClickedSaveButton] = useState({
-    [SETTING_ITEM.PROFILE]: false,
-    [SETTING_ITEM.SECURITY]: false,
-  });
+  const [view, setView] = useState<SettingItem>(SETTING_ITEM.PROFILE);
 
-  const handleSaveButtonClick = (state: boolean) => {
-    setIsClickedSaveButton((prev) => ({
-      ...prev,
-      [view]: state,
-    }));
+  const profileRef = useRef<{ handleSubmit: () => Promise<void> }>(null);
+  const securityRef = useRef<{ handleSubmit: () => Promise<void> }>(null);
+
+  const handleSaveButtonClick = () => {
+    if (view === SETTING_ITEM.PROFILE) {
+      profileRef.current?.handleSubmit();
+    } else if (view === SETTING_ITEM.SECURITY) {
+      securityRef.current?.handleSubmit();
+    }
   };
 
   const render = {
-    [SETTING_ITEM.PROFILE]: (
-      <ProfileSetting
-        isClickedSaveButton={isClickedSaveButton[view]}
-        setIsClickedSaveButton={handleSaveButtonClick}
-      />
-    ),
-    [SETTING_ITEM.SECURITY]: (
-      <SecuritySetting
-        isClickedSaveButton={isClickedSaveButton[view]}
-        setIsClickedSaveButton={handleSaveButtonClick}
-      />
-    ),
+    [SETTING_ITEM.PROFILE]: <ProfileSetting ref={profileRef} />,
+    [SETTING_ITEM.SECURITY]: <SecuritySetting ref={securityRef} />,
   };
 
   return (
@@ -64,11 +55,7 @@ export default function SettingModal() {
           <button className="text-light text-sm font-light hover:cursor-pointer">
             회원탈퇴하기
           </button>
-          <Button
-            size="lg"
-            color="normal"
-            onClick={() => handleSaveButtonClick(true)}
-          >
+          <Button size="lg" color="normal" onClick={handleSaveButtonClick}>
             저장하기
           </Button>
         </Modal.Footer>

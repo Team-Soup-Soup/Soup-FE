@@ -1,18 +1,16 @@
 import { Input, Toggle } from '@soup/design-system';
-import React, { ChangeEvent, useCallback, useEffect } from 'react';
+import React, { ChangeEvent, useCallback, useImperativeHandle } from 'react';
 import type { ProfileSettingItem } from '~/shared/types';
 import { useForm, Controller } from 'react-hook-form';
 import { SETTING_MAX_LENGTH } from '~/shared/constants';
 
 interface ProfileSettingProps {
-  isClickedSaveButton: boolean;
-  setIsClickedSaveButton: (state: boolean) => void;
+  ref: React.Ref<{
+    handleSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
+  }>;
 }
 
-export default function ProfileSetting({
-  isClickedSaveButton,
-  setIsClickedSaveButton,
-}: ProfileSettingProps) {
+export default function ProfileSetting({ ref }: ProfileSettingProps) {
   const {
     handleSubmit,
     register,
@@ -36,6 +34,10 @@ export default function ProfileSetting({
 
   const { image, name } = watch();
 
+  useImperativeHandle(ref, () => ({
+    handleSubmit: handleSubmit(onSubmit),
+  }));
+
   const handleImageInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -53,18 +55,8 @@ export default function ProfileSetting({
     console.log(data);
   }, []);
 
-  useEffect(() => {
-    if (isClickedSaveButton) {
-      if (isValid) {
-        handleSubmit(onSubmit)();
-      } else {
-        setIsClickedSaveButton(false);
-      }
-    }
-  }, [isClickedSaveButton]);
-
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-[42px]">
         <div className="flex items-center gap-[32px]">
           <label htmlFor="file">
@@ -103,7 +95,7 @@ export default function ProfileSetting({
             })}
           />
           {errors.name && (
-            <p className="text-end text-sm text-red-500">
+            <p className="text-important text-end text-sm">
               {errors.name.message}
             </p>
           )}
