@@ -9,7 +9,7 @@ export default function SocialLogin() {
         간편 로그인
         <hr className="border-main-board-border w-1/3" />
       </div>
-      <button className="bg-kakao hover:bg-kakao-dark text-dark auth-button font-light">
+      <button className="bg-kakao hover:bg-kakao-dark text-dark auth-button px-7 py-4 font-light">
         <img src={Kakao} className="mr-4 h-[20px] w-[20px]" />
         카카오톡 간편 로그인
       </button>
