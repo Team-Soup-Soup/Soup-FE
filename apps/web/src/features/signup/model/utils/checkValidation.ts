@@ -1,9 +1,6 @@
-import { type SignupInfoProp } from '~/features/signup/types';
+import { type SignupItem } from '~/features/signup/types';
 
-export const checkValidation = (
-  target: string,
-  id: SignupInfoProp,
-): boolean => {
+export const checkValidation = (target: string, id: SignupItem): boolean => {
   switch (id) {
     case 'email':
       return checkEmailValidation(target);
