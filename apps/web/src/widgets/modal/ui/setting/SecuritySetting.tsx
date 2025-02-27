@@ -62,11 +62,11 @@ export default function SecuritySetting({
               type="password"
               placeholder="현재 비밀번호를 입력해주세요"
               {...register('nowPassword', {
-                required: '비밀번호는 필수 입력값이에요.',
+                required: true,
               })}
             />
             {errors.nowPassword && (
-              <p className="text-end text-sm text-red-500">
+              <p className="text-important text-end text-sm">
                 {errors.nowPassword.message}
               </p>
             )}
@@ -80,20 +80,17 @@ export default function SecuritySetting({
               {...register('newPassword', {
                 required: true,
                 minLength: SETTING_MIN_LENGTH.PASSWORD,
-                pattern: {
-                  value:
+                pattern:
                     /^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                  message: '영어 + 특수문자 + 숫자 조합으로 최소 8자',
-                },
               })}
             />
             <p
               className={cn(
                 'text-light text-end text-sm font-light',
-                errors.newPassword && 'text-red-500',
+                errors.newPassword && 'text-important',
               )}
             >
-              영어 + 특수문자 + 숫자 조합으로 최소 8자
+              영어 + 특수문자 + 숫자 조합으로 8자 이상 작성해주세요
             </p>
           </div>
         </div>
