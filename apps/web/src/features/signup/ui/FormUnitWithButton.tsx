@@ -25,7 +25,7 @@ export default function FormUnitWithButton({
   handler,
   isFormValid,
 }: ButtonedUnitProps) {
-  const formId = USER[id] as 'username' | 'email';
+  const formId = USER[id as 'ID' | 'EMAIL'];
   return (
     <div className="relative flex w-full items-end">
       <p

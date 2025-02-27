@@ -1,10 +1,7 @@
-import { USER } from '../model';
+import { USER } from '~/features/signup/model';
 
 export type SignupItem = keyof SignupInfo;
 
 export type SignupInfo = {
-  [USER.NAME]: string;
-  [USER.ID]: string;
-  [USER.EMAIL]: string;
-  [USER.PW]: string;
+  [key in (typeof USER)[keyof typeof USER]]: string;
 };

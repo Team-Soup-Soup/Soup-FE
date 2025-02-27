@@ -1,3 +1,6 @@
+import { USER } from '~/features/signup/model';
+
 export type FormState = {
-  [key in 'username' | 'email']: boolean;
+  [USER.ID]: boolean;
+  [USER.EMAIL]: boolean;
 };

@@ -1,8 +1,10 @@
+import { USER } from '~/features/signup/model';
+
 export const clickedState = {
-  username: false,
-  email: false,
+  [USER.ID]: false,
+  [USER.EMAIL]: false,
 };
 export const validState = {
-  username: false,
-  email: false,
+  [USER.ID]: false,
+  [USER.EMAIL]: false,
 };
