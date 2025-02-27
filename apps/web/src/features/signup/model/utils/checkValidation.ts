@@ -1,10 +1,11 @@
 import { type SignupItem } from '~/features/signup/types';
+import { USER } from '~/features/signup/model';
 
 export const checkValidation = (target: string, id: SignupItem): boolean => {
   switch (id) {
-    case 'email':
+    case USER.EMAIL:
       return checkEmailValidation(target);
-    case 'username':
+    case USER.ID:
       return checkUserNameValidation(target);
   }
   return false;

@@ -32,22 +32,22 @@ export default function SignupForm() {
   const [clicked, setClicked] = useState<FormState>(clickedState);
   const [valid, setValid] = useState<FormState>(validState);
   const schema = z.object({
-    userId: z.string().min(1, '*'),
-    username: z
+    [USER.NAME]: z.string().min(1, '*'),
+    [USER.ID]: z
       .string()
       .min(1, '*')
-      .refine(() => clicked.username, {
+      .refine(() => clicked[USER.ID], {
         message: '*중복 확인 필요',
       })
-      .refine(() => valid.username, { message: '*이미 사용중인 아이디입니다' }),
-    email: z
+      .refine(() => valid[USER.ID], { message: '*이미 사용중인 아이디입니다' }),
+    [USER.EMAIL]: z
       .string()
       .min(1, '*')
       .refine(() => clicked.email, {
         message: '*이메일 인증 필요',
       })
       .refine(() => valid.email, { message: '*코드가 틀렸습니다' }),
-    password: z
+    [USER.PW]: z
       .string()
       .min(8, '*')
       .refine(

@@ -1,6 +1,6 @@
 export const USER = {
-  NAME: 'userId',
-  ID: 'username',
+  NAME: 'name',
+  ID: 'userId',
   EMAIL: 'email',
   PW: 'password',
 } as const;
