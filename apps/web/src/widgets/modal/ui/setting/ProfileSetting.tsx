@@ -1,8 +1,9 @@
-import { Input, Toggle } from '@soup/design-system';
+import { Input } from '@soup/design-system';
 import React, { ChangeEvent, useCallback, useImperativeHandle } from 'react';
 import type { ProfileSettingItem } from '~/shared/types';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { SETTING_MAX_LENGTH } from '~/shared/constants';
+import ToggleController from './ToggleController';
 
 interface ProfileSettingProps {
   ref: React.Ref<{
@@ -111,68 +112,36 @@ export default function ProfileSetting({ ref }: ProfileSettingProps) {
             <div className="flex flex-col gap-[24px] rounded-[10px] p-[30px]">
               <div className="flex flex-col gap-[4px]">
                 <label className="text-light text-sm">내 게시글</label>
-                <div className="text-md flex w-full justify-between">
-                  <p>댓글 알림</p>
-                  <Controller
-                    name="toggles.postComment"
-                    control={control}
-                    render={({ field }) => (
-                      <Toggle
-                        id="postComment"
-                        checked={field.value}
-                        onChange={field.onChange}
-                      />
-                    )}
-                  />
-                </div>
+                <ToggleController
+                  label="댓글 알림"
+                  name="toggles.postComment"
+                  id="postComment"
+                  control={control}
+                />
               </div>
               <div className="flex flex-col gap-[4px]">
                 <label className="text-light text-sm">내 보드</label>
-                <div className="text-md flex w-full justify-between">
-                  <p>댓글 알림</p>
-                  <Controller
-                    name="toggles.boardComment"
-                    control={control}
-                    render={({ field }) => (
-                      <Toggle
-                        id="boardComment"
-                        checked={field.value}
-                        onChange={field.onChange}
-                      />
-                    )}
-                  />
-                </div>
-                <div className="text-md flex w-full justify-between">
-                  <p>질문 알림</p>
-                  <Controller
-                    name="toggles.boardQuestion"
-                    control={control}
-                    render={({ field }) => (
-                      <Toggle
-                        id="boardQuestion"
-                        checked={field.value}
-                        onChange={field.onChange}
-                      />
-                    )}
-                  />
-                </div>
+                <ToggleController
+                  label="댓글 알림"
+                  name="toggles.boardComment"
+                  id="boardComment"
+                  control={control}
+                />
+                <ToggleController
+                  label="질문 알림"
+                  name="toggles.boardQuestion"
+                  id="boardQuestion"
+                  control={control}
+                />
               </div>
               <div className="flex flex-col gap-[4px]">
                 <label className="text-light text-sm">내 질문</label>
-                <div className="text-md flex w-full justify-between">
-                  <p>답글 알림</p>
-                  <Controller
-                    name="toggles.questionComment"
-                    control={control}
-                    render={({ field }) => (
-                      <Toggle
-                        id="questionComment"
-                        checked={field.value}
-                        onChange={field.onChange}
-                      />
-                    )}
-                  />
-                </div>
+                <ToggleController
+                  label="답글 알림"
+                  name="toggles.questionComment"
+                  id="questionComment"
+                  control={control}
+                />
               </div>
             </div>
           </div>
