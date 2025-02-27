@@ -69,6 +69,7 @@
     'Segoe UI Symbol',
     sans-serif;
   font-size: 14px;
+  color: rgb(61, 56, 47);
 }
 
 @media (max-width: 1024px) {
@@ -126,4 +127,19 @@
     format('woff2');
   font-weight: normal;
   font-style: normal;
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari, and Opera */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge, and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
 }

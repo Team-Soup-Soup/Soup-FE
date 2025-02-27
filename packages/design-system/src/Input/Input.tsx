@@ -6,14 +6,17 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   labelClassName?: string;
   inputClassName?: string;
   isSearch?: boolean;
+  maxLength?: number;
 }
 
 const Input = ({
   id,
   label,
+  value,
   labelClassName,
   inputClassName,
   isSearch,
+  maxLength,
   required,
   className,
   children,
@@ -34,9 +37,15 @@ const Input = ({
         </label>
       )}
       <div className="relative inline-flex items-center">
+        {maxLength && (
+          <span className="text-light absolute right-[10px] place-items-center">
+            {String(value).length}/{maxLength}자
+          </span>
+        )}
         <input
           id={id}
           ref={inputRef}
+          value={value}
           className={cn(
             'border-main-board-border focus:border-point size-full rounded-[10px] border p-[10px] font-light focus:outline-none',
             isSearch && 'pl-[44px]',

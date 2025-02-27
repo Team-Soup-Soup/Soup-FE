@@ -3,7 +3,7 @@ import { cn } from '@soup/utils';
 
 export interface ToggleProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
-  label: string;
+  label?: string;
 }
 
 const Toggle = ({
@@ -39,17 +39,19 @@ const Toggle = ({
           <span
             className={cn(
               'inline-block size-[16px] rounded-full bg-white transition-all',
-              checked && 'translate-x-6',
+              checked && 'translate-x-7',
             )}
           />
         </span>
       </label>
-      <label
-        htmlFor={id}
-        className="text-dark cursor-pointer text-sm font-light"
-      >
-        {label}
-      </label>
+      {label && (
+        <label
+          htmlFor={id}
+          className="text-dark cursor-pointer text-sm font-light"
+        >
+          {label}
+        </label>
+      )}
     </div>
   );
 };
