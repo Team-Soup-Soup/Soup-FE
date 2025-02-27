@@ -65,9 +65,7 @@ export default function SecuritySetting({ ref }: SecuritySettingProps) {
               label="현재 비밀번호"
               type="password"
               placeholder="현재 비밀번호를 입력해주세요"
-              {...register('nowPassword', {
-                required: true,
-              })}
+              {...register(SECURITY.NOW_PASSWORD)}
             />
             {errors.nowPassword && (
               <p className="text-important text-end text-sm">
@@ -81,12 +79,7 @@ export default function SecuritySetting({ ref }: SecuritySettingProps) {
               label="새 비밀번호"
               type="password"
               placeholder="새 비밀번호를 입력해주세요"
-              {...register('newPassword', {
-                required: true,
-                minLength: SETTING_MIN_LENGTH.PASSWORD,
-                pattern:
-                  /^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-              })}
+              {...register(SECURITY.NEW_PASSWORD)}
             />
             <p
               className={cn(
