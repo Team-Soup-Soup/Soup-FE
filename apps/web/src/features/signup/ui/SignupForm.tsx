@@ -1,77 +1,128 @@
 import React, { useState } from 'react';
 
-import { Button, Checkbox, Input } from '@soup/design-system';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 
-import { FORM } from '~/features/signup/model';
-import { type FormItem } from '~/features/signup/types';
-
-export default function SignupForm() {
-  return (
-    <div className="mt-30 flex flex-col gap-y-7 p-16 pt-0">
-      {(Object.keys(FORM) as Array<keyof typeof FORM>).map((key) => (
-        <FormUnit key={key} button={FORM[key].button} id={key} />
-      ))}
-      <FormSubmit />
-    </div>
-  );
-}
-
-interface FormUnitProps {
-  id: FormItem;
-  button?: string | null;
-}
+import {
+  checkValidation,
+  clickedState,
+  FORM,
+  handleFormSubmit,
+  USER,
+  validState,
+} from '~/features/signup/model';
+import type {
+  FormState,
+  SignupInfo,
+  SignupItem,
+} from '~/features/signup/types';
+import {
+  FormSubmit,
+  FormUnit,
+  EmailVerification,
+  FormUnitWithButton,
+} from '~/features/signup/ui';
 
 const Description = ({ content }: { content: string }) => (
   <p className="text-light mt-1 p-0 text-sm font-light">{content}</p>
 );
 
-function FormUnit({ id, button }: FormUnitProps) {
-  if (button)
-    return (
-      <div>
-        <div className="flex w-full items-end">
-          <Input
-            label={FORM[id].label}
-            placeholder={FORM[id].placeholder}
-            className="flex-1"
-          />
-          <Button color="normal" size="sm" className="ml-3 h-[39px]">
-            {FORM[id].button}
-          </Button>
-        </div>
-        <Description content={FORM[id].description || ''} />
-      </div>
-    );
-  return (
-    <div>
-      <Input label={FORM[id].label} placeholder={FORM[id].placeholder} />
-      <Description content={FORM[id].description || ''} />
-    </div>
-  );
-}
+export default function SignupForm() {
+  const [clicked, setClicked] = useState<FormState>(clickedState);
+  const [valid, setValid] = useState<FormState>(validState);
+  const schema = z.object({
+    [USER.NAME]: z.string().min(1, '*'),
+    [USER.ID]: z
+      .string()
+      .min(1, '*')
+      .refine(() => clicked[USER.ID], {
+        message: '*중복 확인 필요',
+      })
+      .refine(() => valid[USER.ID], { message: '*이미 사용중인 아이디입니다' }),
+    [USER.EMAIL]: z
+      .string()
+      .min(1, '*')
+      .refine(() => clicked.email, {
+        message: '*이메일 인증 필요',
+      })
+      .refine(() => valid.email, { message: '*코드가 틀렸습니다' }),
+    [USER.PW]: z
+      .string()
+      .min(8, '*')
+      .refine(
+        (password) => /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(password),
+        {
+          message: '*올바르지 않은 비밀번호',
+        },
+      ),
+  });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    clearErrors,
+  } = useForm<SignupInfo>({
+    resolver: zodResolver(schema),
+  });
 
-function FormSubmit() {
-  const [checked, setChecked] = useState(false);
+  const isFormValid = (key: SignupItem) => checkValidation(watch(key), key);
+
+  const handleUsernameValidation = () => {
+    setClicked((prev) => ({
+      ...prev,
+      username: true,
+    }));
+    setValid((prev) => ({ ...prev, username: true }));
+    clearErrors(USER.ID);
+  };
+
+  const handleEmailValidation = () => {
+    setClicked((prev) => ({
+      ...prev,
+      email: true,
+    }));
+  };
+
+  const handleEmailCodeValidation = () => {
+    setValid((prev) => ({
+      ...prev,
+      email: true,
+    }));
+    clearErrors(USER.EMAIL);
+  };
 
   return (
-    <div className="absolute bottom-0 left-0 w-full p-16">
-      <Checkbox
-        id="signup-agreement"
-        className="mb-4"
-        onChange={() => setChecked((prev) => !prev)}
-        label={
-          <>
-            <span className="text-point">개인정보 처리방침</span>에 따른
-            개인정보 수집 및 활용에 동의합니다. (필수)
-          </>
-        }
+    <form
+      className="mt-30 flex flex-col gap-y-7 p-16 pt-0"
+      onSubmit={handleSubmit(handleFormSubmit)}
+    >
+      <FormUnit id="NAME" errors={errors} register={register} />
+      <FormUnitWithButton
+        id="ID"
+        errors={errors}
+        valid={valid}
+        register={register}
+        handler={handleUsernameValidation}
+        isFormValid={isFormValid}
       />
-      <button
-        disabled={!checked} // 유효성 검사도 추가 예정
-        className="bg-point hover:bg-point-dark auth-button disabled:bg-main-board-border font-semibold text-white disabled:pointer-events-none"
-      >
-        회원가입 하기
-      </button>
-    </div>
+      <div>
+        <FormUnitWithButton
+          id="EMAIL"
+          errors={errors}
+          valid={valid}
+          register={register}
+          handler={handleEmailValidation}
+          isFormValid={isFormValid}
+        />
+        {clicked.email && !valid.email && (
+          <EmailVerification handler={handleEmailCodeValidation} />
+        )}
+        <Description content={FORM.EMAIL.description || ''} />
+      </div>
+      <FormUnit id="PW" errors={errors} register={register} />
+      <FormSubmit />
+    </form>
   );
 }
