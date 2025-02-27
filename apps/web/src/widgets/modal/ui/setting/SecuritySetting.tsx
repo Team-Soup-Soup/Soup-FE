@@ -2,7 +2,7 @@ import { Input } from '@soup/design-system';
 import { useForm } from 'react-hook-form';
 import React, { useCallback, useImperativeHandle } from 'react';
 import { cn } from '@soup/utils';
-import { SECURITY, SETTING_MIN_LENGTH } from '~/shared/constants';
+import { SECURITY } from '~/shared/constants';
 import type { SecuritySettingItem } from '~/shared/types';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -61,7 +61,7 @@ export default function SecuritySetting({ ref }: SecuritySettingProps) {
         <div className="flex flex-col gap-[30px]">
           <div className="flex flex-col gap-[8px]">
             <Input
-              id="nowPassword"
+              id={SECURITY.NOW_PASSWORD}
               label="현재 비밀번호"
               type="password"
               placeholder="현재 비밀번호를 입력해주세요"
@@ -75,7 +75,7 @@ export default function SecuritySetting({ ref }: SecuritySettingProps) {
           </div>
           <div className="flex flex-col gap-[8px]">
             <Input
-              id="newPassword"
+              id={SECURITY.NEW_PASSWORD}
               label="새 비밀번호"
               type="password"
               placeholder="새 비밀번호를 입력해주세요"
