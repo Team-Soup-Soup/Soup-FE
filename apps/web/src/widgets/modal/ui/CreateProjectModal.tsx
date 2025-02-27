@@ -22,6 +22,12 @@ export default function CreateProjectModal() {
     }
   };
 
+  const handleCreateButtonClick = () => {
+    closeModal(MODAL.CREATE_PROJECT);
+    setProjectName('');
+    setProjectDescription('');
+  };
+
   useEffect(() => {
     setIsValidProject(
       projectName.length > 0 &&
@@ -68,7 +74,7 @@ export default function CreateProjectModal() {
             <Button
               size="lg"
               color="normal"
-              onClick={() => closeModal(MODAL.CREATE_PROJECT)}
+              onClick={handleCreateButtonClick}
               locked={!isValidProject}
             >
               생성하기
