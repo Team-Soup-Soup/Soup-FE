@@ -1,11 +1,16 @@
 import React from 'react';
-import { ProjectHeader, ProjectMenu } from '~/widgets/project/ui';
+import {
+  GroupBoardContainer,
+  ProjectHeader,
+  ProjectMenu,
+} from '~/widgets/project/ui';
 
 export default function ProjectContainer() {
   return (
-    <div>
+    <div className="h-full overflow-scroll">
       <ProjectHeader />
       <ProjectMenu />
+      <GroupBoardContainer />
     </div>
   );
 }
