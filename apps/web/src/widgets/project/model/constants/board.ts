@@ -28,4 +28,12 @@ export const BOARD = {
   },
 };
 
+export const COLOR: Record<string, string> = {
+  공지: '#FFD993',
+  회의플래너: '#F1F0EE',
+  투표: '#F8F1E3',
+  동료평가: '#FFF7E1',
+  자유글: '#F6F3FB',
+};
+
 export const BOARD_LABEL = Object.keys(BOARD) as BoardItem[];
