@@ -8,7 +8,7 @@ import {
   ShareLinkContainer,
 } from '~/widgets/project/ui';
 
-export default function ProjectMenu() {
+export default function ProjectMenuContainer() {
   return (
     <div className="flex h-fit w-full flex-col">
       <MenuHeader />
