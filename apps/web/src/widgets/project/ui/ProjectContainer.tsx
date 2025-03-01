@@ -7,7 +7,7 @@ import {
 
 export default function ProjectContainer() {
   return (
-    <div className="h-full overflow-scroll">
+    <div className="scrollbar-hide h-full overflow-scroll">
       <ProjectHeader />
       <ProjectMenu />
       <GroupBoardContainer />
