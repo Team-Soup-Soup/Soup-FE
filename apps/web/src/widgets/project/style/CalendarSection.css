@@ -1,0 +1,52 @@
+.rc_root {
+  border-radius: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+  height: 80% !important;
+  width: 100% !important;
+
+  --rc-color-text-dom-weekend-active: var(--color-dark);
+  --rc-color-text-inactive: var(--color-light);
+  --rc-color-accent: #eae9e8;
+  --rc-color-bg-dom-range-ep-weekend-active: var(--color-dark);
+  --rc-color-bg-dom-weekend-selected: #eae9e8;
+  --rc-color-text-dom-weekend-selected: var(--color-dark);
+  --rc-color-bg-dom-selected: #eae9e8;
+  --rc-color-text-light: var(--color-dark);
+  --rc-color-text-dom-weekend-inactive: var(--color-light);
+}
+
+.rc_body-weekdays {
+  display: none !important;
+}
+
+.rc_header {
+  display: none !important;
+}
+
+.rc_body-cell {
+  height: fit-content !important;
+}
+
+.rc_body-cell_value {
+  width: 100% !important;
+  padding: 5px !important;
+  border-radius: 10px !important;
+}
+
+.rc_body-row {
+  height: fit-content !important;
+}
+
+.rc_body-days-of-month {
+  height: 70% !important;
+}
+
+.rc_body-cell_value > button {
+  border: none !important;
+}
+
+.rc_body-row > :not(.rc_active) {
+  cursor: not-allowed;
+  pointer-events: none;
+}

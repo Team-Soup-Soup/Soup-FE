@@ -4,10 +4,10 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { AuthRoutes, ProtectedRoutes, HomeRoutes } from '~/app/routes';
+import { AuthRoutes, ProtectedRoutes } from '~/app/routes';
 import { Providers } from '~/shared/utils';
 
-const router = createBrowserRouter([AuthRoutes, ProtectedRoutes, HomeRoutes]);
+const router = createBrowserRouter([AuthRoutes, ProtectedRoutes]);
 
 const rootElement = document.getElementById('root') as HTMLElement;
 const root = createRoot(rootElement);

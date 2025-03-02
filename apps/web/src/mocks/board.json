@@ -1,0 +1,50 @@
+[
+  {
+    "postId": 1,
+    "category": "공지",
+    "title": "우리팀 규칙",
+    "createBy": "키위새",
+    "createAt": "2025-03-01T09:35:03.575Z",
+    "commentCnt": 0
+  },
+  {
+    "postId": 2,
+    "category": "회의플래너",
+    "title": "다음 주 회의 일정",
+    "createBy": "미팅마스터",
+    "createAt": "2025-03-02T10:15:45.120Z",
+    "commentCnt": 3
+  },
+  {
+    "postId": 3,
+    "category": "투표",
+    "title": "다음 팀 이벤트 투표",
+    "createBy": "기획바리",
+    "createAt": "2025-03-02T12:45:30.892Z",
+    "commentCnt": 5
+  },
+  {
+    "postId": 4,
+    "category": "동료평가",
+    "title": "3월 동료 평가 진행 안내",
+    "createBy": "HR매니저",
+    "createAt": "2025-03-03T08:00:10.635Z",
+    "commentCnt": 2
+  },
+  {
+    "postId": 5,
+    "category": "자유글",
+    "title": "팀원들 다들 수고 많아요!",
+    "createBy": "긍정에너지",
+    "createAt": "2025-03-03T18:20:05.427Z",
+    "commentCnt": 8
+  },
+  {
+    "postId": 6,
+    "category": "공지",
+    "title": "회의실 사용 규칙 변경 안내",
+    "createBy": "운영팀",
+    "createAt": "2025-03-04T09:10:50.783Z",
+    "commentCnt": 1
+  }
+]

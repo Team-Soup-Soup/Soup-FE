@@ -1,9 +1,14 @@
-import { cn } from '@soup/utils';
 import React, { useEffect } from 'react';
+
+import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+import { cn } from '@soup/utils';
+
 import { projectList } from '~/mocks';
-import { MODAL } from '~/shared/constants';
+import { MODAL, PATH } from '~/shared/constants';
 import { useModal } from '~/shared/hooks';
-import { useProject, useProjectState } from '~/shared/hooks/useProject';
+import { useProject } from '~/shared/hooks/useProject';
 import type { ModalItem } from '~/shared/types';
 import { IconButton, Profile } from '~/shared/ui';
 import {
@@ -16,13 +21,19 @@ import {
 export default function Sidebar() {
   const { openModal } = useModal();
   const { changeProject } = useProject();
-  const selected = useProjectState();
+  const navigate = useNavigate();
 
-  const handleProjectClick = (name: string) => {
-    changeProject(name);
+  const handleProjectClick = (id: string) => {
+    changeProject(id);
+    navigate(`/project/${id}`);
   };
+
   const handleModal = (key: ModalItem) => {
     openModal(key);
+  };
+
+  const createIdUrl = (root: string, id: string) => {
+    return root + '/' + id;
   };
 
   useEffect(() => {
@@ -54,19 +65,20 @@ export default function Sidebar() {
           <div className="text-md mx-[32px] my-[16px] flex flex-col items-start gap-4 font-light">
             {projectList.length > 0 ? (
               projectList.map(({ project }) => (
-                <button
+                <NavLink
                   key={project}
-                  id={project}
-                  name={project}
-                  className={cn(
-                    'hover:cursor-pointer',
-                    project === selected &&
-                      'border-point border-bold text-point border-l-3 pl-3',
-                  )}
+                  className={({ isActive }) =>
+                    cn(
+                      'pl-3 hover:cursor-pointer',
+                      isActive &&
+                        'border-point border-bold text-point border-l-3',
+                    )
+                  }
+                  to={createIdUrl(PATH.PROJECT, project)}
                   onClick={() => handleProjectClick(project)}
                 >
                   <span>{project}</span>
-                </button>
+                </NavLink>
               ))
             ) : (
               <p className="text-light mt-[12px]">
