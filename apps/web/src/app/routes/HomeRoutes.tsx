@@ -9,6 +9,6 @@ export const HomeRoutes: RouteObject = {
   element: <HomeLayout />,
   children: [
     { path: PATH.HOME, element: <HomePage /> },
-    { path: PATH.PROJECT + ':projectId', element: <ProjectPage /> },
+    { path: PATH.PROJECT_CONTENT, element: <ProjectPage /> },
   ],
 };

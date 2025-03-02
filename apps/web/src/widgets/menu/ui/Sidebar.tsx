@@ -32,6 +32,10 @@ export default function Sidebar() {
     openModal(key);
   };
 
+  const createIdUrl = (root: string, id: string) => {
+    return root + '/' + id;
+  };
+
   useEffect(() => {
     if (projectList.length) {
       changeProject(projectList[0].project);
@@ -70,7 +74,7 @@ export default function Sidebar() {
                         'border-point border-bold text-point border-l-3',
                     )
                   }
-                  to={PATH.PROJECT + project}
+                  to={createIdUrl(PATH.PROJECT, project)}
                   onClick={() => handleProjectClick(project)}
                 >
                   <span>{project}</span>
