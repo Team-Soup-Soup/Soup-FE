@@ -45,3 +45,8 @@
 .rc_body-cell_value > button {
   border: none !important;
 }
+
+.rc_body-row > :not(.rc_active) {
+  cursor: not-allowed;
+  pointer-events: none;
+}
