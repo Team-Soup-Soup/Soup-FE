@@ -23,9 +23,9 @@ export default function Sidebar() {
   const { changeProject } = useProject();
   const navigate = useNavigate();
 
-  const handleProjectClick = (name: string) => {
-    changeProject(name);
-    navigate(`/project/${name}`);
+  const handleProjectClick = (id: string) => {
+    changeProject(id);
+    navigate(`/project/${id}`);
   };
 
   const handleModal = (key: ModalItem) => {
