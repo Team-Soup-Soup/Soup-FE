@@ -22,11 +22,13 @@ export default function PlanContainer() {
 }
 
 function ToDoSection() {
+  const date = new Date().getDate();
+
   return (
     <div className="flex flex-col">
       <div className="flex items-baseline gap-x-2">
-        <span className="text-2xl font-extrabold">{new Date().getDate()}</span>
-        <span className="font-light">{DAY[new Date().getDay()]}</span>
+        <span className="text-2xl font-extrabold">{date}</span>
+        <span className="font-light">{DAY[date]}</span>
       </div>
       <div className="text-md mt-4 flex size-full gap-x-6 font-light">
         <div className="flex flex-col gap-y-1">
