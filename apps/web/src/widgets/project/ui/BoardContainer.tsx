@@ -3,6 +3,9 @@ import React from 'react';
 import comments from '~/mocks/board.json';
 import { BoardItem } from '~/widgets/project/types';
 import { BOARD, BOARD_LABEL, COLOR } from '~/widgets/project/model';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { PATH } from '~/shared/constants';
+import { getPath } from '~/shared/utils';
 
 export default function BoardContainer() {
   return (
@@ -15,11 +18,21 @@ export default function BoardContainer() {
 
 function BoardView() {
   const data = comments;
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <div className="rounded-auth border-main-board-border box-shadow-4 flex h-full flex-1 flex-col border-[1px] px-6 py-4">
       <div className="mb-4 flex items-center justify-between font-light">
         <span className="text-md">게시판</span>
-        <span className="text-light cursor-pointer">더보기 &gt;&gt;</span>
+        <span
+          className="text-light hover:text-dark cursor-pointer"
+          onClick={() =>
+            navigate(getPath(location.pathname, PATH.BOARD_CONTENT))
+          }
+        >
+          더보기 &gt;&gt;
+        </span>
       </div>
       <div className="flex size-full flex-col gap-y-[6px]">
         {data.slice(0, 4).map(({ postId, category, title, createAt }) => (
