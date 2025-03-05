@@ -8,6 +8,7 @@ export const MODAL = {
 export const SETTING_ITEM = {
   PROFILE: '내 프로필',
   SECURITY: '보안설정',
+  WITHDRAW: '회원탈퇴',
 } as const;
 
 export const SECURITY = {
