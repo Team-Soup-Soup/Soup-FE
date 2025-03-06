@@ -6,7 +6,7 @@ import { cn } from '@soup/utils';
 export default function ProjectPostComment({ content, createAt }: Comment) {
   const [hidden, setHidden] = useState<boolean>(true);
   return (
-    <div className="relative size-full overflow-visible">
+    <div className="relative overflow-visible">
       <MoreOptionModal hidden={hidden} />
       <div className="text-md flex w-full gap-x-8 p-2">
         <div className="size-10 rounded-[50%] bg-black" />
