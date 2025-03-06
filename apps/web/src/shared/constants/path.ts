@@ -8,4 +8,5 @@ export const PATH = {
   PROJECT_CONTENT: '/project/:projectId',
   BOARD: '/project/:projectId/board',
   BOARD_CONTENT: '/board',
+  POST_DETAIL: '/project/:projectId/board/:postId',
 } as const;
