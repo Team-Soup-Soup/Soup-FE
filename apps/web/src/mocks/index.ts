@@ -1,5 +1,6 @@
 import alarmList from './alarm.json';
 import projectList from './project.json';
-import comments from './board.json';
+import boardDataList from './board.json';
+import boardDetailedDataList from './board-detail.json';
 
-export { alarmList, projectList, comments };
+export { alarmList, projectList, boardDataList, boardDetailedDataList };

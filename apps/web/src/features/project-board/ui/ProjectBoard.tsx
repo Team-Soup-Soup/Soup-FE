@@ -5,11 +5,11 @@ import { Input, Pagination, Radio } from '@soup/design-system';
 import { BOARD, BOARD_LABEL } from '~/shared/constants';
 import ProjectBoardItem from './ProjectBoardItem';
 import { BoardContent, BoardItem } from '~/shared/types';
-import { comments } from '~/mocks';
+import { boardDataList } from '~/mocks';
 
 export default function ProjectBoard() {
   const [selected, setSelected] = useState<string>('');
-  const data = comments;
+  const data = boardDataList;
 
   return (
     <div className="w-200 mt-25 mx-auto mb-11 flex h-full flex-col md:w-[70%]">

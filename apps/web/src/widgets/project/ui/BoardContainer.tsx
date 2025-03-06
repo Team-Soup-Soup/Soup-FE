@@ -1,7 +1,7 @@
 import React from 'react';
 
-import comments from '~/mocks/board.json';
-import { BoardItem } from '~/shared/types';
+import boardDataList from '~/mocks/board.json';
+import type { BoardItem, BoardItemValue } from '~/shared/types';
 import { BOARD, BOARD_LABEL, COLOR } from '~/shared/constants';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PATH } from '~/shared/constants';
@@ -17,7 +17,7 @@ export default function BoardContainer() {
 }
 
 function BoardView() {
-  const data = comments;
+  const data = boardDataList;
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -42,7 +42,9 @@ function BoardView() {
           >
             <div
               className="flex w-44 items-center justify-center text-nowrap py-[1px]"
-              style={{ backgroundColor: `${COLOR[category]}` }}
+              style={{
+                backgroundColor: `${COLOR[category as BoardItemValue]}`,
+              }}
             >
               {category}
             </div>
