@@ -46,5 +46,37 @@
     "createBy": "운영팀",
     "createAt": "2025-03-04T09:10:50.783Z",
     "commentCnt": 1
+  },
+  {
+    "postId": 7,
+    "category": "회의플래너",
+    "title": "이번 달 회의록 공유",
+    "createBy": "기록왕",
+    "createAt": "2025-03-04T14:30:22.981Z",
+    "commentCnt": 4
+  },
+  {
+    "postId": 8,
+    "category": "자유글",
+    "title": "오늘 점심 추천 메뉴!",
+    "createBy": "맛잘알",
+    "createAt": "2025-03-05T11:25:40.312Z",
+    "commentCnt": 6
+  },
+  {
+    "postId": 9,
+    "category": "공지",
+    "title": "팀 문화 개선 캠페인 안내",
+    "createBy": "문화리더",
+    "createAt": "2025-03-05T16:10:12.654Z",
+    "commentCnt": 2
+  },
+  {
+    "postId": 10,
+    "category": "투표",
+    "title": "다음 프로젝트 테마 선정",
+    "createBy": "프로젝트리더",
+    "createAt": "2025-03-06T09:00:00.123Z",
+    "commentCnt": 7
   }
 ]
