@@ -4,7 +4,7 @@ import { Modal } from '~/shared/ui';
 import React, { useRef, useState } from 'react';
 import { cn } from '@soup/utils';
 import { Button } from '@soup/design-system';
-import { ProfileSetting, SecuritySetting, WithdrawSetting } from './setting';
+import { ProfileSetting, AlarmSetting, WithdrawSetting } from './setting';
 import type { SettingItem } from '~/shared/types';
 
 export default function SettingModal() {
@@ -18,14 +18,14 @@ export default function SettingModal() {
   const handleSaveButtonClick = () => {
     if (view === SETTING_ITEM.PROFILE) {
       profileRef.current?.handleSubmit();
-    } else if (view === SETTING_ITEM.SECURITY) {
+    } else if (view === SETTING_ITEM.ALARM) {
       securityRef.current?.handleSubmit();
     }
   };
 
   const render = {
     [SETTING_ITEM.PROFILE]: <ProfileSetting ref={profileRef} />,
-    [SETTING_ITEM.SECURITY]: <SecuritySetting ref={securityRef} />,
+    [SETTING_ITEM.ALARM]: <AlarmSetting ref={securityRef} />,
     [SETTING_ITEM.WITHDRAW]: <WithdrawSetting />,
   };
 
