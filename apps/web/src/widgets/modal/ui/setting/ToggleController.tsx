@@ -1,14 +1,12 @@
 import React from 'react';
 import { Toggle } from '@soup/design-system';
 import { Control, Controller } from 'react-hook-form';
-import type { ProfileSettingItem } from '~/shared/types';
+import type { AlarmSettingItem } from '~/shared/types';
 
 interface ToggleControllerProps {
   label: string;
-  name:
-    | keyof ProfileSettingItem
-    | `toggles.${keyof ProfileSettingItem['toggles']}`;
-  control: Control<ProfileSettingItem>;
+  name: keyof AlarmSettingItem;
+  control: Control<AlarmSettingItem>;
   id: string;
 }
 
