@@ -1,8 +1,8 @@
 import React from 'react';
 
 import comments from '~/mocks/board.json';
-import { BoardItem } from '~/widgets/project/types';
-import { BOARD, BOARD_LABEL, COLOR } from '~/widgets/project/model';
+import { BoardItem } from '~/shared/types';
+import { BOARD, BOARD_LABEL, COLOR } from '~/shared/constants';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PATH } from '~/shared/constants';
 import { getPath } from '~/shared/utils';
