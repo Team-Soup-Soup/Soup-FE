@@ -6,7 +6,7 @@ export const PATH = {
   FIND_PW: '/help-pw',
   PROJECT: '/project',
   PROJECT_CONTENT: '/project/:projectId',
-  BOARD: '/project/:projectId/board',
-  BOARD_CONTENT: '/board',
-  POST_DETAIL: '/project/:projectId/board/:postId',
+  BOARD: 'board',
+  POST_DETAIL: ':postId',
+  SEARCH: 'search',
 } as const;

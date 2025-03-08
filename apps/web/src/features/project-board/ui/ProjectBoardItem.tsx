@@ -22,7 +22,7 @@ export default function ProjectBoardItem({
   return (
     <div
       className="rounded-auth border-main-board-border text-md flex h-14 w-full cursor-pointer items-center gap-x-8 border-[1px] px-6 py-[10px] font-light"
-      onClick={() => navigate(getPath(location.pathname, `/${postId}`))}
+      onClick={() => navigate(getPath(location.pathname, `${postId}`))}
     >
       <div
         className="w-25 text-nowrap px-[10px] py-1 text-center"

@@ -1,1 +1,1 @@
-export const getPath = (base: string, path: string) => base + path;
+export const getPath = (base: string, path: string) => base + '/' + path;

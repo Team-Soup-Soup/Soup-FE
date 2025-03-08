@@ -16,6 +16,7 @@ import {
   LogoutModal,
   SettingModal,
 } from '~/widgets/modal/ui';
+import { getPath } from '~/shared/utils';
 
 export default function Sidebar() {
   const { openModal } = useModal();
@@ -23,10 +24,6 @@ export default function Sidebar() {
 
   const handleModal = (key: ModalItem) => {
     openModal(key);
-  };
-
-  const createIdUrl = (root: string, id: string) => {
-    return root + '/' + id;
   };
 
   useEffect(() => {
@@ -67,7 +64,7 @@ export default function Sidebar() {
                         'border-point border-bold text-point border-l-3',
                     )
                   }
-                  to={createIdUrl(PATH.PROJECT, project)}
+                  to={getPath(PATH.PROJECT, project)}
                 >
                   <span>{project}</span>
                 </NavLink>

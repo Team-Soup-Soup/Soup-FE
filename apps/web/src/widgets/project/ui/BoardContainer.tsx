@@ -27,9 +27,7 @@ function BoardView() {
         <span className="text-md">게시판</span>
         <span
           className="text-light hover:text-dark cursor-pointer"
-          onClick={() =>
-            navigate(getPath(location.pathname, PATH.BOARD_CONTENT))
-          }
+          onClick={() => navigate(getPath(location.pathname, PATH.BOARD))}
         >
           더보기 &gt;&gt;
         </span>
