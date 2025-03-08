@@ -1,6 +1,10 @@
 import { type RouteObject } from 'react-router-dom';
 
-import { ProjectBoardPage, ProjectBoardPostPage } from '~/pages/project/ui';
+import {
+  ProjectBoardPage,
+  ProjectBoardPostPage,
+  ProjectBoardSearchPage,
+} from '~/pages/project/ui';
 import { PATH } from '~/shared/constants';
 
 export const ProjectBoardRoutes: RouteObject = {
@@ -11,5 +15,6 @@ export const ProjectBoardRoutes: RouteObject = {
       path: PATH.POST_DETAIL,
       element: <ProjectBoardPostPage />,
     },
+    { path: PATH.SEARCH, element: <ProjectBoardSearchPage /> },
   ],
 };
