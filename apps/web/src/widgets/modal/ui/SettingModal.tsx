@@ -29,6 +29,12 @@ export default function SettingModal() {
     [SETTING_ITEM.WITHDRAW]: <WithdrawSetting />,
   };
 
+  useEffect(() => {
+    if (!openSetting) {
+      setView(SETTING_ITEM.PROFILE);
+    }
+  }, [openSetting]);
+
   return (
     openSetting && (
       <Modal modalKey={MODAL.SETTING}>
