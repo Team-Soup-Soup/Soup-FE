@@ -41,11 +41,8 @@ export default function AlarmSetting({ ref }: AlarmSettingProps) {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-[62px]">
         <div>
-          <p className="text-md mb-2 flex items-center gap-[10px] font-light">
-            알림 설정
-            <span className="text-light text-sm">
-              멘션 알림은 해제할 수 없습니다.
-            </span>
+          <p className="text-light mb-2 flex items-center gap-[10px] text-sm font-light">
+            멘션 알림은 해제할 수 없습니다.
           </p>
           <div className="bg-lock h-[290px] w-full rounded-[10px]">
             <div className="flex flex-col gap-[24px] rounded-[10px] p-[30px]">
