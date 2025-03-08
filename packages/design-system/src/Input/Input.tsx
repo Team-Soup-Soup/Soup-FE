@@ -7,6 +7,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   inputClassName?: string;
   isSearch?: boolean;
   maxLength?: number;
+  searchHandler?: () => void;
 }
 
 const Input = ({
@@ -21,6 +22,7 @@ const Input = ({
   className,
   children,
   placeholder,
+  searchHandler,
   ...rest
 }: InputProps) => {
   const inputRef = useRef(null);
@@ -56,7 +58,7 @@ const Input = ({
         />
         {isSearch && (
           <img
-            className="absolute left-3 top-1/2 -translate-y-1/2 transform"
+            className="absolute left-3 top-1/2 -translate-y-1/2 transform cursor-pointer"
             src="/search.svg"
             alt="search"
             style={{
@@ -65,6 +67,7 @@ const Input = ({
               width: '24px',
               height: '24px',
             }}
+            onClick={searchHandler}
           />
         )}
       </div>

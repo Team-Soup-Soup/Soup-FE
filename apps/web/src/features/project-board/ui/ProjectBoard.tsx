@@ -3,13 +3,24 @@ import React, { useState } from 'react';
 import { Input, Pagination, Radio } from '@soup/design-system';
 
 import { BOARD, BOARD_LABEL } from '~/shared/constants';
-import ProjectBoardItem from './ProjectBoardItem';
+import { ProjectBoardItem } from '~/features/project-board/ui';
 import { BoardContent, BoardItem } from '~/shared/types';
 import { boardDataList } from '~/mocks';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getPath } from '~/shared/utils';
 
 export default function ProjectBoard() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [selected, setSelected] = useState<string>('');
+  const [value, setValue] = useState<string>('');
+
   const data = boardDataList;
+  const currentLocation = location.pathname;
+
+  const handleSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setValue(e.target.value);
+  };
 
   return (
     <div className="w-200 mt-25 mx-auto mb-11 flex h-full flex-col md:w-[70%]">
@@ -27,7 +38,14 @@ export default function ProjectBoard() {
               />
             ))}
           </div>
-          <Input isSearch />
+          <Input
+            isSearch
+            value={value}
+            onChange={handleSearch}
+            searchHandler={() =>
+              navigate(getPath(currentLocation, `search?q=${value}`))
+            }
+          />
         </div>
       </div>
       <div className="rounded-auth bg-lock text-md mb-4 flex w-full gap-x-8 px-6 py-[10px] font-light">
