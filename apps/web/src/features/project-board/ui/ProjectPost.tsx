@@ -8,7 +8,7 @@ import type { Comment, DetailedBoardContent, ModalItem } from '~/shared/types';
 import { ProjectPostComment } from '~/features/project-board/ui';
 import { useModal } from '~/shared/hooks';
 import { MODAL } from '~/shared/constants';
-import { DeletePostModal } from '~/widgets/modal/ui';
+import { DeleteModal } from '~/widgets/modal/ui';
 
 export default function ProjectPost() {
   const { postId } = useParams();
@@ -29,7 +29,7 @@ export default function ProjectPost() {
           </div>
         </div>
       </div>
-      <DeletePostModal />
+      <DeleteModal />
     </>
   );
 }

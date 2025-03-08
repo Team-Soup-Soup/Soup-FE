@@ -26,3 +26,11 @@ export function useModalState({ key }: UseModalProps) {
   const modal = useAtomValue(modalAtom)[key] || { isOpen: false };
   return modal;
 }
+
+export function useModalKeyState() {
+  const openModal = Object.entries(useAtomValue(modalAtom))
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    .filter(([_, value]) => value.isOpen)
+    .map(([key]) => key);
+  return openModal;
+}
