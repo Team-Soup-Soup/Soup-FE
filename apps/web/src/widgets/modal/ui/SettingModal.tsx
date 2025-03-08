@@ -1,7 +1,7 @@
 import { MODAL, SETTING_ITEM } from '~/shared/constants';
-import { useModalState } from '~/shared/hooks';
+import { useModal, useModalState } from '~/shared/hooks';
 import { Modal } from '~/shared/ui';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@soup/utils';
 import { Button } from '@soup/design-system';
 import { ProfileSetting, AlarmSetting, WithdrawSetting } from './setting';
@@ -9,6 +9,7 @@ import type { SettingItem } from '~/shared/types';
 
 export default function SettingModal() {
   const { isOpen: openSetting } = useModalState({ key: MODAL.SETTING });
+  const { openModal, closeModal } = useModal();
 
   const [view, setView] = useState<SettingItem>(SETTING_ITEM.PROFILE);
 
@@ -21,6 +22,8 @@ export default function SettingModal() {
     } else if (view === SETTING_ITEM.ALARM) {
       securityRef.current?.handleSubmit();
     }
+    closeModal(MODAL.SETTING);
+    openModal(MODAL.UPDATE);
   };
 
   const render = {

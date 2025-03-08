@@ -3,6 +3,7 @@ export const MODAL = {
   LOGOUT: 'logout',
   SETTING: 'setting',
   ALARM: 'alarm',
+  UPDATE: 'update',
 } as const;
 
 export const SETTING_ITEM = {
