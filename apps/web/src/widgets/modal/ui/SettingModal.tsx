@@ -46,19 +46,21 @@ export default function SettingModal() {
         >
           {view !== SETTING_ITEM.WITHDRAW && (
             <ul className="mb-16 flex gap-[32px]">
-              {Object.values(SETTING_ITEM).map((item) => (
-                <li
-                  key={item}
-                  className={cn(
-                    'text-light hover:cursor-pointer',
-                    item === view &&
-                      'text-dark decoration-lock-dark rounded-lg underline underline-offset-8',
-                  )}
-                  onClick={() => setView(item)}
-                >
-                  {item}
-                </li>
-              ))}
+              {Object.values(SETTING_ITEM)
+                .filter((item) => item !== SETTING_ITEM.WITHDRAW)
+                .map((item) => (
+                  <li
+                    key={item}
+                    className={cn(
+                      'text-light hover:cursor-pointer',
+                      item === view &&
+                        'text-dark decoration-lock-dark rounded-lg underline underline-offset-8',
+                    )}
+                    onClick={() => setView(item)}
+                  >
+                    {item}
+                  </li>
+                ))}
             </ul>
           )}
         </Modal.Header>
