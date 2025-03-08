@@ -29,19 +29,22 @@ const schema = z
     [PROFILE.NOW_PASSWORD]: z.string().min(1, '현재 비밀번호를 입력해주세요'),
     [PROFILE.NEW_PASSWORD]: z
       .string()
-      .min(SETTING_MIN_LENGTH.PASSWORD)
-      .refine((password) =>
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(password),
+      .min(SETTING_MIN_LENGTH.PASSWORD, '올바르지 못한 비밀번호예요')
+      .regex(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_]).{8,}$/,
+        '올바르지 못한 비밀번호예요',
       ),
-    [PROFILE.CHECK_PASSWORD]: z.string().min(SETTING_MIN_LENGTH.PASSWORD),
+    [PROFILE.CHECK_PASSWORD]: z.string(),
   })
-  .refine(
-    (value) => value[PROFILE.NEW_PASSWORD] !== value[PROFILE.NEW_PASSWORD],
-    {
-      path: [PROFILE.CHECK_PASSWORD],
-      message: '새 비밀번호가 일치하지 않아요.',
-    },
-  );
+  .superRefine((data, ctx) => {
+    if (data[PROFILE.NEW_PASSWORD] !== data[PROFILE.CHECK_PASSWORD]) {
+      ctx.addIssue({
+        path: [PROFILE.NEW_PASSWORD],
+        message: '올바르지 못한 비밀번호예요',
+        code: z.ZodIssueCode.custom,
+      });
+    }
+  });
 
 export default function ProfileSetting({ ref }: ProfileSettingProps) {
   const {
@@ -128,7 +131,6 @@ export default function ProfileSetting({ ref }: ProfileSettingProps) {
               id={PROFILE.NOW_PASSWORD}
               label="현재 비밀번호"
               errorMessage={errors.nowPassword?.message}
-              type="password"
               placeholder="현재 비밀번호를 입력해주세요"
               inputClassName="bg-lock border-none text-md px-[30px]"
               showPasswordButton
@@ -140,7 +142,6 @@ export default function ProfileSetting({ ref }: ProfileSettingProps) {
               id={PROFILE.NEW_PASSWORD}
               label="새 비밀번호"
               errorMessage={errors.newPassword?.message}
-              type="password"
               placeholder="새 비밀번호를 입력해주세요"
               inputClassName="bg-lock border-none text-md px-[30px]"
               showPasswordButton
@@ -148,7 +149,6 @@ export default function ProfileSetting({ ref }: ProfileSettingProps) {
             />
             <Input
               id={PROFILE.CHECK_PASSWORD}
-              type="password"
               placeholder="새 비밀번호를 다시 입력해주세요"
               inputClassName="bg-lock border-none text-md px-[30px]"
               showPasswordButton
