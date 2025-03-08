@@ -7,7 +7,7 @@ export default function LocationHeader() {
   const location = useLocation();
   const currentLocation = location.pathname.split('/');
 
-  const locationParts = useMemo(() => {
+  let locationParts = useMemo(() => {
     const currentLocation = location.pathname.split('/');
     return currentLocation
       .slice(1)
@@ -15,6 +15,7 @@ export default function LocationHeader() {
   }, [location.pathname]);
 
   if (locationParts.length === 0) return null;
+  if (locationParts.length >= 3) locationParts = locationParts.slice(0, 3);
 
   return (
     <div className="absolute top-0 w-full px-8 py-5">
