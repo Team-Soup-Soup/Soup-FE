@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
 import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 import { cn } from '@soup/utils';
 
@@ -21,12 +20,6 @@ import {
 export default function Sidebar() {
   const { openModal } = useModal();
   const { changeProject } = useProject();
-  const navigate = useNavigate();
-
-  const handleProjectClick = (id: string) => {
-    changeProject(id);
-    navigate(`/project/${id}`);
-  };
 
   const handleModal = (key: ModalItem) => {
     openModal(key);
@@ -75,7 +68,6 @@ export default function Sidebar() {
                     )
                   }
                   to={createIdUrl(PATH.PROJECT, project)}
-                  onClick={() => handleProjectClick(project)}
                 >
                   <span>{project}</span>
                 </NavLink>
