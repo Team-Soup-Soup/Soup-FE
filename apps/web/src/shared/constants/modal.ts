@@ -3,6 +3,8 @@ export const MODAL = {
   LOGOUT: 'logout',
   SETTING: 'setting',
   ALARM: 'alarm',
+  DELETE_POST: 'deletePost',
+  DELETE_COMMENT: 'deleteComment',
 } as const;
 
 export const SETTING_ITEM = {
