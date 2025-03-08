@@ -6,6 +6,7 @@ import ToggleController from './ToggleController';
 interface AlarmSettingProps {
   ref: React.Ref<{
     handleSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
+    isValid: boolean;
   }>;
 }
 
@@ -13,8 +14,8 @@ export default function AlarmSetting({ ref }: AlarmSettingProps) {
   const {
     handleSubmit,
     formState: { isValid },
-    reset,
     control,
+    trigger,
   } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -27,14 +28,18 @@ export default function AlarmSetting({ ref }: AlarmSettingProps) {
 
   useImperativeHandle(ref, () => ({
     handleSubmit: handleSubmit(onSubmit),
+    isValid,
   }));
 
   const onSubmit = useCallback(
-    (data: AlarmSettingItem) => {
-      console.log(data);
-      reset();
+    async (data: AlarmSettingItem) => {
+      const isValidForm = await trigger();
+
+      if (isValidForm) {
+        console.log(data);
+      }
     },
-    [reset],
+    [trigger],
   );
 
   return (

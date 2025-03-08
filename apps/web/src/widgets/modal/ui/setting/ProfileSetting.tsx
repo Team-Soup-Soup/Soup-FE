@@ -14,6 +14,7 @@ import { cn } from '@soup/utils';
 interface ProfileSettingProps {
   ref: React.Ref<{
     handleSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
+    isValid: boolean;
   }>;
 }
 
@@ -34,17 +35,20 @@ const schema = z
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_]).{8,}$/,
         '올바르지 못한 비밀번호예요',
       ),
-    [PROFILE.CHECK_PASSWORD]: z.string(),
+    [PROFILE.CHECK_PASSWORD]: z.string().min(SETTING_MIN_LENGTH.PASSWORD),
   })
-  .superRefine((data, ctx) => {
-    if (data[PROFILE.NEW_PASSWORD] !== data[PROFILE.CHECK_PASSWORD]) {
-      ctx.addIssue({
-        path: [PROFILE.NEW_PASSWORD],
-        message: '올바르지 못한 비밀번호예요',
-        code: z.ZodIssueCode.custom,
-      });
-    }
-  });
+  .refine(
+    (data) => {
+      return (
+        !data[PROFILE.CHECK_PASSWORD] ||
+        data[PROFILE.NEW_PASSWORD] === data[PROFILE.CHECK_PASSWORD]
+      );
+    },
+    {
+      message: '비밀번호가 일치하지 않아요',
+      path: [PROFILE.NEW_PASSWORD],
+    },
+  );
 
 export default function ProfileSetting({ ref }: ProfileSettingProps) {
   const {
@@ -52,6 +56,7 @@ export default function ProfileSetting({ ref }: ProfileSettingProps) {
     register,
     formState: { errors, isValid },
     setValue,
+    reset,
     watch,
   } = useForm({
     defaultValues: {
@@ -65,6 +70,7 @@ export default function ProfileSetting({ ref }: ProfileSettingProps) {
 
   useImperativeHandle(ref, () => ({
     handleSubmit: handleSubmit(onSubmit),
+    isValid,
   }));
 
   const handleImageInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -80,9 +86,13 @@ export default function ProfileSetting({ ref }: ProfileSettingProps) {
     }
   };
 
-  const onSubmit = useCallback((data: ProfileSettingItem) => {
-    console.log(data);
-  }, []);
+  const onSubmit = useCallback(
+    (data: ProfileSettingItem) => {
+      reset();
+      console.log(data);
+    },
+    [reset],
+  );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

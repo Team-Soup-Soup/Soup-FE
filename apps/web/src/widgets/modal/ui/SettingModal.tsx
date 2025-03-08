@@ -13,17 +13,30 @@ export default function SettingModal() {
 
   const [view, setView] = useState<SettingItem>(SETTING_ITEM.PROFILE);
 
-  const profileRef = useRef<{ handleSubmit: () => Promise<void> }>(null);
-  const securityRef = useRef<{ handleSubmit: () => Promise<void> }>(null);
+  const profileRef = useRef<{
+    handleSubmit: () => Promise<void>;
+    isValid: boolean;
+  }>(null);
+  const securityRef = useRef<{
+    handleSubmit: () => Promise<void>;
+    isValid: boolean;
+  }>(null);
 
-  const handleSaveButtonClick = () => {
+  const handleSaveButtonClick = async () => {
+    let isValid = false;
+
     if (view === SETTING_ITEM.PROFILE) {
       profileRef.current?.handleSubmit();
+      isValid = profileRef.current?.isValid ?? false;
     } else if (view === SETTING_ITEM.ALARM) {
       securityRef.current?.handleSubmit();
+      isValid = securityRef.current?.isValid ?? false;
     }
-    closeModal(MODAL.SETTING);
-    openModal(MODAL.UPDATE);
+
+    if (isValid) {
+      closeModal(MODAL.SETTING);
+      openModal(MODAL.UPDATE);
+    }
   };
 
   const render = {
