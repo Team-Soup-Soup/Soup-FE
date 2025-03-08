@@ -1,8 +1,4 @@
 import { cn } from '@soup/utils';
-import Chevron_right from '../assets/chevron_right.svg?react';
-import Chevrons_right from '../assets/chevrons_right.svg?react';
-import Chevron_left from '../assets/chevron_left.svg?react';
-import Chevrons_left from '../assets/chevrons_left.svg?react';
 
 export interface PaginationProps {
   current: number; // 현재 페이지
@@ -49,13 +45,13 @@ const Pagination = ({
     >
       <div className="flex gap-[8px]">
         <button onClick={() => handlePageChange(1)} className="size-[24px]">
-          <img src="/assets/chevrons_left.svg" alt="lefts" />
+          <img src="/icons/chevrons_left.svg" alt="lefts" />
         </button>
         <button
           className="size-[24px]"
           onClick={() => handlePageChange(Math.max(current - 1, 1))}
         >
-          <img src="/assets/chevron_left.svg" alt="left" />
+          <img src="/icons/chevron_left.svg" alt="left" />
         </button>
       </div>
       <div className="flex gap-[8px]">
@@ -77,13 +73,13 @@ const Pagination = ({
           className="size-[24px]"
           onClick={() => handlePageChange(Math.min(totalPage, current + 1))}
         >
-          <img src="/assets/chevron_right.svg" alt="right" />
+          <img src="/icons/chevron_right.svg" alt="right" />
         </button>
         <button
           className="size-[24px]"
           onClick={() => handlePageChange(totalPage)}
         >
-          <img src="/assets/chevrons_right.svg" alt="rights" />
+          <img src="/icons/chevrons_right.svg" alt="rights" />
         </button>
       </div>
     </div>
