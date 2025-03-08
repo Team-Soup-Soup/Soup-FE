@@ -117,13 +117,13 @@ export default function ProfileSetting({ ref }: ProfileSettingProps) {
           />
         </div>
         <div className="flex flex-col gap-[8px]">
-          <label htmlFor="id">아이디</label>
-          <p
+          <Input
             id="id"
-            className="border-main-board-border text-light bg-main-board size-full rounded-[10px] border p-[10px] font-light"
-          >
-            userId
-          </p>
+            value="userId"
+            label="아이디"
+            inputClassName="border-main-board-border text-light bg-main-board size-full rounded-[10px] border p-[10px] font-light"
+            disabled
+          />
         </div>
         <div className="flex flex-col gap-[30px]">
           <div className="flex flex-col gap-[8px]">
