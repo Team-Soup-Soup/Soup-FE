@@ -16,7 +16,7 @@ export default function ProjectBoard() {
       <div className="mb-5 flex w-full flex-col items-start gap-y-2">
         <div className="text-lg">게시판</div>
         <div className="flex w-full justify-between">
-          <div className="flex gap-x-16">
+          <div className="flex gap-x-10 xl:gap-x-16">
             {BOARD_LABEL.map((label: BoardItem) => (
               <Radio
                 key={BOARD[label].title}
