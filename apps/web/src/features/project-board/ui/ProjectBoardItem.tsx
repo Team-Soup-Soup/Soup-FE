@@ -21,7 +21,7 @@ export default function ProjectBoardItem({
 
   return (
     <div
-      className="rounded-auth border-main-board-border text-md flex h-14 w-full cursor-pointer items-center gap-x-8 border-[1px] px-6 py-[10px] font-light"
+      className="rounded-auth border-main-board-border text-md box-shadow-4 flex h-14 w-full cursor-pointer items-center gap-x-8 border-[1px] px-6 py-[10px] font-light"
       onClick={() => navigate(getPath(location.pathname, `${postId}`))}
     >
       <div
