@@ -7,6 +7,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   inputClassName?: string;
   isSearch?: boolean;
   maxLength?: number;
+  searchHandler?: () => void;
   errorMessage?: string;
   showPasswordButton?: boolean;
 }
@@ -25,6 +26,7 @@ const Input = ({
   className,
   children,
   placeholder,
+  searchHandler,
   ...rest
 }: InputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -105,6 +107,7 @@ const Input = ({
               width: '24px',
               height: '24px',
             }}
+            onClick={searchHandler}
           />
         )}
       </div>

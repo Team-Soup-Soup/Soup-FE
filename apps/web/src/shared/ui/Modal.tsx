@@ -7,6 +7,7 @@ interface ModalProps extends PropsWithChildren {
   modalKey: ModalItem;
   title?: string;
   className?: string;
+  coloredBg?: boolean;
 }
 interface ModalHeaderProps extends PropsWithChildren {
   title: string;
@@ -19,7 +20,12 @@ interface ModalFooterProps extends PropsWithChildren {
   className?: string;
 }
 
-export default function Modal({ modalKey, className, children }: ModalProps) {
+export default function Modal({
+  modalKey,
+  className,
+  children,
+  coloredBg = true,
+}: ModalProps) {
   const { closeModal } = useModal();
 
   useEffect(() => {
@@ -39,12 +45,14 @@ export default function Modal({ modalKey, className, children }: ModalProps) {
       id={modalKey}
       className={cn(
         'bg-black/12.5 fixed inset-0 z-30 flex items-center justify-center',
+        coloredBg ? 'bg-black/12.5' : 'bg-transparent',
       )}
     >
       <div
         className={cn(
-          'border-main-board-border box-shadow min-h-[196px] min-w-[500px] rounded-[20px] bg-white px-[40px] pb-[20px]',
+          'border-main-board-border min-h-[196px] min-w-[500px] rounded-[20px] border-[1px] bg-white px-[40px] pb-[20px]',
           className,
+          coloredBg ? 'box-shadow' : 'box-shadow-4',
         )}
       >
         {children}

@@ -1,8 +1,11 @@
 import React from 'react';
 
-import comments from '~/mocks/board.json';
-import { BoardItem } from '~/widgets/project/types';
-import { BOARD, BOARD_LABEL, COLOR } from '~/widgets/project/model';
+import boardDataList from '~/mocks/board.json';
+import type { BoardItem, BoardItemValue } from '~/shared/types';
+import { BOARD, BOARD_LABEL, COLOR } from '~/shared/constants';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { PATH } from '~/shared/constants';
+import { getPath } from '~/shared/utils';
 
 export default function BoardContainer() {
   return (
@@ -14,12 +17,20 @@ export default function BoardContainer() {
 }
 
 function BoardView() {
-  const data = comments;
+  const data = boardDataList;
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <div className="rounded-auth border-main-board-border box-shadow-4 flex h-full flex-1 flex-col border-[1px] px-6 py-4">
       <div className="mb-4 flex items-center justify-between font-light">
         <span className="text-md">게시판</span>
-        <span className="text-light cursor-pointer">더보기 &gt;&gt;</span>
+        <span
+          className="text-light hover:text-dark cursor-pointer"
+          onClick={() => navigate(getPath(location.pathname, PATH.BOARD))}
+        >
+          더보기 &gt;&gt;
+        </span>
       </div>
       <div className="flex size-full flex-col gap-y-[6px]">
         {data.slice(0, 4).map(({ postId, category, title, createAt }) => (
@@ -29,7 +40,9 @@ function BoardView() {
           >
             <div
               className="flex w-44 items-center justify-center text-nowrap py-[1px]"
-              style={{ backgroundColor: `${COLOR[category]}` }}
+              style={{
+                backgroundColor: `${COLOR[category as BoardItemValue]}`,
+              }}
             >
               {category}
             </div>

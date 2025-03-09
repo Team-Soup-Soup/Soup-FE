@@ -1,4 +1,4 @@
-import { BoardItem } from '../../types';
+import { BoardItem, BoardItemValue } from '~/shared/types';
 import noticeIcon from '~/assets/icons/board-notice.svg';
 import meetingIcon from '~/assets/icons/board-meeting.svg';
 import voteIcon from '~/assets/icons/board-vote.svg';
@@ -11,7 +11,7 @@ export const BOARD = {
     icon: noticeIcon,
   },
   MEETING: {
-    title: '회의 플래너',
+    title: '회의플래너',
     icon: meetingIcon,
   },
   VOTE: {
@@ -26,9 +26,9 @@ export const BOARD = {
     title: '자유글',
     icon: freeTextIcon,
   },
-};
+} as const;
 
-export const COLOR: Record<string, string> = {
+export const COLOR: Record<BoardItemValue, string> = {
   공지: '#FFD993',
   회의플래너: '#F1F0EE',
   투표: '#F8F1E3',
@@ -36,4 +36,4 @@ export const COLOR: Record<string, string> = {
   자유글: '#F6F3FB',
 };
 
-export const BOARD_LABEL = Object.keys(BOARD) as BoardItem[];
+export const BOARD_LABEL: BoardItem[] = Object.keys(BOARD) as BoardItem[];

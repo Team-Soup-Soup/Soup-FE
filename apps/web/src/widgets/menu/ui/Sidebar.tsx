@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
 import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 import { cn } from '@soup/utils';
 
@@ -18,23 +17,14 @@ import {
   SettingModal,
   UpdateModal,
 } from '~/widgets/modal/ui';
+import { getPath } from '~/shared/utils';
 
 export default function Sidebar() {
   const { openModal } = useModal();
   const { changeProject } = useProject();
-  const navigate = useNavigate();
-
-  const handleProjectClick = (id: string) => {
-    changeProject(id);
-    navigate(`/project/${id}`);
-  };
 
   const handleModal = (key: ModalItem) => {
     openModal(key);
-  };
-
-  const createIdUrl = (root: string, id: string) => {
-    return root + '/' + id;
   };
 
   useEffect(() => {
@@ -75,8 +65,7 @@ export default function Sidebar() {
                         'border-point border-bold text-point border-l-3',
                     )
                   }
-                  to={createIdUrl(PATH.PROJECT, project)}
-                  onClick={() => handleProjectClick(project)}
+                  to={getPath(PATH.PROJECT, project)}
                 >
                   <span>{project}</span>
                 </NavLink>
