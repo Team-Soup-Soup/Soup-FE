@@ -16,6 +16,7 @@ import {
   CreateProjectModal,
   LogoutModal,
   SettingModal,
+  UpdateModal,
 } from '~/widgets/modal/ui';
 
 export default function Sidebar() {
@@ -109,6 +110,7 @@ export default function Sidebar() {
       <LogoutModal />
       <SettingModal />
       <AlarmModal />
+      <UpdateModal />
     </>
   );
 }

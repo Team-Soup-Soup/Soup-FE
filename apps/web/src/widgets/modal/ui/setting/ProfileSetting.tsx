@@ -2,14 +2,53 @@ import { Input } from '@soup/design-system';
 import React, { ChangeEvent, useCallback, useImperativeHandle } from 'react';
 import type { ProfileSettingItem } from '~/shared/types';
 import { useForm } from 'react-hook-form';
-import { SETTING_MAX_LENGTH } from '~/shared/constants';
-import ToggleController from './ToggleController';
+import {
+  PROFILE,
+  SETTING_MAX_LENGTH,
+  SETTING_MIN_LENGTH,
+} from '~/shared/constants';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { cn } from '@soup/utils';
 
 interface ProfileSettingProps {
   ref: React.Ref<{
     handleSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
+    isValid: boolean;
   }>;
 }
+
+const schema = z
+  .object({
+    [PROFILE.IMAGE]: z.string(),
+    [PROFILE.NAME]: z
+      .string()
+      .max(
+        SETTING_MAX_LENGTH.NAME,
+        `이름은 ${SETTING_MAX_LENGTH.NAME}자 이내여야 해요`,
+      ),
+    [PROFILE.NOW_PASSWORD]: z.string().min(1, '현재 비밀번호를 입력해주세요'),
+    [PROFILE.NEW_PASSWORD]: z
+      .string()
+      .min(SETTING_MIN_LENGTH.PASSWORD, '올바르지 못한 비밀번호예요')
+      .regex(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_]).{8,}$/,
+        '올바르지 못한 비밀번호예요',
+      ),
+    [PROFILE.CHECK_PASSWORD]: z.string().min(SETTING_MIN_LENGTH.PASSWORD),
+  })
+  .refine(
+    (data) => {
+      return (
+        !data[PROFILE.CHECK_PASSWORD] ||
+        data[PROFILE.NEW_PASSWORD] === data[PROFILE.CHECK_PASSWORD]
+      );
+    },
+    {
+      message: '비밀번호가 일치하지 않아요',
+      path: [PROFILE.NEW_PASSWORD],
+    },
+  );
 
 export default function ProfileSetting({ ref }: ProfileSettingProps) {
   const {
@@ -17,26 +56,21 @@ export default function ProfileSetting({ ref }: ProfileSettingProps) {
     register,
     formState: { errors, isValid },
     setValue,
+    reset,
     watch,
-    control,
   } = useForm({
     defaultValues: {
       image: '/images/user_profile.webp',
-      name: '',
-      toggles: {
-        postComment: true,
-        boardComment: false,
-        boardQuestion: true,
-        questionComment: true,
-      },
     },
     mode: 'onChange',
+    resolver: zodResolver(schema),
   });
 
   const { image, name } = watch();
 
   useImperativeHandle(ref, () => ({
     handleSubmit: handleSubmit(onSubmit),
+    isValid,
   }));
 
   const handleImageInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,98 +86,87 @@ export default function ProfileSetting({ ref }: ProfileSettingProps) {
     }
   };
 
-  const onSubmit = useCallback((data: ProfileSettingItem) => {
-    console.log(data);
-  }, []);
+  const onSubmit = useCallback(
+    (data: ProfileSettingItem) => {
+      reset();
+      console.log(data);
+    },
+    [reset],
+  );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex flex-col gap-[42px]">
-        <div className="flex items-center gap-[32px]">
-          <label htmlFor="file">
-            <input
-              id="file"
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleImageInputChange}
-            />
-            <img
-              id="file"
-              src={image}
-              alt="프로필"
-              width={120}
-              height={120}
-              className="rounded-full"
-            />
-          </label>
-          <p className="font-light">프로필 변경하기</p>
-        </div>
+      <div className="flex flex-col gap-[30px]">
+        <label htmlFor="file">
+          <input
+            id="file"
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleImageInputChange}
+          />
+          <img
+            id="file"
+            src={image}
+            alt="프로필"
+            width={73}
+            height={73}
+            className="rounded-full"
+          />
+        </label>
         <div className="flex flex-col gap-[8px]">
           <Input
             id="name"
             label="이름"
+            errorMessage={errors.name?.message}
             value={name || ''}
             maxLength={SETTING_MAX_LENGTH.NAME}
             inputClassName="bg-lock border-none text-md px-[30px]"
             placeholder="이름을 입력해주세요"
-            {...register('name', {
-              required: '이름은 필수 입력값이에요',
-              maxLength: {
-                value: SETTING_MAX_LENGTH.NAME,
-                message: `이름은 ${SETTING_MAX_LENGTH.NAME}자 이내여야 해요`,
-              },
-            })}
+            {...register(PROFILE.NAME)}
           />
-          {errors.name && (
-            <p className="text-important text-end text-sm">
-              {errors.name.message}
-            </p>
-          )}
         </div>
-        <div>
-          <p className="text-md mb-2 flex items-center gap-[10px] font-light">
-            알림 설정
-            <span className="text-light text-sm">
-              멘션 알림은 해제할 수 없습니다.
-            </span>
-          </p>
-          <div className="bg-lock h-[290px] w-full rounded-[10px]">
-            <div className="flex flex-col gap-[24px] rounded-[10px] p-[30px]">
-              <div className="flex flex-col gap-[4px]">
-                <label className="text-light text-sm">내 게시글</label>
-                <ToggleController
-                  label="댓글 알림"
-                  name="toggles.postComment"
-                  id="postComment"
-                  control={control}
-                />
-              </div>
-              <div className="flex flex-col gap-[4px]">
-                <label className="text-light text-sm">내 보드</label>
-                <ToggleController
-                  label="댓글 알림"
-                  name="toggles.boardComment"
-                  id="boardComment"
-                  control={control}
-                />
-                <ToggleController
-                  label="질문 알림"
-                  name="toggles.boardQuestion"
-                  id="boardQuestion"
-                  control={control}
-                />
-              </div>
-              <div className="flex flex-col gap-[4px]">
-                <label className="text-light text-sm">내 질문</label>
-                <ToggleController
-                  label="답글 알림"
-                  name="toggles.questionComment"
-                  id="questionComment"
-                  control={control}
-                />
-              </div>
-            </div>
+        <div className="flex flex-col gap-[8px]">
+          <Input
+            id="id"
+            value="userId"
+            label="아이디"
+            inputClassName="border-main-board-border text-light bg-main-board size-full rounded-[10px] border p-[10px] font-light"
+            disabled
+          />
+        </div>
+        <div className="flex flex-col gap-[30px]">
+          <div className="flex flex-col gap-[8px]">
+            <Input
+              id={PROFILE.NOW_PASSWORD}
+              label="현재 비밀번호"
+              errorMessage={errors.nowPassword?.message}
+              placeholder="현재 비밀번호를 입력해주세요"
+              inputClassName="bg-lock border-none text-md px-[30px]"
+              showPasswordButton
+              {...register(PROFILE.NOW_PASSWORD)}
+            />
+          </div>
+          <div className="flex flex-col gap-[8px]">
+            <Input
+              id={PROFILE.NEW_PASSWORD}
+              label="새 비밀번호"
+              errorMessage={errors.newPassword?.message}
+              placeholder="새 비밀번호를 입력해주세요"
+              inputClassName="bg-lock border-none text-md px-[30px]"
+              showPasswordButton
+              {...register(PROFILE.NEW_PASSWORD)}
+            />
+            <Input
+              id={PROFILE.CHECK_PASSWORD}
+              placeholder="새 비밀번호를 다시 입력해주세요"
+              inputClassName="bg-lock border-none text-md px-[30px]"
+              showPasswordButton
+              {...register(PROFILE.CHECK_PASSWORD)}
+            />
+            <p className={cn('text-light text-start text-sm font-light')}>
+              영어 + 특수문자 + 숫자 조합으로 8자 이상 작성해주세요
+            </p>
           </div>
         </div>
         <button type="submit" className="hidden" disabled={!isValid} />
