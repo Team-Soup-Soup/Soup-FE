@@ -18,7 +18,7 @@ export default function Breadcrumb() {
   if (locationParts.length >= 3) locationParts = locationParts.slice(0, 3);
 
   return (
-    <div className="absolute top-0 w-full px-8 py-5">
+    <div className="fixed top-0 z-40 w-full bg-white px-8 py-5">
       <div className="text-light flex items-center gap-x-2">
         {locationParts.map((path, index) => {
           const isLastItem = index === locationParts.length - 1;

@@ -21,15 +21,17 @@ export default function ProjectPost() {
 
   return (
     <>
-      <div className="w-200 mt-30 mb-30 mx-auto mb-11 flex h-full flex-col overflow-hidden md:w-[70%]">
+      <div className="w-200 mt-30 scrollbar-hide mx-auto flex h-full flex-col overflow-visible md:w-[70%]">
         <ProjectPostHeader {...post} />
         <ProjectPostContent category={category} content={content} />
         <div className="flex size-full flex-col">
           <ProjectPostCommentHeader {...post} />
-          <div className="h- scrollbar-hide flex size-full flex-1 flex-col gap-y-6 overflow-scroll">
-            {comments.map((comment: Comment) => (
-              <ProjectPostComment {...comment} key={comment.commentId} />
-            ))}
+          <div className="flex-1">
+            <div className="flex w-full flex-1 flex-col gap-y-6 overflow-visible pb-10">
+              {comments.map((comment: Comment) => (
+                <ProjectPostComment {...comment} key={comment.commentId} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
