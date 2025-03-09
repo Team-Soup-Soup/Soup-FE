@@ -22,7 +22,7 @@ export default function ProjectPost() {
         <div className="mb-25 text-md">{content}</div>
         <div className="flex size-full flex-col">
           <ProjectPostCommentHeader {...post} />
-          <div className="h- flex size-full flex-1 flex-col gap-y-6 overflow-scroll">
+          <div className="h- scrollbar-hide flex size-full flex-1 flex-col gap-y-6 overflow-scroll">
             {comments.map((comment: Comment) => (
               <ProjectPostComment {...comment} key={comment.commentId} />
             ))}
