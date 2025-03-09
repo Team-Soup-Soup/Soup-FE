@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+
 import { Input, Pagination } from '@soup/design-system';
 import { boardDataList } from '~/mocks';
 import { ProjectBoardItem } from '~/features/project-board/ui';
-import { BoardContent } from '~/shared/types';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import type { BoardContent } from '~/shared/types';
 import { getPath } from '~/shared/utils';
 
 export default function SearchResult() {
@@ -18,6 +19,12 @@ export default function SearchResult() {
 
   const handleSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setValue(e.target.value);
+  };
+
+  const handleSearchInput = () => {
+    if (value.length > 0) {
+      navigate(getPath(baseUrl, `search?q=${value}`));
+    }
   };
 
   /* api 연동시 현재 구현해둔 Debounce 적용하여 검색 구현 예정입니다. */
@@ -35,10 +42,7 @@ export default function SearchResult() {
             isSearch
             value={value}
             onChange={handleSearch}
-            searchHandler={() => {
-              if (value.length > 0)
-                navigate(getPath(baseUrl, `search?q=${value}`));
-            }}
+            searchHandler={handleSearchInput}
           />
         </div>
       </div>

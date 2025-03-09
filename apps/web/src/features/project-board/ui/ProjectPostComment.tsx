@@ -1,11 +1,16 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { type Dispatch, type SetStateAction, useState } from 'react';
 
 import { cn } from '@soup/utils';
 
 import type { Comment, ModalItem } from '~/shared/types';
-import MoreIcon from '~/assets/icons/comment-more.svg';
 import { useModal } from '~/shared/hooks';
 import { MODAL } from '~/shared/constants';
+import MoreIcon from '~/assets/icons/comment-more.svg';
+
+interface MoreOptionModal {
+  hidden: boolean;
+  setHidden: Dispatch<SetStateAction<boolean>>;
+}
 
 export default function ProjectPostComment({ content, createAt }: Comment) {
   const [hidden, setHidden] = useState<boolean>(true);
@@ -38,15 +43,16 @@ export default function ProjectPostComment({ content, createAt }: Comment) {
   );
 }
 
-interface MoreOptionModal {
-  hidden: boolean;
-  setHidden: Dispatch<SetStateAction<boolean>>;
-}
-
 const MoreOptionModal = ({ hidden, setHidden }: MoreOptionModal) => {
   const { openModal } = useModal();
+
   const handleModal = (key: ModalItem) => {
     openModal(key);
+  };
+
+  const handleDeleteButton = () => {
+    setHidden(true);
+    handleModal(MODAL.DELETE_COMMENT);
   };
 
   return (
@@ -61,10 +67,7 @@ const MoreOptionModal = ({ hidden, setHidden }: MoreOptionModal) => {
       </button>
       <button
         className="hover:bg-normal-dark rounded-auth cursor-pointer p-2 transition duration-200 ease-in-out"
-        onClick={() => {
-          setHidden(true);
-          handleModal(MODAL.DELETE_COMMENT);
-        }}
+        onClick={handleDeleteButton}
       >
         삭제하기
       </button>

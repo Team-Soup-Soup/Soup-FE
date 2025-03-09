@@ -3,10 +3,8 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { COLOR } from '~/shared/constants';
-import { BoardContent, BoardItemValue } from '~/shared/types';
+import type { BoardContent, BoardItemValue } from '~/shared/types';
 import { getPath } from '~/shared/utils';
-
-// interface ProjectBoardItemProps {}
 
 export default function ProjectBoardItem({
   postId,
