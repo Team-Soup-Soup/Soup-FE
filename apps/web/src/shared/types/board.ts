@@ -20,7 +20,7 @@ export type DetailedBoardContent = {
   updateBy: string;
   updateAt: string;
   comments: Comment[];
-  content: string /*일단 String, 다른 타입 사용 예정*/;
+  content: PostType;
 };
 
 export type Comment = {
@@ -28,4 +28,32 @@ export type Comment = {
   content: string;
   parentId: number;
   createAt: string;
+};
+
+export type PostType = BasicPost | NoticePost | VotePost;
+
+export type BasicPost = {
+  content: string;
+};
+
+export type NoticePost = BasicPost & {
+  fixedYn: 'Y' | 'N';
+};
+
+export type VotePost = BasicPost & {
+  voteId: number;
+  title: string;
+  duplicateYn: 'Y' | 'N';
+  optionAddYn: 'Y' | 'N';
+  anonymousYn: 'Y' | 'N';
+  startDt: string;
+  endDt: string;
+  createBy: string;
+  createAt: string;
+  options: VoteOption[];
+};
+
+export type VoteOption = {
+  voteSeq: number;
+  option: string;
 };

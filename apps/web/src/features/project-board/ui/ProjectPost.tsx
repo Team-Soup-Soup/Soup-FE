@@ -5,7 +5,10 @@ import { useParams } from 'react-router-dom';
 
 import { boardDetailedDataList } from '~/mocks';
 import type { Comment, DetailedBoardContent, ModalItem } from '~/shared/types';
-import { ProjectPostComment } from '~/features/project-board/ui';
+import {
+  ProjectPostComment,
+  ProjectPostContent,
+} from '~/features/project-board/ui';
 import { useModal } from '~/shared/hooks';
 import { MODAL } from '~/shared/constants';
 import { DeleteModal } from '~/widgets/modal/ui';
@@ -14,13 +17,13 @@ import { getDate } from '~/shared/utils';
 export default function ProjectPost() {
   const { postId } = useParams();
   const post: DetailedBoardContent = boardDetailedDataList[Number(postId) - 1];
-  const { content, comments } = post;
+  const { content, comments, category } = post;
 
   return (
     <>
       <div className="w-200 mt-30 mb-30 mx-auto mb-11 flex h-full flex-col overflow-hidden md:w-[70%]">
         <ProjectPostHeader {...post} />
-        <div className="mb-25 text-md">{content}</div>
+        <ProjectPostContent category={category} content={content} />
         <div className="flex size-full flex-col">
           <ProjectPostCommentHeader {...post} />
           <div className="h- scrollbar-hide flex size-full flex-1 flex-col gap-y-6 overflow-scroll">
