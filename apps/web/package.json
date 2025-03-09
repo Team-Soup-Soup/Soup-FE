@@ -17,6 +17,7 @@
     "@soup/utils": "workspace:*",
     "@tanstack/react-query": "^5.66.9",
     "@types/react-router-dom": "^5.3.3",
+    "dayjs": "^1.11.13",
     "jotai": "^2.12.1",
     "moment": "^2.30.1",
     "react": "^19.0.0",

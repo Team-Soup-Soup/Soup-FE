@@ -6,6 +6,7 @@ import type { Comment, ModalItem } from '~/shared/types';
 import { useModal } from '~/shared/hooks';
 import { MODAL } from '~/shared/constants';
 import MoreIcon from '~/assets/icons/comment-more.svg';
+import { getDate } from '~/shared/utils';
 
 interface MoreOptionModal {
   hidden: boolean;
@@ -24,8 +25,8 @@ export default function ProjectPostComment({ content, createAt }: Comment) {
           <div className="flex items-center gap-x-3">
             <span>키위새</span>
             <div className="text-light flex gap-x-2 text-sm font-light">
-              <span>{createAt.slice(0, 10).split('-').join('.')}</span>
-              <span>{createAt.slice(11, 16)}</span>
+              <span>{getDate(createAt, 'YYYY.MM.DD')}</span>
+              <span>{getDate(createAt, 'HH:mm')}</span>
             </div>
           </div>
           {content}

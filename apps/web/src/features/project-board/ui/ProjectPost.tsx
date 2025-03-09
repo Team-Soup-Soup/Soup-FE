@@ -9,6 +9,7 @@ import { ProjectPostComment } from '~/features/project-board/ui';
 import { useModal } from '~/shared/hooks';
 import { MODAL } from '~/shared/constants';
 import { DeleteModal } from '~/widgets/modal/ui';
+import { getDate } from '~/shared/utils';
 
 export default function ProjectPost() {
   const { postId } = useParams();
@@ -57,10 +58,8 @@ const ProjectPostHeader = ({
             <div className="size-10 rounded-[50%] bg-black" />
             <span>{createdBy}</span>
           </div>
-          <span className="text-light">
-            {createAt.slice(0, 10).split('-').join('.')}
-          </span>
-          <span className="text-light">{createAt.slice(11, 16)}</span>
+          <span className="text-light">{getDate(createAt, 'YYYY.MM.DD')}</span>
+          <span className="text-light">{getDate(createAt, 'HH:mm')}</span>
         </div>
         <span
           className="text-light hover:text-dark w-fit cursor-pointer text-nowrap text-sm"

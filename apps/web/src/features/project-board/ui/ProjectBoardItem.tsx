@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import { COLOR } from '~/shared/constants';
 import type { BoardContent, BoardItemValue } from '~/shared/types';
-import { getPath } from '~/shared/utils';
+import { getDate, getPath } from '~/shared/utils';
 
 export default function ProjectBoardItem({
   postId,
@@ -37,7 +37,7 @@ export default function ProjectBoardItem({
         {createBy}
       </div>
       <div className="w-23 text-light text-nowrap px-[10px] py-1 text-center text-sm">
-        {createAt.slice(0, 10)}
+        {getDate(createAt, 'YYYY.MM.DD')}
       </div>
       <div className="w-23 text-light px-[10px] py-1 text-center text-sm">
         {commentCnt}
