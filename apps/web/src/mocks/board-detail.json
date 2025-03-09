@@ -82,6 +82,29 @@
       }
     ],
     "content": {
+      "voteId": 1,
+      "title": "다음 팀 이벤트를 투표로 결정합니다!",
+      "duplicateYn": "N",
+      "optionAddYn": "Y",
+      "anonymousYn": "N",
+      "startDt": "2025-03-10T09:00:00Z",
+      "endDt": "2025-03-15T18:00:00Z",
+      "createBy": "admin",
+      "createAt": "2025-03-09T12:00:00Z",
+      "options": [
+        {
+          "voteSeq": 1,
+          "option": "볼링 대회"
+        },
+        {
+          "voteSeq": 2,
+          "option": "보드게임 모임"
+        },
+        {
+          "voteSeq": 3,
+          "option": "테마파크 방문"
+        }
+      ],
       "content": "다음 팀 이벤트를 투표로 결정합니다. 의견을 남겨주세요!"
     }
   },
