@@ -14,3 +14,8 @@ export type AlarmSettingItem = {
 };
 
 export type SettingItem = (typeof SETTING_ITEM)[keyof typeof SETTING_ITEM];
+
+export type ModalRef = {
+  handleSubmit: () => Promise<void>;
+  isValid: boolean;
+};

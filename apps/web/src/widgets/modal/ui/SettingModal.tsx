@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@soup/utils';
 import { Button } from '@soup/design-system';
 import { ProfileSetting, AlarmSetting, WithdrawSetting } from './setting';
-import type { SettingItem } from '~/shared/types';
+import type { ModalRef, SettingItem } from '~/shared/types';
 
 export default function SettingModal() {
   const { isOpen: openSetting } = useModalState({ key: MODAL.SETTING });
@@ -13,14 +13,8 @@ export default function SettingModal() {
 
   const [view, setView] = useState<SettingItem>(SETTING_ITEM.PROFILE);
 
-  const profileRef = useRef<{
-    handleSubmit: () => Promise<void>;
-    isValid: boolean;
-  }>(null);
-  const securityRef = useRef<{
-    handleSubmit: () => Promise<void>;
-    isValid: boolean;
-  }>(null);
+  const profileRef = useRef<ModalRef>(null);
+  const securityRef = useRef<ModalRef>(null);
 
   const handleSaveButtonClick = async () => {
     let isValid = false;
