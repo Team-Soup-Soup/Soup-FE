@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { LOCATION } from '~/shared/constants/location';
 import { LocationKey } from '~/shared/types';
 
-export default function LocationHeader() {
+export default function Breadcrumb() {
   const location = useLocation();
   const currentLocation = location.pathname.split('/');
 
