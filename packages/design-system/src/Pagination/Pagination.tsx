@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { cn } from '@soup/utils';
 
 export interface PaginationProps {
@@ -46,13 +45,13 @@ const Pagination = ({
     >
       <div className="flex gap-[8px]">
         <button onClick={() => handlePageChange(1)} className="size-[24px]">
-          <img src="/chevrons-left.svg" alt="chevrons-left" />
+          <img src="/icons/chevrons_left.svg" alt="lefts" />
         </button>
         <button
           className="size-[24px]"
           onClick={() => handlePageChange(Math.max(current - 1, 1))}
         >
-          <img src="/chevron-left.svg" alt="chevron-left" />
+          <img src="/icons/chevron_left.svg" alt="left" />
         </button>
       </div>
       <div className="flex gap-[8px]">
@@ -74,13 +73,13 @@ const Pagination = ({
           className="size-[24px]"
           onClick={() => handlePageChange(Math.min(totalPage, current + 1))}
         >
-          <img src="/chevron-right.svg" alt="chevron-right" />
+          <img src="/icons/chevron_right.svg" alt="right" />
         </button>
         <button
           className="size-[24px]"
           onClick={() => handlePageChange(totalPage)}
         >
-          <img src="/chevrons-right.svg" alt="chevrons-right" />
+          <img src="/icons/chevrons_right.svg" alt="rights" />
         </button>
       </div>
     </div>

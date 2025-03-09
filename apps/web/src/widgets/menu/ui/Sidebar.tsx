@@ -15,6 +15,7 @@ import {
   CreateProjectModal,
   LogoutModal,
   SettingModal,
+  UpdateModal,
 } from '~/widgets/modal/ui';
 import { getPath } from '~/shared/utils';
 
@@ -98,6 +99,7 @@ export default function Sidebar() {
       <LogoutModal />
       <SettingModal />
       <AlarmModal />
+      <UpdateModal />
     </>
   );
 }
