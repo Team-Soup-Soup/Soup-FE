@@ -30,7 +30,12 @@ export type Comment = {
   createAt: string;
 };
 
-export type PostType = BasicPost | NoticePost | VotePost;
+export type PostType =
+  | BasicPost
+  | NoticePost
+  | VotePost
+  | PeerReviewPost
+  | MeetingPost;
 
 export type BasicPost = {
   content: string;
@@ -56,4 +61,25 @@ export type VotePost = BasicPost & {
 export type VoteOption = {
   voteSeq: number;
   option: string;
+};
+
+export type MeetingPost = {
+  title: string;
+  deadLineDt: string;
+  joinYn: string;
+  createBy: string;
+  createAt: string;
+};
+
+export type PeerReviewPost = MeetingPost & {
+  reviewComments?: PeerReviewComment[];
+};
+
+export type PeerReviewComment = {
+  reviewId: number;
+  reviewee: string;
+  competent: number;
+  promise: number;
+  collaboration: number;
+  reviewComment: string;
 };
