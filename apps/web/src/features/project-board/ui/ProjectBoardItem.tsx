@@ -2,8 +2,8 @@ import React from 'react';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { COLOR } from '~/shared/constants';
-import type { BoardContent, BoardItemValue } from '~/shared/types';
+import { BOARD } from '~/shared/constants';
+import type { BoardContent, BoardItem } from '~/shared/types';
 import { getDate, getPath } from '~/shared/utils';
 
 export default function ProjectBoardItem({
@@ -26,9 +26,9 @@ export default function ProjectBoardItem({
     >
       <div
         className="w-25 text-nowrap px-[10px] py-1 text-center"
-        style={{ backgroundColor: `${COLOR[category as BoardItemValue]}` }}
+        style={{ backgroundColor: `${BOARD[category as BoardItem].color}` }}
       >
-        {category}
+        {BOARD[category as BoardItem].title}
       </div>
       <div className="flex-1 text-ellipsis text-nowrap px-[10px] py-1 text-start">
         {title}

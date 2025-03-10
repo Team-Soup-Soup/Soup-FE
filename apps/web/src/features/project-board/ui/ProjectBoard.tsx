@@ -33,8 +33,8 @@ export default function ProjectBoard() {
                 key={BOARD[label].title}
                 id={BOARD[label].title}
                 label={BOARD[label].title}
-                checked={selected === BOARD[label].title}
-                onChange={() => setSelected(BOARD[label].title)}
+                checked={selected === label}
+                onChange={() => setSelected(label)}
               />
             ))}
           </div>

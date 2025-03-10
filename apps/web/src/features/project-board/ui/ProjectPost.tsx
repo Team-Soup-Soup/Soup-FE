@@ -4,13 +4,18 @@ import { Button, Input } from '@soup/design-system';
 import { useParams } from 'react-router-dom';
 
 import { boardDetailedDataList } from '~/mocks';
-import type { Comment, DetailedBoardContent, ModalItem } from '~/shared/types';
+import type {
+  BoardItem,
+  Comment,
+  DetailedBoardContent,
+  ModalItem,
+} from '~/shared/types';
 import {
   ProjectPostComment,
   ProjectPostContent,
 } from '~/features/project-board/ui';
 import { useModal } from '~/shared/hooks';
-import { MODAL } from '~/shared/constants';
+import { BOARD, MODAL } from '~/shared/constants';
 import { DeleteModal } from '~/widgets/modal/ui';
 import { getDate } from '~/shared/utils';
 
@@ -54,7 +59,7 @@ const ProjectPostHeader = ({
   return (
     <>
       <div className="mb-6 flex flex-col">
-        <p className="text-light">{category}</p>
+        <p className="text-light">{BOARD[category as BoardItem].title}</p>
         <p className="text-lg">{title}</p>
       </div>
       <div className="border-lock mb-8 flex w-full items-center justify-between border-b-[1px] pb-3">

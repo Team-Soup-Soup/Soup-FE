@@ -1,8 +1,8 @@
 import React from 'react';
 
 import boardDataList from '~/mocks/board.json';
-import type { BoardItem, BoardItemValue } from '~/shared/types';
-import { BOARD, BOARD_LABEL, COLOR } from '~/shared/constants';
+import type { BoardItem } from '~/shared/types';
+import { BOARD, BOARD_LABEL } from '~/shared/constants';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PATH } from '~/shared/constants';
 import { getPath } from '~/shared/utils';
@@ -41,10 +41,10 @@ function BoardView() {
             <div
               className="flex w-44 items-center justify-center text-nowrap py-[1px]"
               style={{
-                backgroundColor: `${COLOR[category as BoardItemValue]}`,
+                backgroundColor: `${BOARD[category as BoardItem].color}`,
               }}
             >
-              {category}
+              {BOARD[category as BoardItem].title}
             </div>
             <div className="w-full text-ellipsis text-nowrap">{title}</div>
             <div className="text-light flex">
