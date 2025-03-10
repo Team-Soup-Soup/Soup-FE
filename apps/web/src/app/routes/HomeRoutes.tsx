@@ -2,14 +2,12 @@ import { type RouteObject } from 'react-router-dom';
 
 import { HomeLayout } from '~/app/layouts';
 import { ProjectBoardRoutes } from '~/app/routes/ProjectBoardRoutes';
-import { ErrorPage } from '~/pages/error/ui';
 import { HomePage } from '~/pages/home/ui';
 import { ProjectPage } from '~/pages/project/ui';
 import { PATH } from '~/shared/constants';
 
 export const HomeRoutes: RouteObject = {
   element: <HomeLayout />,
-  errorElement: <ErrorPage />,
   path: PATH.HOME,
   children: [
     { index: true, element: <HomePage /> },

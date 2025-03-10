@@ -1,5 +1,4 @@
 import { type RouteObject } from 'react-router-dom';
-import { ErrorPage } from '~/pages/error/ui';
 
 import {
   ProjectBoardPage,
@@ -10,7 +9,6 @@ import { PATH } from '~/shared/constants';
 
 export const ProjectBoardRoutes: RouteObject = {
   path: PATH.BOARD,
-  errorElement: <ErrorPage />,
   children: [
     { index: true, element: <ProjectBoardPage /> },
     {
