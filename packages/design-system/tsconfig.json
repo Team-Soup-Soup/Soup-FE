@@ -2,9 +2,10 @@
   "extends": "../config/tsconfig.package.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "target": "ES2017"
+    "target": "ES2017",
+    "types": ["vite/client", "vite-plugin-svgr/client"]
   },
-  "include": ["src/**/*", "src/stories/**/*"],
+  "include": ["src/**/*", "src/stories/**/*", "custom.d.ts"],
   "exclude": ["node_modules", "dist", "./src/**/*.stories.*"],
   "build": {
     "outDir": "storybook-static",
