@@ -6,6 +6,8 @@ export const MODAL = {
   DELETE_POST: 'deletePost',
   DELETE_COMMENT: 'deleteComment',
   UPDATE: 'update',
+  MANAGE_PROJECT: 'manageProject',
+  MANAGE_MEMBER: 'manageMember',
 } as const;
 
 export const SETTING_ITEM = {
