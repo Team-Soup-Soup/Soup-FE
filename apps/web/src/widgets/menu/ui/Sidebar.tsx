@@ -78,7 +78,7 @@ export default function Sidebar() {
           </div>
         </div>
         <div className="flex flex-col gap-8">
-          <Profile image="" name="홍길동" />
+          <Profile image="" name="홍길동" className="pl-[32px]" />
           <div className="flex justify-end gap-[16px] pr-[32px]">
             <button
               className="text-light hover:text-dark text-sm hover:cursor-pointer"
