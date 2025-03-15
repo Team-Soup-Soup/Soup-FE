@@ -5,3 +5,4 @@ export { default as AlarmModal } from './AlarmModal';
 export { default as DeleteModal } from './DeleteModal';
 export { default as UpdateModal } from './UpdateModal';
 export { default as ProjectManageModal } from './ProjectManageModal';
+export { default as ProjectMemberManageModal } from './ProjectMemberManageModal';

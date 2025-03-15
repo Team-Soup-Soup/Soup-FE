@@ -4,7 +4,7 @@ import type { ProfileLevel } from '../types';
 import LevelBadge from './LevelBadge';
 
 interface ProfileProps {
-  image: string;
+  image?: string;
   name: string;
   level?: ProfileLevel;
   className?: string;

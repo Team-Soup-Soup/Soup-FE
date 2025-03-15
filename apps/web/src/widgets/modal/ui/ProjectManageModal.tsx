@@ -12,7 +12,7 @@ interface ManageButtonProps {
 
 export default function ProjectManageModal() {
   const { isOpen } = useModalState({ key: MODAL.MANAGE_PROJECT });
-  const { closeModal } = useModal();
+  const { openModal, closeModal } = useModal();
 
   useEffect(() => {
     const escKeyModalClose = (e: KeyboardEvent) => {
@@ -25,6 +25,10 @@ export default function ProjectManageModal() {
 
     return () => document.removeEventListener('keydown', escKeyModalClose);
   }, [closeModal]);
+
+  const handleMemberManageModal = () => {
+    openModal(MODAL.MANAGE_MEMBER);
+  };
 
   return (
     isOpen && (
@@ -50,7 +54,10 @@ export default function ProjectManageModal() {
         <div className="flex flex-col gap-[12px]">
           <div>기타</div>
           <div className="flex flex-col">
-            <ManageButton content="멤버별 편집" />
+            <ManageButton
+              content="멤버별 편집"
+              onClick={handleMemberManageModal}
+            />
             <ManageButton content="프로젝트 이름/설명 변경하기" />
             <ManageButton content=" 프로젝트 나가기" />
           </div>

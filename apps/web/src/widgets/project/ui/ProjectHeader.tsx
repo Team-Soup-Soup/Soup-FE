@@ -4,7 +4,10 @@ import { descriptionList, userList } from '~/mocks';
 import { MODAL } from '~/shared/constants';
 import { useModal } from '~/shared/hooks';
 import { IconButton } from '~/shared/ui';
-import { ProjectManageModal } from '~/widgets/modal/ui';
+import {
+  ProjectManageModal,
+  ProjectMemberManageModal,
+} from '~/widgets/modal/ui';
 
 export default function ProjectHeader() {
   const { projectId } = useParams();
@@ -53,6 +56,7 @@ export default function ProjectHeader() {
         </div>
       </div>
       <ProjectManageModal />
+      <ProjectMemberManageModal />
     </>
   );
 }
