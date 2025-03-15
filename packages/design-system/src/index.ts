@@ -7,3 +7,4 @@ export * from './Input';
 export * from './Pagination';
 export * from './Radio';
 export * from './Toggle';
+export * from './Select';
