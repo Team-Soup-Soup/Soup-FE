@@ -1,22 +1,25 @@
-import React from 'react';
+import React, { type Dispatch, type SetStateAction, useState } from 'react';
 
 import boardDataList from '~/mocks/board.json';
 import type { BoardItem } from '~/shared/types';
-import { BOARD, BOARD_LABEL } from '~/shared/constants';
+import { BOARD, BOARD_LABEL, MODAL } from '~/shared/constants';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PATH } from '~/shared/constants';
 import { getPath } from '~/shared/utils';
+import { useModal } from '~/shared/hooks';
+import { CreatePostModal } from '~/widgets/modal/ui';
 
 export default function BoardContainer() {
+  const [selected, setSelected] = useState<BoardItem>('01');
   return (
     <div className="w-125 h-menu-height flex flex-col gap-y-4">
-      <BoardView />
-      <BoardButtons />
+      <BoardView selected={selected} />
+      <BoardButtons setSelected={setSelected} />
     </div>
   );
 }
 
-function BoardView() {
+function BoardView({ selected }: { selected: BoardItem }) {
   const data = boardDataList;
   const navigate = useNavigate();
   const location = useLocation();
@@ -53,23 +56,47 @@ function BoardView() {
           </div>
         ))}
       </div>
+      <CreatePostModal type={selected} />
     </div>
   );
 }
 
-function BoardButtons() {
+function BoardButtons({
+  setSelected,
+}: {
+  setSelected: Dispatch<SetStateAction<BoardItem>>;
+}) {
+  const { openModal } = useModal();
+  const handleClick = (label: BoardItem) => {
+    openModal(MODAL.CREATE_POST);
+    setSelected(label);
+  };
+
   return (
     <div className="flex h-10 gap-x-2">
       {BOARD_LABEL.map((label) => (
-        <BoardButton label={label} key={label} />
+        <BoardButton
+          label={label}
+          key={label}
+          onClick={() => handleClick(label)}
+        />
       ))}
     </div>
   );
 }
 
-function BoardButton({ label }: { label: BoardItem }) {
+function BoardButton({
+  label,
+  onClick,
+}: {
+  label: BoardItem;
+  onClick: () => void;
+}) {
   return (
-    <button className="rounded-auth border-main-board-border box-shadow-4 flex h-full cursor-pointer gap-x-2 text-nowrap border-[1px] p-2 font-light">
+    <button
+      className="rounded-auth border-main-board-border box-shadow-4 flex h-full cursor-pointer gap-x-2 text-nowrap border-[1px] p-2 font-light focus:outline-none"
+      onClick={onClick}
+    >
       <img src={BOARD[label].icon} alt={label} />
       {BOARD[label].title}
     </button>
