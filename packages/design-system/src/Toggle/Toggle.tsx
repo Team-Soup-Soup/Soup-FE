@@ -3,7 +3,8 @@ import { cn } from '@soup/utils';
 
 export interface ToggleProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
-  label?: string;
+  label?: string | React.JSX.Element;
+  labelLeft?: boolean;
 }
 
 const Toggle = ({
@@ -11,6 +12,7 @@ const Toggle = ({
   label,
   className,
   checked,
+  labelLeft = false,
   onChange,
   ...rest
 }: ToggleProps) => {
@@ -23,6 +25,14 @@ const Toggle = ({
         ref={toggleRef}
         className="relative inline-flex cursor-pointer items-center"
       >
+        {labelLeft && label && (
+          <label
+            htmlFor={id}
+            className="text-dark mr-2 cursor-pointer text-sm font-light"
+          >
+            {label}
+          </label>
+        )}
         <input
           type="checkbox"
           checked={checked}
@@ -44,7 +54,7 @@ const Toggle = ({
           />
         </span>
       </label>
-      {label && (
+      {label && !labelLeft && (
         <label
           htmlFor={id}
           className="text-dark cursor-pointer text-sm font-light"
