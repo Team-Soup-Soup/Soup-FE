@@ -7,7 +7,7 @@ import { Button, Input, Toggle } from '@soup/design-system';
 import { Modal } from '~/shared/ui';
 import { BasicPostRequest, NoticePostRequest } from '~/widgets/modal/types';
 import { useModal } from '~/shared/hooks';
-import { MODAL } from '~/shared/constants';
+import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
 
 interface CreateNormalPostProps {
   notice?: boolean;
@@ -48,7 +48,7 @@ export default function CreateNormalPost({
                 id="title"
                 placeholder="제목 입력"
                 value={watch('title') || ''}
-                maxLength={20}
+                maxLength={TITLE_MAX_LENGTH}
                 inputClassName="bg-lock h-[42px] p-6 border-none"
                 {...register('title', { required: '제목을 입력해 주세요' })}
               />

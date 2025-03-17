@@ -14,7 +14,7 @@ import type { VotePostRequest, VoteSettingOption } from '~/widgets/modal/types';
 import { VOTE, VOTE_SETTING_OPTIONS } from '~/widgets/modal/model';
 import PlusIcon from '~/assets/icons/plus.svg';
 import { useModal } from '~/shared/hooks';
-import { MODAL } from '~/shared/constants';
+import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
 
 interface SettingCheckBoxProps {
   option: VoteSettingOption;
@@ -72,7 +72,7 @@ export default function CreateVote() {
                 id="title"
                 placeholder="제목을 입력해주세요."
                 value={watch('title') || ''}
-                maxLength={20}
+                maxLength={TITLE_MAX_LENGTH}
                 inputClassName="bg-lock h-[42px] p-6 border-none"
                 {...register('title', { required: '제목을 입력해 주세요' })}
               />

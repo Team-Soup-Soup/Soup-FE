@@ -8,7 +8,7 @@ import { getDate } from '~/shared/utils';
 import { PeerReviewPostRequest } from '~/widgets/modal/types';
 import { useForm } from 'react-hook-form';
 import { useModal } from '~/shared/hooks';
-import { MODAL } from '~/shared/constants';
+import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
 
 export default function CreatePeerReview() {
   const { closeModal } = useModal();
@@ -39,7 +39,7 @@ export default function CreatePeerReview() {
                 id="title"
                 placeholder="제목 입력"
                 value={watch('title') || ''}
-                maxLength={20}
+                maxLength={TITLE_MAX_LENGTH}
                 inputClassName="bg-lock h-[42px] p-6 border-none"
                 {...register('title', { required: '제목을 입력해주세요' })}
               />
