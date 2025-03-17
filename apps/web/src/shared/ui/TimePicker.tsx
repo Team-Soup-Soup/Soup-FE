@@ -1,3 +1,4 @@
+import { cn } from '@soup/utils';
 import React, { useState, useEffect, useRef } from 'react';
 
 export default function TimePickerContainer() {
@@ -20,29 +21,29 @@ export default function TimePickerContainer() {
   }, []);
 
   const setupScrollBehavior = <T,>(
-    element: HTMLElement,
+    element: HTMLElement | null,
     items: T[],
     setSelectedItem: React.Dispatch<React.SetStateAction<T>>,
   ) => {
     let startY: number, currentIndex: number;
     const itemHeight = 40;
 
-    element.addEventListener('touchstart', (e) => {
+    element!.addEventListener('touchstart', (e) => {
       startY = e.touches[0].clientY;
-      currentIndex = Math.floor(element.scrollTop / itemHeight);
+      currentIndex = Math.floor(element!.scrollTop / itemHeight);
     });
 
-    element.addEventListener('touchend', (e) => {
+    element!.addEventListener('touchend', (e) => {
       const diff = e.changedTouches[0].clientY - startY;
       let newIndex = currentIndex;
 
-      if (Math.abs(diff) > 10) {
+      if (Math.abs(diff) > itemHeight / 2) {
         newIndex = diff > 0 ? currentIndex - 1 : currentIndex + 1;
       }
 
       newIndex = Math.max(0, Math.min(newIndex, items.length - 1));
 
-      element.scrollTo({
+      element!.scrollTo({
         top: newIndex * itemHeight,
         behavior: 'smooth',
       });
@@ -50,8 +51,8 @@ export default function TimePickerContainer() {
       setSelectedItem(items[newIndex]);
     });
 
-    element.addEventListener('scroll', () => {
-      const index = Math.round(element.scrollTop / itemHeight);
+    element!.addEventListener('scroll', () => {
+      const index = Math.round(element!.scrollTop / itemHeight);
       if (index >= 0 && index < items.length) {
         setSelectedItem(items[index]);
       }
@@ -67,14 +68,12 @@ export default function TimePickerContainer() {
     const itemHeight = 40;
     const index = items.indexOf(item);
 
-    if (index !== -1 && scrollRef.current) {
-      scrollRef.current.scrollTo({
-        top: index * itemHeight,
-        behavior: 'smooth',
-      });
+    scrollRef.current?.scrollTo({
+      top: index * itemHeight,
+      behavior: 'smooth',
+    });
 
-      setSelectedItem(item);
-    }
+    setSelectedItem(item);
   };
 
   return (
@@ -85,12 +84,7 @@ export default function TimePickerContainer() {
           <div className="relative h-48 flex-1 overflow-hidden">
             <div
               ref={amPmRef}
-              className="scrollbar-hide absolute inset-0 overflow-auto"
-              style={{
-                scrollBehavior: 'smooth',
-                paddingTop: '80px',
-                paddingBottom: '80px',
-              }}
+              className="scrollbar-hide absolute inset-0 overflow-auto scroll-smooth py-20"
             >
               {amPmOptions.map((amPm) => (
                 <div
@@ -105,20 +99,20 @@ export default function TimePickerContainer() {
               ))}
             </div>
           </div>
-          <div className="relative h-48 flex-1 overflow-hidden">
+          <div className="relative h-40 flex-1 overflow-hidden">
             <div
               ref={hourRef}
-              className="scrollbar-hide absolute inset-0 overflow-auto"
-              style={{
-                scrollBehavior: 'smooth',
-                paddingTop: '80px',
-                paddingBottom: '80px',
-              }}
+              className="scrollbar-hide absolute inset-0 overflow-auto scroll-smooth py-20"
             >
               {hours.map((hour) => (
                 <div
                   key={hour}
-                  className={`flex h-10 cursor-pointer items-center justify-center ${selectedHour === hour ? 'text-dark font-semibold' : 'text-light'}`}
+                  className={cn(
+                    'flex h-10 cursor-pointer items-center justify-center',
+                    selectedHour === hour
+                      ? 'text-dark font-semibold'
+                      : 'text-light',
+                  )}
                   onClick={() =>
                     handleItemClick(hour, hours, hourRef, setSelectedHour)
                   }
