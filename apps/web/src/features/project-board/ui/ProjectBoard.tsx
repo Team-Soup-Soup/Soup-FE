@@ -48,14 +48,14 @@ export default function ProjectBoard() {
           />
         </div>
       </div>
-      <div className="rounded-auth bg-lock text-md mb-4 flex w-full gap-x-8 px-6 py-[10px] font-light">
+      <div className="rounded-auth bg-lock text-md mb-4 grid w-full grid-cols-[1fr_8fr_1fr_1fr_1fr] gap-x-8 overflow-hidden px-6 py-[10px] font-light">
         <div className="w-25 text-nowrap px-[10px] py-1 text-center">
           카테고리
         </div>
-        <div className="flex-1 px-[10px] py-1 text-start">제목</div>
-        <div className="w-23 px-[10px] py-1 text-center">작성자</div>
-        <div className="w-23 px-[10px] py-1 text-center">날짜</div>
-        <div className="w-23 px-[10px] py-1 text-center">댓글</div>
+        <div className="min-w-23 px-[10px] py-1 text-start">제목</div>
+        <div className="text-nowrap px-[10px] py-1 text-center">작성자</div>
+        <div className="text-nowrap px-[10px] py-1 text-center">날짜</div>
+        <div className="text-nowrap px-[10px] py-1 text-center">댓글</div>
       </div>
       <div className="relative flex size-full flex-col gap-y-1">
         {data.map((data: BoardContent) => {
