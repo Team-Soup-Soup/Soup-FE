@@ -13,6 +13,8 @@ import { getDate } from '~/shared/utils';
 import type { VotePostRequest, VoteSettingOption } from '~/widgets/modal/types';
 import { VOTE, VOTE_SETTING_OPTIONS } from '~/widgets/modal/model';
 import PlusIcon from '~/assets/icons/plus.svg';
+import { useModal } from '~/shared/hooks';
+import { MODAL } from '~/shared/constants';
 
 interface SettingCheckBoxProps {
   option: VoteSettingOption;
@@ -21,6 +23,7 @@ interface SettingCheckBoxProps {
 }
 
 export default function CreateVote() {
+  const { closeModal } = useModal();
   const [options, setOption] = useState<number[]>([1, 2, 3]);
   const [date, setDate] = useState(new Date());
   const [visible, setVisible] = useState<{ date: boolean; time: boolean }>({
@@ -44,7 +47,7 @@ export default function CreateVote() {
     watch('options.1.option')?.length > 0 &&
     watch('options.0.option')?.length > 0;
 
-  const HandleAddButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleAddButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOption((prev) => [...prev, prev.length + 1]);
   };
@@ -56,6 +59,7 @@ export default function CreateVote() {
       options: data.options.filter((option) => option.option.trim().length > 0),
     };
     console.log(formattedData);
+    closeModal(MODAL.CREATE_POST);
   };
 
   return (
@@ -67,6 +71,7 @@ export default function CreateVote() {
               <Input
                 id="title"
                 placeholder="제목을 입력해주세요."
+                value={watch('title') || ''}
                 maxLength={20}
                 inputClassName="bg-lock h-[42px] p-6 border-none"
                 {...register('title', { required: '제목을 입력해 주세요' })}
@@ -118,13 +123,7 @@ export default function CreateVote() {
                     {...register(`options.${option - 1}.option`)}
                   />
                 ))}
-                <button
-                  className="text-light rounded-auth border-main-board-border mt-2 flex h-[42px] flex-shrink-0 cursor-pointer items-center justify-center border-[1px] focus:outline-none"
-                  onClick={HandleAddButton}
-                >
-                  <img src={PlusIcon} className="size-6" />
-                  항목 추가
-                </button>
+                <AddOptionButton onClick={handleAddButton} />
               </div>
               <div className="mt-1 flex gap-x-[42px]">
                 {VOTE_SETTING_OPTIONS.map((option) => (
@@ -164,4 +163,18 @@ const SettingCheckBox = ({ option, setValue, watch }: SettingCheckBoxProps) => (
       setValue(option, value);
     }}
   />
+);
+
+const AddOptionButton = ({
+  onClick,
+}: {
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}) => (
+  <button
+    className="text-light rounded-auth border-main-board-border mt-2 flex h-[42px] flex-shrink-0 cursor-pointer items-center justify-center border-[1px] focus:outline-none"
+    onClick={onClick}
+  >
+    <img src={PlusIcon} className="size-6" />
+    항목 추가
+  </button>
 );

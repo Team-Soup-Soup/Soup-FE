@@ -1,16 +1,22 @@
 import React from 'react';
 
+import { useForm } from 'react-hook-form';
+
 import { Button, Input, Toggle } from '@soup/design-system';
 
 import { Modal } from '~/shared/ui';
-import { useForm } from 'react-hook-form';
 import { BasicPostRequest, NoticePostRequest } from '~/widgets/modal/types';
+import { useModal } from '~/shared/hooks';
+import { MODAL } from '~/shared/constants';
+
+interface CreateNormalPostProps {
+  notice?: boolean;
+}
 
 export default function CreateNormalPost({
   notice = false,
-}: {
-  notice?: boolean;
-}) {
+}: CreateNormalPostProps) {
+  const { closeModal } = useModal();
   const { register, handleSubmit, watch, setValue } =
     useForm<NoticePostRequest>({
       defaultValues: {
@@ -29,6 +35,7 @@ export default function CreateNormalPost({
       const { fixedYn, ...normalData } = temp;
       console.log(normalData as BasicPostRequest);
     }
+    closeModal(MODAL.CREATE_POST);
   };
 
   return (
@@ -40,6 +47,8 @@ export default function CreateNormalPost({
               <Input
                 id="title"
                 placeholder="제목 입력"
+                value={watch('title') || ''}
+                maxLength={20}
                 inputClassName="bg-lock h-[42px] p-6 border-none"
                 {...register('title', { required: '제목을 입력해 주세요' })}
               />

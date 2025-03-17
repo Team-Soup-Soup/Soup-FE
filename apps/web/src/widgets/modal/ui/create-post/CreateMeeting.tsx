@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
+import { useForm } from 'react-hook-form';
+
 import { Button, Checkbox, Input } from '@soup/design-system';
+import { cn } from '@soup/utils';
 
 import {
   DatePicker,
@@ -9,14 +12,15 @@ import {
   TimePicker,
 } from '~/shared/ui';
 import { getDate } from '~/shared/utils';
-import { useForm } from 'react-hook-form';
 import { MeetingPostRequest } from '~/widgets/modal/types';
-import { cn } from '@soup/utils';
+import { useModal } from '~/shared/hooks';
+import { MODAL } from '~/shared/constants';
 
 export default function CreateMeeting() {
+  const { closeModal } = useModal();
   const [date, setDate] = useState(new Date());
   const [visible, setVisible] = useState<boolean>(false);
-  const { register, handleSubmit } = useForm<MeetingPostRequest>({
+  const { register, handleSubmit, watch } = useForm<MeetingPostRequest>({
     defaultValues: {
       projectId: 1,
     },
@@ -28,6 +32,7 @@ export default function CreateMeeting() {
       deadLineDt: date.toLocaleDateString(),
     };
     console.log(formattedData);
+    closeModal(MODAL.CREATE_POST);
   };
 
   return (
@@ -39,7 +44,9 @@ export default function CreateMeeting() {
               <Input
                 id="title"
                 placeholder="제목 입력"
-                inputClassName="relative bg-lock h-[42px] p-6 border-none"
+                value={watch('title') || ''}
+                maxLength={20}
+                inputClassName="bg-lock h-[42px] p-6 border-none"
                 {...register('title', { required: '제목을 입력해주세요' })}
               />
             </Modal.Section>
