@@ -14,7 +14,7 @@ import {
 export default function CreatePostModal({ type }: { type: BoardItem }) {
   const { isOpen } = useModalState({ key: MODAL.CREATE_POST });
   const title = BOARD[type].title;
-  const components = {
+  const COMPONENTS = {
     공지: <CreateNormalPost notice />,
     투표: <CreateVote />,
     회의플래너: <CreateMeeting />,
@@ -26,7 +26,7 @@ export default function CreatePostModal({ type }: { type: BoardItem }) {
     isOpen && (
       <Modal title={title} modalKey={MODAL.CREATE_POST}>
         <Modal.Header title={title} />
-        {components[title]}
+        {COMPONENTS[title]}
       </Modal>
     )
   );
