@@ -4,3 +4,5 @@ export { default as ProjectPost } from './ProjectPost';
 export { default as ProjectPostComment } from './ProjectPostComment';
 export { default as SearchResult } from './SearchResult';
 export { default as ProjectPostContent } from './ProjectPostContent';
+export { default as VoteContent } from './VoteContent';
+export { default as PeerReviewContent } from './PeerReviewContent';
