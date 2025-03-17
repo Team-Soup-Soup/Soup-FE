@@ -8,6 +8,7 @@ export const MODAL = {
   UPDATE: 'update',
   MANAGE_PROJECT: 'manageProject',
   MANAGE_MEMBER: 'manageMember',
+  INVITE_PROJECT: 'inviteProject',
 } as const;
 
 export const SETTING_ITEM = {

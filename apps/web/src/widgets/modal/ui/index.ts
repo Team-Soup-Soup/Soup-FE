@@ -6,3 +6,4 @@ export { default as DeleteModal } from './DeleteModal';
 export { default as UpdateModal } from './UpdateModal';
 export { default as ProjectManageModal } from './ProjectManageModal';
 export { default as ProjectMemberManageModal } from './ProjectMemberManageModal';
+export { default as InviteProjectModal } from './InviteProjectModal';

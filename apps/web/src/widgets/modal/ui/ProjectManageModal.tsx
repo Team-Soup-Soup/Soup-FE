@@ -30,6 +30,10 @@ export default function ProjectManageModal() {
     openModal(MODAL.MANAGE_MEMBER);
   };
 
+  const handleInviteProjectModal = () => {
+    openModal(MODAL.INVITE_PROJECT);
+  };
+
   return (
     isOpen && (
       <div className="border-main-board-border box-shadow absolute right-8 top-[98px] z-20 flex flex-col gap-[30px] rounded-[10px] border bg-white p-[24px]">
@@ -49,7 +53,10 @@ export default function ProjectManageModal() {
         </div>
         <div className="flex flex-col gap-[12px]">
           <div>초대하기</div>
-          <ManageButton content="이메일로 초대하기" />
+          <ManageButton
+            content="이메일로 초대하기"
+            onClick={handleInviteProjectModal}
+          />
         </div>
         <div className="flex flex-col gap-[12px]">
           <div>기타</div>

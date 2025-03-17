@@ -5,6 +5,7 @@ import { MODAL } from '~/shared/constants';
 import { useModal } from '~/shared/hooks';
 import { IconButton } from '~/shared/ui';
 import {
+  InviteProjectModal,
   ProjectManageModal,
   ProjectMemberManageModal,
 } from '~/widgets/modal/ui';
@@ -57,6 +58,7 @@ export default function ProjectHeader() {
       </div>
       <ProjectManageModal />
       <ProjectMemberManageModal />
+      <InviteProjectModal />
     </>
   );
 }
