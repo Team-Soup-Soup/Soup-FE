@@ -1,5 +1,26 @@
 import { cn } from '@soup/utils';
-import React, { useState, useEffect, useRef } from 'react';
+
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  Dispatch,
+  SetStateAction,
+  RefObject,
+} from 'react';
+
+interface setupScrollProps<T> {
+  element: HTMLElement | null;
+  items: T[];
+  setSelectedItem: Dispatch<SetStateAction<T>>;
+}
+
+interface handleItemClickProps<T> {
+  item: T;
+  items: T[];
+  scrollRef: RefObject<HTMLDivElement | null>;
+  setSelectedItem: Dispatch<SetStateAction<T>>;
+}
 
 export default function TimePickerContainer() {
   const [selectedHour, setSelectedHour] = useState<string>('12:00');
@@ -13,18 +34,27 @@ export default function TimePickerContainer() {
 
   useEffect(() => {
     if (hourRef.current) {
-      setupScrollBehavior<string>(hourRef.current, hours, setSelectedHour);
+      setupScrollBehavior<string>({
+        element: hourRef.current,
+        items: hours,
+        setSelectedItem: setSelectedHour,
+      });
     }
     if (amPmRef.current) {
-      setupScrollBehavior(amPmRef.current, amPmOptions, setSelectedAmPm);
+      setupScrollBehavior({
+        element: amPmRef.current,
+        items: amPmOptions,
+        setSelectedItem: setSelectedAmPm,
+      });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const setupScrollBehavior = <T,>(
-    element: HTMLElement | null,
-    items: T[],
-    setSelectedItem: React.Dispatch<React.SetStateAction<T>>,
-  ) => {
+  const setupScrollBehavior = <T,>({
+    element,
+    items,
+    setSelectedItem,
+  }: setupScrollProps<T>) => {
     let startY: number, currentIndex: number;
     const itemHeight = 40;
 
@@ -40,7 +70,6 @@ export default function TimePickerContainer() {
       if (Math.abs(diff) > itemHeight / 2) {
         newIndex = diff > 0 ? currentIndex - 1 : currentIndex + 1;
       }
-
       newIndex = Math.max(0, Math.min(newIndex, items.length - 1));
 
       element!.scrollTo({
@@ -59,12 +88,12 @@ export default function TimePickerContainer() {
     });
   };
 
-  const handleItemClick = <T,>(
-    item: T,
-    items: T[],
-    scrollRef: React.RefObject<HTMLDivElement | null>,
-    setSelectedItem: React.Dispatch<React.SetStateAction<T>>,
-  ) => {
+  const handleItemClick = <T,>({
+    item,
+    items,
+    scrollRef,
+    setSelectedItem,
+  }: handleItemClickProps<T>) => {
     const itemHeight = 40;
     const index = items.indexOf(item);
 
@@ -89,9 +118,19 @@ export default function TimePickerContainer() {
               {amPmOptions.map((amPm) => (
                 <div
                   key={amPm}
-                  className={`flex h-10 cursor-pointer items-center justify-center ${selectedAmPm === amPm ? 'text-dark font-semibold' : 'test-light'}`}
+                  className={cn(
+                    'flex h-10 cursor-pointer items-center justify-center',
+                    selectedAmPm === amPm
+                      ? 'text-dark font-semibold'
+                      : 'test-light',
+                  )}
                   onClick={() =>
-                    handleItemClick(amPm, amPmOptions, amPmRef, setSelectedAmPm)
+                    handleItemClick({
+                      item: amPm,
+                      items: amPmOptions,
+                      scrollRef: amPmRef,
+                      setSelectedItem: setSelectedAmPm,
+                    })
                   }
                 >
                   {amPm}
@@ -114,7 +153,12 @@ export default function TimePickerContainer() {
                       : 'text-light',
                   )}
                   onClick={() =>
-                    handleItemClick(hour, hours, hourRef, setSelectedHour)
+                    handleItemClick({
+                      item: hour,
+                      items: hours,
+                      scrollRef: hourRef,
+                      setSelectedItem: setSelectedHour,
+                    })
                   }
                 >
                   {hour}
