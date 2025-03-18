@@ -9,6 +9,7 @@ export const MODAL = {
   MANAGE_PROJECT: 'manageProject',
   MANAGE_MEMBER: 'manageMember',
   INVITE_PROJECT: 'inviteProject',
+  EXPULSION_PROJECT: 'expulsionProject',
 } as const;
 
 export const SETTING_ITEM = {

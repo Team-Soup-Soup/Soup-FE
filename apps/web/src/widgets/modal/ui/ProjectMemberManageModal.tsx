@@ -1,11 +1,12 @@
 import { Button, Select } from '@soup/design-system';
-import React from 'react';
+import React, { useState } from 'react';
 import { userList } from '~/mocks';
 import { MODAL, PROFILE_LEVEL } from '~/shared/constants';
-import { useModalState } from '~/shared/hooks';
+import { useModal, useModalState } from '~/shared/hooks';
 import type { ProfileItem, ProfileLevel } from '~/shared/types';
 import { Modal, Profile } from '~/shared/ui';
 import { getKoreanLevel } from '~/shared/utils';
+import ExpulsionProjectModal from './ExpulsionProjectModal';
 
 interface MemberListByLevelProps {
   level: ProfileLevel;
@@ -68,6 +69,8 @@ export default function ProjectMemberManageModal() {
 }
 
 const MemberListByLevel = ({ level, memberList }: MemberListByLevelProps) => {
+  const { openModal } = useModal();
+  const [selectedMember, setSelectedMember] = useState('');
   const levelOption = Object.values(PROFILE_LEVEL).reduce(
     (acc: Array<string>, level) => {
       acc.push(getKoreanLevel(level));
@@ -76,27 +79,46 @@ const MemberListByLevel = ({ level, memberList }: MemberListByLevelProps) => {
     [],
   );
 
+  const handleExpulsion = (name: string) => {
+    setSelectedMember(name);
+    openModal(MODAL.EXPULSION_PROJECT);
+  };
+
   return (
-    <div className="flex flex-col gap-[8px]">
-      <div>{getKoreanLevel(level)}</div>
-      <div className="flex flex-col gap-[12px]">
-        {memberList.map(({ name, profile }) => (
-          <div className="flex h-[42px] justify-between">
-            <Profile image={profile} name={name} />
-            <div className="flex h-[40px] w-full justify-end gap-[8px]">
-              <Select
-                options={levelOption}
-                disabled={level === PROFILE_LEVEL.MASTER}
-                boxContentClassName="h-[40px]"
-                initValue={getKoreanLevel(level)}
-              />
-              {level !== PROFILE_LEVEL.MASTER && (
-                <Button color="normal">퇴출</Button>
-              )}
-            </div>
-          </div>
-        ))}
+    <>
+      <div className="flex flex-col gap-[8px]">
+        <div>{getKoreanLevel(level)}</div>
+        <div className="flex flex-col gap-[12px]">
+          {memberList.length > 0 ? (
+            memberList.map(({ name, profile }) => (
+              <div className="flex h-[42px] justify-between">
+                <Profile image={profile} name={name} />
+                <div className="flex h-[40px] w-full justify-end gap-[8px]">
+                  <Select
+                    options={levelOption}
+                    disabled={level === PROFILE_LEVEL.MASTER}
+                    boxContentClassName="h-[40px]"
+                    initValue={getKoreanLevel(level)}
+                  />
+                  {level !== PROFILE_LEVEL.MASTER && (
+                    <Button
+                      color="normal"
+                      onClick={() => handleExpulsion(name)}
+                    >
+                      퇴출
+                    </Button>
+                  )}
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-light text-center text-sm font-light">
+              {getKoreanLevel(level)}로 임명한 멤버가 없습니다
+            </p>
+          )}
+        </div>
       </div>
-    </div>
+      <ExpulsionProjectModal name={selectedMember} />
+    </>
   );
 };

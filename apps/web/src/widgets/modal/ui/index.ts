@@ -7,3 +7,4 @@ export { default as UpdateModal } from './UpdateModal';
 export { default as ProjectManageModal } from './ProjectManageModal';
 export { default as ProjectMemberManageModal } from './ProjectMemberManageModal';
 export { default as InviteProjectModal } from './InviteProjectModal';
+export { default as ExpulsionProjectModal } from './ExpulsionProjectModal';
