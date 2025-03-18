@@ -10,7 +10,7 @@ import { BOARD } from '~/shared/constants';
 import { PeerReviewContent, VoteContent } from '~/features/project-board/ui';
 
 interface ProjectPostContentProps {
-  category: string;
+  category: BoardItem;
   content: PostType;
 }
 
@@ -26,7 +26,7 @@ export default function ProjectPostContent({
   category,
   content,
 }: ProjectPostContentProps) {
-  const boardTitle = BOARD[category as BoardItem]?.title || '';
+  const boardTitle = BOARD[category]?.title || '';
   const textContent = 'content' in content ? content.content : '';
 
   const renderContentByType = () => {

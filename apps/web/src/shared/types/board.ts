@@ -5,7 +5,7 @@ export type BoardItemValue = (typeof BOARD)[keyof typeof BOARD]['title'];
 
 export type BoardContent = {
   postId: number;
-  category: string;
+  category: BoardItem;
   title: string;
   createBy: string;
   createAt: string;
@@ -14,7 +14,7 @@ export type BoardContent = {
 
 export type DetailedBoardContent = {
   title: string;
-  category: string;
+  category: BoardItem;
   createdBy: string;
   createAt: string;
   updateBy: string;

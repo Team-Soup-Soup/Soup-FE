@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 
 import { Input, Pagination, Radio } from '@soup/design-system';
 
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import { BOARD, BOARD_LABEL } from '~/shared/constants';
 import { ProjectBoardItem } from '~/features/project-board/ui';
 import { BoardContent, BoardItem } from '~/shared/types';
 import { boardDataList } from '~/mocks';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { getPath } from '~/shared/utils';
 
 export default function ProjectBoard() {
@@ -15,7 +16,7 @@ export default function ProjectBoard() {
   const [selected, setSelected] = useState<string>('');
   const [value, setValue] = useState<string>('');
 
-  const data = boardDataList;
+  const data = boardDataList as BoardContent[];
   const currentLocation = location.pathname;
 
   const handleSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -63,7 +64,7 @@ export default function ProjectBoard() {
             return <ProjectBoardItem key={data.postId} {...data} />;
           if (data.category === selected)
             return <ProjectBoardItem key={data.postId} {...data} />;
-          else return null;
+          else return <></>;
         })}
 
         <div className="absolute bottom-0 flex h-fit w-full items-center justify-center">

@@ -4,12 +4,7 @@ import { Button, Input } from '@soup/design-system';
 import { useParams } from 'react-router-dom';
 
 import { boardDetailedDataList } from '~/mocks';
-import type {
-  BoardItem,
-  Comment,
-  DetailedBoardContent,
-  ModalItem,
-} from '~/shared/types';
+import type { Comment, DetailedBoardContent, ModalItem } from '~/shared/types';
 import {
   ProjectPostComment,
   ProjectPostContent,
@@ -21,7 +16,9 @@ import { getDate } from '~/shared/utils';
 
 export default function ProjectPost() {
   const { postId } = useParams();
-  const post: DetailedBoardContent = boardDetailedDataList[Number(postId) - 1];
+  const post: DetailedBoardContent = boardDetailedDataList[
+    Number(postId) - 1
+  ] as DetailedBoardContent;
   const { content, comments, category } = post;
 
   return (
@@ -59,7 +56,7 @@ const ProjectPostHeader = ({
   return (
     <>
       <div className="mb-6 flex flex-col">
-        <p className="text-light">{BOARD[category as BoardItem].title}</p>
+        <p className="text-light">{BOARD[category].title}</p>
         <p className="text-lg">{title}</p>
       </div>
       <div className="border-lock mb-8 flex w-full items-center justify-between border-b-[1px] pb-3">

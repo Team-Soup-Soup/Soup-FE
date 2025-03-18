@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { BOARD } from '~/shared/constants';
-import type { BoardContent, BoardItem } from '~/shared/types';
+import type { BoardContent } from '~/shared/types';
 import { getDate, getPath } from '~/shared/utils';
 
 export default function ProjectBoardItem({
@@ -26,9 +26,9 @@ export default function ProjectBoardItem({
     >
       <div
         className="w-25 text-nowrap px-[10px] py-1 text-center"
-        style={{ backgroundColor: `${BOARD[category as BoardItem].color}` }}
+        style={{ backgroundColor: `${BOARD[category].color}` }}
       >
-        {BOARD[category as BoardItem].title}
+        {BOARD[category].title}
       </div>
       <div className="min-w-23 overflow-hidden text-ellipsis text-nowrap px-[10px] py-1 text-start">
         {title}
