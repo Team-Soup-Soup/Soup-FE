@@ -1,7 +1,7 @@
 [
   {
     "postId": 1,
-    "category": "공지",
+    "category": "01",
     "title": "우리팀 규칙",
     "createBy": "키위새",
     "createAt": "2025-03-01T09:35:03.575Z",
@@ -9,7 +9,7 @@
   },
   {
     "postId": 2,
-    "category": "회의플래너",
+    "category": "04",
     "title": "다음 주 회의 일정",
     "createBy": "미팅마스터",
     "createAt": "2025-03-02T10:15:45.120Z",
@@ -17,7 +17,7 @@
   },
   {
     "postId": 3,
-    "category": "투표",
+    "category": "03",
     "title": "다음 팀 이벤트 투표",
     "createBy": "기획바리",
     "createAt": "2025-03-02T12:45:30.892Z",
@@ -25,7 +25,7 @@
   },
   {
     "postId": 4,
-    "category": "동료평가",
+    "category": "05",
     "title": "3월 동료 평가 진행 안내",
     "createBy": "HR매니저",
     "createAt": "2025-03-03T08:00:10.635Z",
@@ -33,7 +33,7 @@
   },
   {
     "postId": 5,
-    "category": "자유글",
+    "category": "02",
     "title": "팀원들 다들 수고 많아요!",
     "createBy": "긍정에너지",
     "createAt": "2025-03-03T18:20:05.427Z",
@@ -41,7 +41,7 @@
   },
   {
     "postId": 6,
-    "category": "공지",
+    "category": "01",
     "title": "회의실 사용 규칙 변경 안내",
     "createBy": "운영팀",
     "createAt": "2025-03-04T09:10:50.783Z",
@@ -49,7 +49,7 @@
   },
   {
     "postId": 7,
-    "category": "회의플래너",
+    "category": "04",
     "title": "이번 달 회의록 공유",
     "createBy": "기록왕",
     "createAt": "2025-03-04T14:30:22.981Z",
@@ -57,7 +57,7 @@
   },
   {
     "postId": 8,
-    "category": "자유글",
+    "category": "02",
     "title": "오늘 점심 추천 메뉴!",
     "createBy": "맛잘알",
     "createAt": "2025-03-05T11:25:40.312Z",
@@ -65,18 +65,10 @@
   },
   {
     "postId": 9,
-    "category": "공지",
+    "category": "01",
     "title": "팀 문화 개선 캠페인 안내",
     "createBy": "문화리더",
     "createAt": "2025-03-05T16:10:12.654Z",
     "commentCnt": 2
-  },
-  {
-    "postId": 10,
-    "category": "투표",
-    "title": "다음 프로젝트 테마 선정",
-    "createBy": "프로젝트리더",
-    "createAt": "2025-03-06T09:00:00.123Z",
-    "commentCnt": 7
   }
 ]

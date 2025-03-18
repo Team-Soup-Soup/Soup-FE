@@ -1,6 +1,7 @@
 export const MODAL = {
   CREATE_PROJECT: 'createProject',
   CREATE_SCHEDULE: 'createSchedule',
+  CREATE_POST: 'createPost',
   LOGOUT: 'logout',
   SETTING: 'setting',
   ALARM: 'alarm',
