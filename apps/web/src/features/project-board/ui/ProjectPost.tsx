@@ -5,28 +5,35 @@ import { useParams } from 'react-router-dom';
 
 import { boardDetailedDataList } from '~/mocks';
 import type { Comment, DetailedBoardContent, ModalItem } from '~/shared/types';
-import { ProjectPostComment } from '~/features/project-board/ui';
+import {
+  ProjectPostComment,
+  ProjectPostContent,
+} from '~/features/project-board/ui';
 import { useModal } from '~/shared/hooks';
-import { MODAL } from '~/shared/constants';
+import { BOARD, MODAL } from '~/shared/constants';
 import { DeleteModal } from '~/widgets/modal/ui';
 import { getDate } from '~/shared/utils';
 
 export default function ProjectPost() {
   const { postId } = useParams();
-  const post: DetailedBoardContent = boardDetailedDataList[Number(postId) - 1];
-  const { content, comments } = post;
+  const post: DetailedBoardContent = boardDetailedDataList[
+    Number(postId) - 1
+  ] as DetailedBoardContent;
+  const { content, comments, category } = post;
 
   return (
     <>
-      <div className="w-200 mt-30 mb-30 mx-auto mb-11 flex h-full flex-col overflow-hidden md:w-[70%]">
+      <div className="w-200 mt-30 scrollbar-hide mx-auto flex h-full flex-col overflow-visible md:w-[70%]">
         <ProjectPostHeader {...post} />
-        <div className="mb-25 text-md">{content}</div>
+        <ProjectPostContent category={category} content={content} />
         <div className="flex size-full flex-col">
           <ProjectPostCommentHeader {...post} />
-          <div className="h- scrollbar-hide flex size-full flex-1 flex-col gap-y-6 overflow-scroll">
-            {comments.map((comment: Comment) => (
-              <ProjectPostComment {...comment} key={comment.commentId} />
-            ))}
+          <div className="flex-1">
+            <div className="flex w-full flex-1 flex-col gap-y-6 overflow-visible pb-10">
+              {comments.map((comment: Comment) => (
+                <ProjectPostComment {...comment} key={comment.commentId} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -49,7 +56,7 @@ const ProjectPostHeader = ({
   return (
     <>
       <div className="mb-6 flex flex-col">
-        <p className="text-light">{category}</p>
+        <p className="text-light">{BOARD[category].title}</p>
         <p className="text-lg">{title}</p>
       </div>
       <div className="border-lock mb-8 flex w-full items-center justify-between border-b-[1px] pb-3">

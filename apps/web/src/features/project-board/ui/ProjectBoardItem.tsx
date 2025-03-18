@@ -2,8 +2,8 @@ import React from 'react';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { COLOR } from '~/shared/constants';
-import type { BoardContent, BoardItemValue } from '~/shared/types';
+import { BOARD } from '~/shared/constants';
+import type { BoardContent } from '~/shared/types';
 import { getDate, getPath } from '~/shared/utils';
 
 export default function ProjectBoardItem({
@@ -19,27 +19,27 @@ export default function ProjectBoardItem({
 
   return (
     <div
-      className="rounded-auth border-main-board-border text-md box-shadow-4 flex h-14 w-full cursor-pointer items-center gap-x-8 border-[1px] px-6 py-[10px] font-light"
+      className="rounded-auth border-main-board-border text-md box-shadow-4 grid h-14 w-full cursor-pointer grid-cols-[1fr_8fr_1fr_1fr_1fr] items-center gap-x-8 overflow-hidden border-[1px] px-6 py-[10px] font-light"
       onClick={() =>
         navigate(getPath(location.pathname.split('/search')[0], `${postId}`))
       }
     >
       <div
         className="w-25 text-nowrap px-[10px] py-1 text-center"
-        style={{ backgroundColor: `${COLOR[category as BoardItemValue]}` }}
+        style={{ backgroundColor: `${BOARD[category].color}` }}
       >
-        {category}
+        {BOARD[category].title}
       </div>
-      <div className="flex-1 text-ellipsis text-nowrap px-[10px] py-1 text-start">
+      <div className="min-w-23 overflow-hidden text-ellipsis text-nowrap px-[10px] py-1 text-start">
         {title}
       </div>
-      <div className="w-23 text-light text-nowrap px-[10px] py-1 text-center text-sm">
+      <div className="text-light text-nowrap px-[10px] py-1 text-center text-sm">
         {createBy}
       </div>
-      <div className="w-23 text-light text-nowrap px-[10px] py-1 text-center text-sm">
+      <div className="text-light text-nowrap px-[10px] py-1 text-center text-sm">
         {getDate(createAt, 'YYYY.MM.DD')}
       </div>
-      <div className="w-23 text-light px-[10px] py-1 text-center text-sm">
+      <div className="text-light px-[10px] py-1 text-center text-sm">
         {commentCnt}
       </div>
     </div>

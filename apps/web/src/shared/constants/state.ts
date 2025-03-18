@@ -10,3 +10,5 @@ export const SETTING_MAX_LENGTH = {
 export const SETTING_MIN_LENGTH = {
   PASSWORD: 8,
 };
+
+export const TITLE_MAX_LENGTH = 20;

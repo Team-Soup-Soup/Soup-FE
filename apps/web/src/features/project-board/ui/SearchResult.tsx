@@ -14,7 +14,7 @@ export default function SearchResult() {
   const [searchParams] = useSearchParams();
   const [value, setValue] = useState<string>('');
   const searchTerm = searchParams.get('q');
-  const data = boardDataList;
+  const data = boardDataList as BoardContent[];
   const baseUrl = location.pathname.split('/search')[0];
 
   const handleSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
