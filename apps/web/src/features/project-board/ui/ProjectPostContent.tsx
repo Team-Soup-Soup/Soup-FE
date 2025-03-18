@@ -30,14 +30,10 @@ export default function ProjectPostContent({
   const textContent = 'content' in content ? content.content : '';
 
   const renderContentByType = () => {
-    if (boardTitle === '동료평가' || boardTitle === '회의플래너') {
-      if (isPeerReviewPost(content)) {
-        return <PeerReviewContent content={content} contentType={boardTitle} />;
-      }
-    } else if (boardTitle === '투표') {
-      if (isVotePost(content)) {
-        return <VoteContent content={content} />;
-      }
+    if (isPeerReviewPost(content)) {
+      return <PeerReviewContent content={content} contentType={boardTitle} />;
+    } else if (isVotePost(content)) {
+      return <VoteContent content={content} />;
     }
     return null;
   };

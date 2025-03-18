@@ -55,7 +55,7 @@ export default function VoteContent({ content }: { content: VotePost }) {
 
       {voteOptions.optionAddYn && (
         <>
-          {addOption && (
+          {addOption ? (
             <div className="rounded-auth bg-lock flex w-full gap-x-4 p-4">
               <Checkbox id="newitem" disabled={true} />
               <input
@@ -65,9 +65,7 @@ export default function VoteContent({ content }: { content: VotePost }) {
                 aria-label="새 항목 입력"
               />
             </div>
-          )}
-
-          {!addOption && (
+          ) : (
             <button
               className="rounded-auth bg-lock flex w-full cursor-pointer items-center justify-center gap-x-4 p-4"
               onClick={handleAddOption}
@@ -76,7 +74,6 @@ export default function VoteContent({ content }: { content: VotePost }) {
               <img src={PlusIcon} className="size-6" alt="추가" /> 항목 추가
             </button>
           )}
-
           {addOption ? (
             <div className="mb-6 mt-2 flex gap-x-4">
               <Button color="sub" onClick={handleConfirm}>
