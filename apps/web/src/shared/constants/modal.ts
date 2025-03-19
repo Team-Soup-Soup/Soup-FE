@@ -10,6 +10,7 @@ export const MODAL = {
   MANAGE_MEMBER: 'manageMember',
   INVITE_PROJECT: 'inviteProject',
   EXPULSION_PROJECT: 'expulsionProject',
+  LEVEL_INFO: 'levelInfo',
 } as const;
 
 export const SETTING_ITEM = {

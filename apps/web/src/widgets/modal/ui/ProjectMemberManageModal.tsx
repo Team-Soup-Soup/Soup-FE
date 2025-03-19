@@ -7,6 +7,7 @@ import type { ProfileItem, ProfileLevel } from '~/shared/types';
 import { Modal, Profile } from '~/shared/ui';
 import { getKoreanLevel } from '~/shared/utils';
 import ExpulsionProjectModal from './ExpulsionProjectModal';
+import LevelInfoModal from './LevelInfoModal';
 
 interface MemberListByLevelProps {
   level: ProfileLevel;
@@ -14,6 +15,7 @@ interface MemberListByLevelProps {
 }
 
 export default function ProjectMemberManageModal() {
+  const { openModal } = useModal();
   const { isOpen } = useModalState({ key: MODAL.MANAGE_MEMBER });
 
   const masterList = userList.filter(
@@ -29,41 +31,45 @@ export default function ProjectMemberManageModal() {
   const handleSaveButton = () => {};
   return (
     isOpen && (
-      <Modal modalKey={MODAL.MANAGE_MEMBER} className="w-[600px]">
-        <Modal.Header title="멤버별 편집" />
-        <Modal.Body className="justify-between">
-          <div className="scrollbar-hide flex h-[516px] flex-col gap-[30px] overflow-y-scroll">
-            <MemberListByLevel
-              level={PROFILE_LEVEL.MASTER}
-              memberList={masterList}
-            />
-            <MemberListByLevel
-              level={PROFILE_LEVEL.SUB_MASTER}
-              memberList={subMasterList}
-            />
-            <MemberListByLevel
-              level={PROFILE_LEVEL.CLASSIC}
-              memberList={classicList}
-            />
-          </div>
-          <div className="text-light text-sm font-light">
-            [참고사항] <br />
-            - 퇴출 당해도 계속 초대받을 수 있습니다
-            <br />- 마스터 권한은 마스터의 이탈로 인한 양도만 가능합니다.
-          </div>
-        </Modal.Body>
-        <Modal.Footer className="justify-between">
-          <button
-            type="button"
-            className="text-light hover:text-dark text-sm font-light hover:cursor-pointer"
-          >
-            권한별 제한 보기
-          </button>
-          <Button color="normal" onClick={handleSaveButton}>
-            저장하기
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <>
+        <Modal modalKey={MODAL.MANAGE_MEMBER} className="w-[600px]">
+          <Modal.Header title="멤버별 편집" />
+          <Modal.Body className="justify-between">
+            <div className="scrollbar-hide flex h-[516px] flex-col gap-[30px] overflow-y-scroll">
+              <MemberListByLevel
+                level={PROFILE_LEVEL.MASTER}
+                memberList={masterList}
+              />
+              <MemberListByLevel
+                level={PROFILE_LEVEL.SUB_MASTER}
+                memberList={subMasterList}
+              />
+              <MemberListByLevel
+                level={PROFILE_LEVEL.CLASSIC}
+                memberList={classicList}
+              />
+            </div>
+            <div className="text-light text-sm font-light">
+              [참고사항] <br />
+              - 퇴출 당해도 계속 초대받을 수 있습니다
+              <br />- 마스터 권한은 마스터의 이탈로 인한 양도만 가능합니다.
+            </div>
+          </Modal.Body>
+          <Modal.Footer className="justify-between">
+            <button
+              type="button"
+              className="text-light hover:text-dark text-sm font-light hover:cursor-pointer"
+              onClick={() => openModal(MODAL.LEVEL_INFO)}
+            >
+              권한별 제한 보기
+            </button>
+            <Button color="normal" onClick={handleSaveButton}>
+              저장하기
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        <LevelInfoModal />
+      </>
     )
   );
 }
