@@ -100,7 +100,7 @@ const MemberListByLevel = ({ level, memberList }: MemberListByLevelProps) => {
         <div>{getKoreanLevel(level)}</div>
         <div className="flex flex-col gap-[12px]">
           {memberList.length > 0 ? (
-            memberList.map(({ name, profile }) => (
+            memberList.map(({ name, profile, level }) => (
               <div className="flex h-[42px] justify-between">
                 <Profile image={profile} name={name} />
                 <div className="flex h-[40px] w-full justify-end gap-[8px]">
@@ -109,6 +109,7 @@ const MemberListByLevel = ({ level, memberList }: MemberListByLevelProps) => {
                     value={selectedLevel}
                     disabled={level === PROFILE_LEVEL.MASTER}
                     boxContentClassName="h-[40px]"
+                    initValue={{ name: getKoreanLevel(level) }}
                     onChangeValue={(value) => setSelectedLevel(value)}
                   />
                   {level !== PROFILE_LEVEL.MASTER && (
