@@ -11,6 +11,8 @@ export const MODAL = {
   INVITE_PROJECT: 'inviteProject',
   EXPULSION_PROJECT: 'expulsionProject',
   LEVEL_INFO: 'levelInfo',
+  CHANGE_PROJECT: 'changeProject',
+  LEVEL_PROJECT: 'levelProject',
 } as const;
 
 export const SETTING_ITEM = {
