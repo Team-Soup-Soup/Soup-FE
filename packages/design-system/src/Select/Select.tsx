@@ -1,13 +1,19 @@
 import { SelectHTMLAttributes, useRef, useState } from 'react';
 import { cn } from '@soup/utils';
 
+type OptionItem = {
+  name: string;
+  image?: string;
+};
+
 export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  options: Array<string>;
+  options: Array<OptionItem>;
   className?: string;
-  initValue?: string;
+  initValue?: OptionItem;
   disabled?: boolean;
   boxContentClassName?: string;
   optionClassName?: string;
+  onChangeValue: (value: string) => void;
 }
 
 const Select = ({
@@ -16,18 +22,19 @@ const Select = ({
   initValue,
   disabled = false,
   boxContentClassName,
+  onChangeValue,
   optionClassName,
-  ...rest
 }: SelectProps) => {
   const selectRef = useRef(null);
   const [clicked, setClicked] = useState(false);
-  const [value, setValue] = useState(initValue || options[0]);
+  const [value, setValue] = useState<OptionItem>(initValue || options[0]);
 
   const handleClickedSelect = () => {
     setClicked(!clicked);
   };
-  const handleOptionClick = (option: string) => {
+  const handleOptionClick = (option: OptionItem) => {
     setValue(option);
+    onChangeValue(option.name);
     setClicked(false);
   };
 
@@ -43,7 +50,18 @@ const Select = ({
           boxContentClassName,
         )}
       >
-        {value}
+        <div className="flex w-full items-center gap-[12px]">
+          {value.image && (
+            <img
+              className="rounded-full object-cover"
+              src={value.image}
+              alt={value.name}
+              width={32}
+              height={32}
+            />
+          )}
+          {value.name}
+        </div>
         <img
           src={clicked ? '/icons/chevron_up.svg' : '/icons/chevron_down.svg'}
           alt="down"
@@ -59,15 +77,23 @@ const Select = ({
             optionClassName,
           )}
         >
-          {options.map((option) => (
-            <li>
+          {options.map((option: OptionItem) => (
+            <li key={option.name}>
               <button
                 onClick={() => handleOptionClick(option)}
-                key={option}
                 type="button"
-                className="hover:bg-lock w-full rounded-[8px] p-[8px] text-left"
+                className="hover:bg-lock flex w-full items-center gap-[12px] rounded-[8px] p-[8px] text-left"
               >
-                {option}
+                {option.image && (
+                  <img
+                    className="rounded-full object-cover"
+                    src={option.image}
+                    alt={option.name}
+                    width={32}
+                    height={32}
+                  />
+                )}
+                {option.name}
               </button>
             </li>
           ))}
