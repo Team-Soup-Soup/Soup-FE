@@ -35,7 +35,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <div className="box-shadow border-main-board-border flex h-screen w-[270px] flex-col justify-between border-r py-[32px] text-center">
+      <div className="box-shadow border-main-board-border z-40 flex h-screen w-[270px] flex-col justify-between border-r py-[32px] text-center">
         <div>
           <div className="ml-[174px] flex gap-[16px]">
             <IconButton

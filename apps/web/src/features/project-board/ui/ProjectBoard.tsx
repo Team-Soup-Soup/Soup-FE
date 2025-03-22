@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 
 import { Input, Pagination, Radio } from '@soup/design-system';
 
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import { BOARD, BOARD_LABEL } from '~/shared/constants';
 import { ProjectBoardItem } from '~/features/project-board/ui';
 import { BoardContent, BoardItem } from '~/shared/types';
 import { boardDataList } from '~/mocks';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { getPath } from '~/shared/utils';
 
 export default function ProjectBoard() {
@@ -15,7 +16,7 @@ export default function ProjectBoard() {
   const [selected, setSelected] = useState<string>('');
   const [value, setValue] = useState<string>('');
 
-  const data = boardDataList;
+  const data = boardDataList as BoardContent[];
   const currentLocation = location.pathname;
 
   const handleSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -33,8 +34,8 @@ export default function ProjectBoard() {
                 key={BOARD[label].title}
                 id={BOARD[label].title}
                 label={BOARD[label].title}
-                checked={selected === BOARD[label].title}
-                onChange={() => setSelected(BOARD[label].title)}
+                checked={selected === label}
+                onChange={() => setSelected(label)}
               />
             ))}
           </div>
@@ -48,14 +49,14 @@ export default function ProjectBoard() {
           />
         </div>
       </div>
-      <div className="rounded-auth bg-lock text-md mb-4 flex w-full gap-x-8 px-6 py-[10px] font-light">
+      <div className="rounded-auth bg-lock text-md mb-4 grid w-full grid-cols-[1fr_8fr_1fr_1fr_1fr] gap-x-8 overflow-hidden px-6 py-[10px] font-light">
         <div className="w-25 text-nowrap px-[10px] py-1 text-center">
           카테고리
         </div>
-        <div className="flex-1 px-[10px] py-1 text-start">제목</div>
-        <div className="w-23 px-[10px] py-1 text-center">작성자</div>
-        <div className="w-23 px-[10px] py-1 text-center">날짜</div>
-        <div className="w-23 px-[10px] py-1 text-center">댓글</div>
+        <div className="min-w-23 px-[10px] py-1 text-start">제목</div>
+        <div className="text-nowrap px-[10px] py-1 text-center">작성자</div>
+        <div className="text-nowrap px-[10px] py-1 text-center">날짜</div>
+        <div className="text-nowrap px-[10px] py-1 text-center">댓글</div>
       </div>
       <div className="relative flex size-full flex-col gap-y-1">
         {data.map((data: BoardContent) => {
@@ -63,7 +64,7 @@ export default function ProjectBoard() {
             return <ProjectBoardItem key={data.postId} {...data} />;
           if (data.category === selected)
             return <ProjectBoardItem key={data.postId} {...data} />;
-          else return null;
+          else return <></>;
         })}
 
         <div className="absolute bottom-0 flex h-fit w-full items-center justify-center">

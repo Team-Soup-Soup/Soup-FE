@@ -17,7 +17,7 @@ export default function ProjectPostComment({ content, createAt }: Comment) {
   const [hidden, setHidden] = useState<boolean>(true);
 
   return (
-    <div className="relative overflow-visible">
+    <div className="hover:bg-lock rounded-auth relative cursor-pointer overflow-visible">
       <MoreOptionModal hidden={hidden} setHidden={setHidden} />
       <div className="text-md flex w-full gap-x-8 p-2">
         <div className="size-10 rounded-[50%] bg-black" />
