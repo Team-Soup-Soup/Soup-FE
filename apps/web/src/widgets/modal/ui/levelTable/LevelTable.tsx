@@ -1,5 +1,8 @@
 import { cn } from '@soup/utils';
-import { PropsWithChildren } from 'react';
+
+interface LevelTableProps {
+  children: React.ReactNode;
+}
 
 interface LevelTableHeadProps {
   content: Array<string>;
@@ -10,7 +13,9 @@ interface LevelTableBodyProps {
   description?: string;
 }
 
-export const LevelTable = ({ children }: PropsWithChildren) => {
+export const LevelTable: React.FC<LevelTableProps> = ({
+  children,
+}: LevelTableProps) => {
   return (
     <table className="border-light rounded=[10px] border text-center">
       {children}
@@ -18,7 +23,9 @@ export const LevelTable = ({ children }: PropsWithChildren) => {
   );
 };
 
-export const LevelTableHead = ({ content }: LevelTableHeadProps) => {
+export const LevelTableHead: React.FC<LevelTableHeadProps> = ({
+  content,
+}: LevelTableHeadProps) => {
   return (
     <thead className="bg-lock border-light border">
       <tr>
@@ -33,7 +40,7 @@ export const LevelTableHead = ({ content }: LevelTableHeadProps) => {
   );
 };
 
-export const LevelTableBody = ({
+export const LevelTableBody: React.FC<LevelTableBodyProps> = ({
   title,
   content,
   description = '',
