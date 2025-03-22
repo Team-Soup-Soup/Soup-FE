@@ -26,14 +26,6 @@ export default function ProjectManageModal() {
     return () => document.removeEventListener('keydown', escKeyModalClose);
   }, [closeModal]);
 
-  const handleMemberManageModal = () => {
-    openModal(MODAL.MANAGE_MEMBER);
-  };
-
-  const handleInviteProjectModal = () => {
-    openModal(MODAL.INVITE_PROJECT);
-  };
-
   return (
     isOpen && (
       <div className="border-main-board-border box-shadow absolute right-8 top-[98px] z-20 flex flex-col gap-[30px] rounded-[10px] border bg-white p-[24px]">
@@ -55,7 +47,7 @@ export default function ProjectManageModal() {
           <div>초대하기</div>
           <ManageButton
             content="이메일로 초대하기"
-            onClick={handleInviteProjectModal}
+            onClick={() => openModal(MODAL.INVITE_PROJECT)}
           />
         </div>
         <div className="flex flex-col gap-[12px]">
@@ -63,10 +55,16 @@ export default function ProjectManageModal() {
           <div className="flex flex-col">
             <ManageButton
               content="멤버별 편집"
-              onClick={handleMemberManageModal}
+              onClick={() => openModal(MODAL.MANAGE_MEMBER)}
             />
-            <ManageButton content="프로젝트 이름/설명 변경하기" />
-            <ManageButton content=" 프로젝트 나가기" />
+            <ManageButton
+              content="프로젝트 이름/설명 변경하기"
+              onClick={() => openModal(MODAL.CHANGE_PROJECT)}
+            />
+            <ManageButton
+              content=" 프로젝트 나가기"
+              onClick={() => openModal(MODAL.LEVEL_PROJECT)}
+            />
           </div>
         </div>
       </div>
