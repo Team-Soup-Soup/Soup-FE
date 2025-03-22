@@ -8,3 +8,8 @@ export interface ProfileItem {
   level: ProfileLevel;
   connecting: string;
 }
+
+export type UserOptionItem = {
+  name: string;
+  image?: string;
+};

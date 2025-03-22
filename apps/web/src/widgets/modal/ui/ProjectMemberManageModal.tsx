@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { userList } from '~/mocks';
 import { MODAL, PROFILE_LEVEL } from '~/shared/constants';
 import { useModal, useModalState } from '~/shared/hooks';
-import type { ProfileItem, ProfileLevel } from '~/shared/types';
+import type { ProfileItem, ProfileLevel, UserOptionItem } from '~/shared/types';
 import { Modal, Profile } from '~/shared/ui';
 import { getKoreanLevel } from '~/shared/utils';
 import ExpulsionProjectModal from './ExpulsionProjectModal';
@@ -15,7 +15,7 @@ interface MemberListByLevelProps {
 }
 
 export default function ProjectMemberManageModal() {
-  const { openModal } = useModal();
+  const { openModal, closeModal } = useModal();
   const { isOpen } = useModalState({ key: MODAL.MANAGE_MEMBER });
 
   const masterList = userList.filter(
@@ -28,7 +28,10 @@ export default function ProjectMemberManageModal() {
     (user) => user.level === PROFILE_LEVEL.CLASSIC,
   ) as Array<ProfileItem>;
 
-  const handleSaveButton = () => {};
+  const handleSaveButton = () => {
+    closeModal(MODAL.MANAGE_MEMBER);
+  };
+
   return (
     isOpen && (
       <>
@@ -55,7 +58,7 @@ export default function ProjectMemberManageModal() {
               <br />- 마스터 권한은 마스터의 이탈로 인한 양도만 가능합니다.
             </div>
           </Modal.Body>
-          <Modal.Footer className="justify-between">
+          <Modal.Footer className="mt-[36px] justify-between">
             <button
               type="button"
               className="text-light hover:text-dark text-sm font-light hover:cursor-pointer"
@@ -77,9 +80,10 @@ export default function ProjectMemberManageModal() {
 const MemberListByLevel = ({ level, memberList }: MemberListByLevelProps) => {
   const { openModal } = useModal();
   const [selectedMember, setSelectedMember] = useState('');
+  const [selectedLevel, setSelectedLevel] = useState('');
   const levelOption = Object.values(PROFILE_LEVEL).reduce(
-    (acc: Array<string>, level) => {
-      acc.push(getKoreanLevel(level));
+    (acc: Array<UserOptionItem>, level) => {
+      acc.push({ name: getKoreanLevel(level) });
       return acc;
     },
     [],
@@ -102,9 +106,10 @@ const MemberListByLevel = ({ level, memberList }: MemberListByLevelProps) => {
                 <div className="flex h-[40px] w-full justify-end gap-[8px]">
                   <Select
                     options={levelOption}
+                    value={selectedLevel}
                     disabled={level === PROFILE_LEVEL.MASTER}
                     boxContentClassName="h-[40px]"
-                    initValue={getKoreanLevel(level)}
+                    onChangeValue={(value) => setSelectedLevel(value)}
                   />
                   {level !== PROFILE_LEVEL.MASTER && (
                     <Button
