@@ -1,31 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Button, Input } from '@soup/design-system';
 
 import { CREATE_PROJECT_MAX_LENGTH, MODAL } from '~/shared/constants';
 import { useModal, useModalState } from '~/shared/hooks';
 import { Modal } from '~/shared/ui';
+import { useForm } from 'react-hook-form';
 
 export default function ChangeProjectModal() {
   const { closeModal } = useModal();
   const { isOpen } = useModalState({ key: MODAL.CHANGE_PROJECT });
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [error, setError] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm({
+    defaultValues: {
+      name: '',
+      description: '',
+    },
+  });
 
   const handleSave = () => {
-    if (
-      name.length > 0 &&
-      name.length <= CREATE_PROJECT_MAX_LENGTH.NAME &&
-      description.length > 0 &&
-      description.length <= CREATE_PROJECT_MAX_LENGTH.DESCRIPTION
-    ) {
-      closeModal(MODAL.CHANGE_PROJECT);
-      setName('');
-      setDescription('');
-    } else {
-      setError(true);
-    }
+    closeModal(MODAL.CHANGE_PROJECT);
   };
 
   return (
@@ -35,26 +33,42 @@ export default function ChangeProjectModal() {
         <Modal.Body className="gap-[12px]">
           <Input
             id="name"
-            name="name"
-            value={name}
             maxLength={CREATE_PROJECT_MAX_LENGTH.NAME}
-            onChange={(e) => setName(e.target.value)}
+            value={watch('name') || ''}
             placeholder="프로젝트 이름을 입력해주세요."
             inputClassName="bg-lock border-none"
             label="프로젝트 이름"
+            {...register('name', {
+              required: '프로젝트 이름을 작성해주세요.',
+              maxLength: {
+                value: CREATE_PROJECT_MAX_LENGTH.NAME,
+                message: `프로젝트 이름은 최대 ${CREATE_PROJECT_MAX_LENGTH.NAME}자까지 입력 가능해요`,
+              },
+            })}
           />
+          {errors.name && (
+            <p className="text-important text-sm">{errors.name.message}</p>
+          )}
+
           <Input
             id="description"
-            name="description"
-            value={description}
             maxLength={CREATE_PROJECT_MAX_LENGTH.DESCRIPTION}
-            onChange={(e) => setDescription(e.target.value)}
+            value={watch('description') || ''}
             placeholder="한 줄 소개를 적어주세요."
             inputClassName="bg-lock border-none"
             label="프로젝트 한줄 소개"
+            {...register('description', {
+              required: '프로젝트 소개를 작성해주세요.',
+              maxLength: {
+                value: CREATE_PROJECT_MAX_LENGTH.DESCRIPTION,
+                message: `프로젝트 소개는 최대 ${CREATE_PROJECT_MAX_LENGTH.DESCRIPTION}자까지 입력 가능해요.`,
+              },
+            })}
           />
-          {error && (
-            <p className="text-important text-sm">글자수를 확인해주세요</p>
+          {errors.description && (
+            <p className="text-important text-sm">
+              {errors.description.message}
+            </p>
           )}
         </Modal.Body>
         <Modal.Footer className="mt-[44px] flex justify-end">
@@ -62,7 +76,7 @@ export default function ChangeProjectModal() {
             type="submit"
             className="w-[100px]"
             color="normal"
-            onClick={handleSave}
+            onClick={handleSubmit(handleSave)}
           >
             저장하기
           </Button>
