@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { RepeatOption } from '~/widgets/modal/ui/create-schedule';
 import { RepeatOptionItem } from '~/widgets/modal/types';
 
