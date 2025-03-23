@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 
 import { Button } from '@soup/design-system';
 
-import { ScheduleCalendar } from '~/features/project-schedule/ui';
+import { ScheduleCalendar, ScheduleItem } from '~/features/project-schedule/ui';
 import { useModal } from '~/shared/hooks';
 import { MODAL } from '~/shared/constants';
-import { CreateScheduleModal } from '~/widgets/modal/ui';
+import { CreateScheduleModal, DeleteModal } from '~/widgets/modal/ui';
 
 export default function EntireSchedule() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -42,32 +42,7 @@ export default function EntireSchedule() {
         </div>
       </div>
       <CreateScheduleModal />
+      <DeleteModal />
     </>
   );
 }
-
-const ScheduleItem = () => (
-  <div className="collapse-arrow border-main-board-border collapse w-full cursor-pointer rounded-[8px] border-[1px] bg-red-300/20">
-    <input type="radio" name="my-accordion-2" defaultChecked />
-    <div className="collapse-title font-light">1차 와프</div>
-    <div className="collapse-content bg-white">
-      <div className="flex flex-col pt-4">
-        <div className="flex items-center pt-4">
-          줌회의
-          <br />
-          URL: ASD7-w386-df39
-        </div>
-        <div className="flex w-full items-center justify-end">
-          <div className="flex gap-x-2">
-            <span className="hover:bg-lock cursor-pointer rounded-sm px-2 py-1">
-              수정
-            </span>
-            <span className="hover:bg-lock cursor-pointer rounded-sm px-2 py-1">
-              삭제
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
