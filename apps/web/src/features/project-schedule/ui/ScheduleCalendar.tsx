@@ -63,7 +63,7 @@ export default function ScheduleCalendar({
       </div>
       <div className="border-sub grid grid-cols-7 gap-0 border-[1px] border-b-0 border-r-0">
         {formattedDay.map((d) => (
-          <div className="h-26 border-sub w-34 box-border cursor-pointer border-b-[1px] border-r-[1px] p-3 font-light">
+          <div className="h-26 border-sub box-border w-40 cursor-pointer border-b-[1px] border-r-[1px] p-3 font-light">
             <div
               className={cn(
                 d === selectedDay && 'bg-sub',
