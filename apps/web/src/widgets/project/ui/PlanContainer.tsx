@@ -13,7 +13,7 @@ export default function PlanContainer() {
   const navigate = useNavigate();
   const location = useLocation();
   return (
-    <div className="rounded-auth border-main-board-border box-shadow-4 h-menu-height mt-6 flex min-w-[450px] flex-1 flex-col border-[1px] px-6 py-4 xl:mt-0">
+    <div className="rounded-auth border-main-board-border box-shadow-4 h-menu-height flex min-w-[450px] flex-1 flex-col border-[1px] px-6 py-4">
       <div className="mb-4 flex items-center justify-between font-light">
         <span className="text-md">일정</span>
         <span
