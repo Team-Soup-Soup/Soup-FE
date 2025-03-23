@@ -4,7 +4,9 @@ import { useModal } from '~/shared/hooks';
 
 export default function ScheduleItem() {
   const { openModal } = useModal();
-  const handleEditClick = () => {};
+  const handleEditClick = () => {
+    openModal(MODAL.CREATE_SCHEDULE);
+  };
   const handleDeleteClick = () => {
     openModal(MODAL.DELETE_SCHEDULE);
   };
