@@ -26,10 +26,8 @@ export default function CreateVote() {
   const { closeModal } = useModal();
   const [options, setOption] = useState<number[]>([1, 2, 3]);
   const [date, setDate] = useState(new Date());
-  const [visible, setVisible] = useState<{ date: boolean; time: boolean }>({
-    date: false,
-    time: false,
-  });
+  const [visible, setVisible] = useState(false);
+
   const { register, handleSubmit, watch, setValue } = useForm<VotePostRequest>({
     defaultValues: {
       startDt: new Date().toLocaleDateString(),
@@ -92,23 +90,13 @@ export default function CreateVote() {
             </Modal.Section>
             <Modal.Section title="마감 기한">
               <div className="flex gap-x-2">
+                <DatePicker key="createVote" date={date} setDate={setDate} />
                 <span
                   className="border-main-board-border rounded-auth relative cursor-pointer border-[1px] px-5 py-2"
-                  onClick={() =>
-                    setVisible((prev) => ({ time: false, date: !prev.date }))
-                  }
-                >
-                  {getDate(date.toLocaleDateString(), 'YYYY. MM. DD')}
-                  {visible.date && <DatePicker date={date} setDate={setDate} />}
-                </span>
-                <span
-                  className="border-main-board-border rounded-auth relative cursor-pointer border-[1px] px-5 py-2"
-                  onClick={() =>
-                    setVisible((prev) => ({ date: false, time: !prev.time }))
-                  }
+                  onClick={() => setVisible((prev) => !prev)}
                 >
                   {getDate(new Date().toLocaleDateString(), 'HH: MM')}
-                  {visible.time && <TimePicker />}
+                  {visible && <TimePicker />}
                 </span>
               </div>
             </Modal.Section>
