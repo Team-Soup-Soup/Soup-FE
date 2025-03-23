@@ -25,7 +25,11 @@ export default function EntireSchedule() {
           <div className="min-w-140 border-main-board-border rounded-20 box-border flex-1 border-[1px] px-6 py-5">
             <div className="mb-5 flex w-full justify-between">
               <span className="text-lg">{selectedDate.getDate()}일</span>
-              <Button color="normal" onClick={handleButtonClick}>
+              <Button
+                color="normal"
+                className="focus:outline-none"
+                onClick={handleButtonClick}
+              >
                 일정 추가하기
               </Button>
             </div>
@@ -43,5 +47,27 @@ export default function EntireSchedule() {
 }
 
 const ScheduleItem = () => (
-  <div className="border-main-board-border h-11 w-full cursor-pointer rounded-[8px] border-[1px] bg-red-300/20"></div>
+  <div className="collapse-arrow border-main-board-border collapse w-full cursor-pointer rounded-[8px] border-[1px] bg-red-300/20">
+    <input type="radio" name="my-accordion-2" defaultChecked />
+    <div className="collapse-title font-light">1차 와프</div>
+    <div className="collapse-content bg-white">
+      <div className="flex flex-col pt-4">
+        <div className="flex items-center pt-4">
+          줌회의
+          <br />
+          URL: ASD7-w386-df39
+        </div>
+        <div className="flex w-full items-center justify-end">
+          <div className="flex gap-x-2">
+            <span className="hover:bg-lock cursor-pointer rounded-sm px-2 py-1">
+              수정
+            </span>
+            <span className="hover:bg-lock cursor-pointer rounded-sm px-2 py-1">
+              삭제
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 );
