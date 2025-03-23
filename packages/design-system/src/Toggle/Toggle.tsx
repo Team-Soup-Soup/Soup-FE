@@ -3,7 +3,7 @@ import { cn } from '@soup/utils';
 
 export interface ToggleProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
-  label?: string | React.JSX.Element;
+  label?: string | React.ReactNode;
   labelLeft?: boolean;
 }
 

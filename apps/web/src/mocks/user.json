@@ -1,0 +1,32 @@
+[
+  {
+    "name": "a",
+    "profile": "/images/user_profile.webp",
+    "level": "master",
+    "connecting": "현재 접속 중"
+  },
+  {
+    "name": "b",
+    "profile": "/images/user_profile.webp",
+    "level": "classic",
+    "connecting": "현재 접속 중"
+  },
+  {
+    "name": "c",
+    "profile": "/images/user_profile.webp",
+    "level": "classic",
+    "connecting": "현재 접속 중"
+  },
+  {
+    "name": "d",
+    "profile": "/images/user_profile.webp",
+    "level": "classic",
+    "connecting": "현재 접속 중"
+  },
+  {
+    "name": "e",
+    "profile": "/images/user_profile.webp",
+    "level": "subMaster",
+    "connecting": "2개월 전"
+  }
+]
