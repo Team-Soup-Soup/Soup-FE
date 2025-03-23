@@ -8,6 +8,13 @@ export const MODAL = {
   DELETE_POST: 'deletePost',
   DELETE_COMMENT: 'deleteComment',
   UPDATE: 'update',
+  MANAGE_PROJECT: 'manageProject',
+  MANAGE_MEMBER: 'manageMember',
+  INVITE_PROJECT: 'inviteProject',
+  EXPULSION_PROJECT: 'expulsionProject',
+  LEVEL_INFO: 'levelInfo',
+  CHANGE_PROJECT: 'changeProject',
+  LEVEL_PROJECT: 'levelProject',
 } as const;
 
 export const SETTING_ITEM = {

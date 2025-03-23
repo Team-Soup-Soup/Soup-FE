@@ -6,3 +6,4 @@ export { default as Breadcrumb } from './Breadcrumb';
 export { default as MeetingTimeSelector } from './MeetingTimeSelector';
 export { default as DatePicker } from './DatePicker';
 export { default as TimePicker } from './TimePicker';
+export { default as LevelBadge } from './LevelBadge';

@@ -100,9 +100,7 @@ function ModalSection({ title, className, children }: ModalSectionProps) {
   );
 }
 function ModalFooter({ className, children }: ModalFooterProps) {
-  return (
-    <div className={cn('mb-[16px] mt-[36px] flex', className)}>{children}</div>
-  );
+  return <div className={cn('mb-[16px] flex', className)}>{children}</div>;
 }
 
 Modal.Header = ModalHeader;
