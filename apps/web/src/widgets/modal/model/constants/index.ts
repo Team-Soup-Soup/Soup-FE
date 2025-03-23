@@ -1,2 +1,2 @@
-export * from './text';
+export * from './delete';
 export * from './vote';

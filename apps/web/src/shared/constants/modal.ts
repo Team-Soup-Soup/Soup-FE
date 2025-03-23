@@ -7,6 +7,7 @@ export const MODAL = {
   ALARM: 'alarm',
   DELETE_POST: 'deletePost',
   DELETE_COMMENT: 'deleteComment',
+  DELETE_SCHEDULE: 'deleteSchedule',
   UPDATE: 'update',
   MANAGE_PROJECT: 'manageProject',
   MANAGE_MEMBER: 'manageMember',
