@@ -1,30 +1,24 @@
 import React, { useState } from 'react';
 
 import { Button, Input, Radio, Toggle } from '@soup/design-system';
-import { cn } from '@soup/utils';
+
+import { REPEAT_OPTION, repeatOptionKeys } from '~/widgets/modal/model';
+import type { RepeatOptionItem } from '~/widgets/modal/types';
 
 import { MODAL } from '~/shared/constants';
 import { useModal, useModalState } from '~/shared/hooks';
 import { DatePicker, Modal } from '~/shared/ui';
-import { getDate } from '~/shared/utils';
-import { RepeatOption } from './create-schedule';
 
 export default function CreateScheduleModal() {
   const { closeModal } = useModal();
   const { isOpen } = useModalState({ key: MODAL.CREATE_SCHEDULE });
-  const repeatOption = ['week', 'month', 'year'] as const;
-  type RepeatOption = (typeof repeatOption)[number];
-  const repeatOptionObject = {
-    week: { title: '매주', element: <RepeatOption.Week /> },
-    month: { title: '매달', element: <RepeatOption.Month /> },
-    year: { title: '매년', element: <RepeatOption.Year /> },
-  };
 
   const [repeated, setRepeated] = useState<boolean>(false);
-  const [visible, setVisible] = useState<boolean>(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [repeat, setRepeat] = useState<RepeatOption>(repeatOption[0]);
+  const [selectedRepeatOption, setRepeatOption] = useState<RepeatOptionItem>(
+    repeatOptionKeys[0],
+  );
 
   const handleButtonClick = () => closeModal(MODAL.CREATE_SCHEDULE);
 
@@ -54,42 +48,13 @@ export default function CreateScheduleModal() {
               <div className="flex flex-1 flex-col gap-y-8">
                 <div className="mt-12 flex h-fit w-full items-center gap-x-8">
                   색상
-                  <div className="flex gap-x-6">
-                    <div className="size-6 rounded-full bg-red-500/30" />
-                    <div className="size-6 rounded-full bg-blue-500/30" />
-                    <div className="size-6 rounded-full bg-green-500/30" />
-                    <div className="size-6 rounded-full bg-yellow-500/30" />
-                    <div className="size-6 rounded-full bg-purple-500/30" />
-                  </div>
+                  <ColorPicker />
                 </div>
                 <div className="flex h-fit w-full items-center gap-x-8">
                   일시
                   <div className="flex items-center gap-x-4">
-                    <span
-                      className={cn(
-                        visible && 'border-point',
-                        'hover:border-point border-main-board-border rounded-auth relative w-fit cursor-pointer border-[1px] px-5 py-2',
-                      )}
-                      onClick={() => setVisible((prev) => !prev)}
-                    >
-                      {getDate(startDate.toLocaleDateString(), 'YYYY. MM. DD')}
-                      {visible && (
-                        <DatePicker date={startDate} setDate={setStartDate} />
-                      )}
-                    </span>
-                    -
-                    <span
-                      className={cn(
-                        visible && 'border-point',
-                        'hover:border-point border-main-board-border rounded-auth relative w-fit cursor-pointer border-[1px] px-5 py-2',
-                      )}
-                      onClick={() => setVisible((prev) => !prev)}
-                    >
-                      {getDate(endDate.toLocaleDateString(), 'YYYY. MM. DD')}
-                      {visible && (
-                        <DatePicker date={endDate} setDate={setEndDate} />
-                      )}
-                    </span>
+                    <DatePicker date={startDate} setDate={setStartDate} />-
+                    <DatePicker date={endDate} setDate={setEndDate} />
                   </div>
                 </div>
                 <div>
@@ -104,19 +69,19 @@ export default function CreateScheduleModal() {
                   {repeated && (
                     <div className="mt-4 flex w-full flex-col gap-y-2">
                       <div className="flex gap-x-11">
-                        {repeatOption.map((option) => (
+                        {repeatOptionKeys.map((option) => (
                           <Radio
                             id={option}
                             key={option}
                             label={
-                              repeatOptionObject[option as RepeatOption].title
+                              REPEAT_OPTION[option as RepeatOptionItem].title
                             }
-                            checked={repeat === option}
-                            onChange={() => setRepeat(option)}
+                            checked={selectedRepeatOption === option}
+                            onChange={() => setRepeatOption(option)}
                           />
                         ))}
                       </div>
-                      {repeatOptionObject[repeat].element}
+                      {REPEAT_OPTION[selectedRepeatOption].element}
                     </div>
                   )}
                 </div>
@@ -133,3 +98,13 @@ export default function CreateScheduleModal() {
     )
   );
 }
+
+const ColorPicker = () => (
+  <div className="flex gap-x-6">
+    <div className="size-6 rounded-full bg-red-500/30" />
+    <div className="size-6 rounded-full bg-blue-500/30" />
+    <div className="size-6 rounded-full bg-green-500/30" />
+    <div className="size-6 rounded-full bg-yellow-500/30" />
+    <div className="size-6 rounded-full bg-purple-500/30" />
+  </div>
+);
