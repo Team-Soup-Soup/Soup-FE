@@ -18,8 +18,8 @@ export default function EntireSchedule() {
     <>
       <div className="flex h-fit w-full flex-shrink-0 flex-col gap-y-4 overflow-hidden">
         <p className="text-lg font-semibold">전체 일정</p>
-        <div className="flex flex-1 flex-wrap gap-x-4">
-          <div className="border-main-board-border rounded-20 grid h-full w-[1012px] place-items-center border-[1px]">
+        <div className="flex flex-1 flex-wrap gap-4">
+          <div className="border-main-board-border rounded-20 grid min-w-[1012px] flex-1 place-items-center border-[1px]">
             <ScheduleCalendar date={selectedDate} setDate={setSelectedDate} />
           </div>
           <div className="min-w-140 border-main-board-border rounded-20 box-border flex-1 border-[1px] px-6 py-5">
