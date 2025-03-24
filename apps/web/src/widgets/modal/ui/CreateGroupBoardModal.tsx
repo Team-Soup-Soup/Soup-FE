@@ -88,7 +88,6 @@ export default function CreateGroupBoardModal() {
                       <div className="flex flex-col">
                         {title}
                         <span className="text-light text-sm">
-                          {' '}
                           {description}
                         </span>
                       </div>
