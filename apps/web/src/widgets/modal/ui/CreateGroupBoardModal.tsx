@@ -56,10 +56,10 @@ export default function CreateGroupBoardModal() {
                     style={{ backgroundImage: `url(${image ?? ''})` }}
                   >
                     {!image && (
-                      <div className="flex flex-col items-center">
+                      <button className="flex flex-col items-center focus:outline-none">
                         <img src={ImageIcon} alt="이미지" className="size-14" />
                         <span className="text-sm">이미지 업로드</span>
-                      </div>
+                      </button>
                     )}
                   </div>
                 </label>
