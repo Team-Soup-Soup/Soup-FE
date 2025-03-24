@@ -1,3 +1,4 @@
+import React from 'react';
 import { Checkbox } from '@soup/design-system';
 
 export default function UserItem({ id }: { id: string }) {
