@@ -8,9 +8,11 @@ import { DatePicker } from '~/shared/ui';
 export default function RepeatOption() {}
 
 function RepeatOptionWeek() {
+  const currentDate = new Date();
+
   const [selectedDay, setSelectedDay] = useState('일');
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(currentDate);
+  const [endDate, setEndDate] = useState(currentDate);
 
   return (
     <div className="bg-lock rounded-auth flex h-fit w-full flex-col gap-y-8 p-6">
@@ -30,13 +32,13 @@ function RepeatOptionWeek() {
       </div>
       <div className="flex flex-col gap-y-4">
         <DatePicker
-          key="repeatOptionWeek1"
+          key="repeatOptionWeekStart"
           date={startDate}
           setDate={setStartDate}
           label="시작일"
         />
         <DatePicker
-          key="repeatOptionWeek2"
+          key="repeatOptionWeekEnd"
           date={endDate}
           setDate={setEndDate}
           label="종료일"
@@ -47,9 +49,11 @@ function RepeatOptionWeek() {
 }
 
 function RepeatOptionMonth() {
-  const [date, setDate] = useState(new Date());
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const currentDate = new Date();
+
+  const [date, setDate] = useState(currentDate);
+  const [startDate, setStartDate] = useState(currentDate);
+  const [endDate, setEndDate] = useState(currentDate);
 
   return (
     <div className="bg-lock rounded-auth flex h-fit w-full flex-col gap-y-8 p-6">
@@ -85,9 +89,11 @@ function RepeatOptionMonth() {
 }
 
 function RepeatOptionYear() {
+  const currentDate = new Date();
+
   const [date, setDate] = useState(new Date());
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(currentDate);
+  const [endDate, setEndDate] = useState(currentDate);
 
   return (
     <div className="bg-lock rounded-auth flex h-fit w-full flex-col gap-y-8 p-6">

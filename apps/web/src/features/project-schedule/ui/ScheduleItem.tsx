@@ -24,18 +24,18 @@ export default function ScheduleItem() {
           </div>
           <div className="flex w-full items-center justify-end">
             <div className="flex gap-x-2">
-              <span
-                className="hover:bg-lock cursor-pointer rounded-sm px-2 py-1"
+              <button
+                className="hover:bg-lock cursor-pointer rounded-sm px-2 py-1 focus:outline-none"
                 onClick={handleEditClick}
               >
                 수정
-              </span>
-              <span
-                className="hover:bg-lock cursor-pointer rounded-sm px-2 py-1"
+              </button>
+              <button
+                className="hover:bg-lock cursor-pointer rounded-sm px-2 py-1 focus:outline-none"
                 onClick={handleDeleteClick}
               >
                 삭제
-              </span>
+              </button>
             </div>
           </div>
         </div>

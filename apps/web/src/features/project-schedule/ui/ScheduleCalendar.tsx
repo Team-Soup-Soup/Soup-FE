@@ -4,6 +4,7 @@ import { cn } from '@soup/utils';
 
 import ChevronRight from '~/assets/icons/chevron-right.svg';
 import ChevronLeft from '~/assets/icons/chevron-left.svg';
+import { WEEK } from '~/shared/constants';
 
 interface ScheduleCalendarProps {
   date: Date;
@@ -18,9 +19,6 @@ export default function ScheduleCalendar({
   let currentMonth = date.getMonth();
 
   const dayCnt = new Date(currentYear, currentMonth + 1, 0).getDate();
-
-  const week = ['일', '월', '화', '수', '목', '금', '토'];
-
   const firstDay = new Date(currentYear, currentMonth, 1);
   const firstWeek = Array.from({ length: firstDay.getDay() }, () => '');
 
@@ -55,7 +53,7 @@ export default function ScheduleCalendar({
         </div>
       </div>
       <div className="flex">
-        {week.map((w) => (
+        {WEEK.map((w) => (
           <div key={w} className="w-34 flex justify-center py-4 font-light">
             {w}
           </div>
