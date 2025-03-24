@@ -1,11 +1,17 @@
-import { MODAL, SETTING_ITEM } from '~/shared/constants';
-import { useModal, useModalState } from '~/shared/hooks';
-import { Modal } from '~/shared/ui';
 import React, { useEffect, useRef, useState } from 'react';
+
 import { cn } from '@soup/utils';
 import { Button } from '@soup/design-system';
-import { ProfileSetting, AlarmSetting, WithdrawSetting } from './setting';
+
+import { MODAL, SETTING_ITEM } from '~/shared/constants';
+import { useModal, useModalState } from '~/shared/hooks';
 import type { ModalRef, SettingItem } from '~/shared/types';
+import { Modal } from '~/shared/ui';
+import {
+  ProfileSetting,
+  AlarmSetting,
+  WithdrawSetting,
+} from '~/widgets/modal/ui/setting';
 
 export default function SettingModal() {
   const { isOpen: openSetting } = useModalState({ key: MODAL.SETTING });
