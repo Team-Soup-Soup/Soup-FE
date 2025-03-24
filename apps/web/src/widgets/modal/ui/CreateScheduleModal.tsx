@@ -24,7 +24,7 @@ export default function CreateScheduleModal() {
 
   return (
     isOpen && (
-      <Modal title="일정 추가하기" modalKey={MODAL.CREATE_PROJECT}>
+      <Modal title="일정 추가하기" modalKey={MODAL.CREATE_SCHEDULE}>
         <Modal.Header title="일정 추가하기" />
         <Modal.Body className="w-250 h-230 flex font-light">
           <form className="h-210 w-full">
