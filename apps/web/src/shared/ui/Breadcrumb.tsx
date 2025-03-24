@@ -20,8 +20,6 @@ export default function Breadcrumb() {
   if (locationParts.length === 0) return null;
   locationParts = locationParts.filter((location) => location !== projectId);
 
-  console.log(locationParts);
-
   return (
     <div className="fixed top-0 z-20 w-full bg-white px-8 py-5">
       <div className="text-light flex items-center gap-x-2">
