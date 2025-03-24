@@ -7,3 +7,5 @@ export enum DAY {
   '금요일',
   '토요일',
 }
+
+export const WEEK = ['일', '월', '화', '수', '목', '금', '토'];

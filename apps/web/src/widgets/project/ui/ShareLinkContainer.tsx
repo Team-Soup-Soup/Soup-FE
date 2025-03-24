@@ -6,7 +6,7 @@ import { IconButton } from '~/shared/ui';
 
 export default function ShareLinkContainer() {
   return (
-    <div className="rounded-auth box-shadow-inner bg-lock h-menu-height mt-6 flex basis-full flex-col px-6 py-4 2xl:mt-0 2xl:flex-1">
+    <div className="rounded-auth box-shadow-inner bg-lock h-menu-height flex basis-full flex-col px-6 py-4 2xl:mt-0 2xl:flex-1">
       <div className="mb-4 flex items-center justify-between font-light">
         <span className="text-md">공유링크</span>
         <span className="flex gap-x-2">

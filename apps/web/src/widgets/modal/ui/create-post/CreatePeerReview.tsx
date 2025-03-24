@@ -13,7 +13,6 @@ import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
 export default function CreatePeerReview() {
   const { closeModal } = useModal();
   const [date, setDate] = useState(new Date());
-  const [visible, setVisible] = useState<boolean>(false);
   const { register, handleSubmit, watch } = useForm<PeerReviewPostRequest>({
     defaultValues: {
       projectId: 1,
@@ -46,16 +45,11 @@ export default function CreatePeerReview() {
             </Modal.Section>
             <Modal.Section title="마감 기한">
               <div className="flex gap-x-2">
-                <span
-                  className={cn(
-                    visible && 'border-point',
-                    'hover:border-point border-main-board-border rounded-auth relative w-fit cursor-pointer border-[1px] px-5 py-2',
-                  )}
-                  onClick={() => setVisible((prev) => !prev)}
-                >
-                  {getDate(date.toLocaleDateString(), 'YYYY. MM. DD')}
-                  {visible && <DatePicker date={date} setDate={setDate} />}
-                </span>
+                <DatePicker
+                  key="createPeerReview"
+                  date={date}
+                  setDate={setDate}
+                />
                 <TimePickerWrapper />
               </div>
               <p className="text-light">

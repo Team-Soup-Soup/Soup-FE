@@ -1,17 +1,27 @@
 import React, { useState } from 'react';
 
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import { Calendar } from '@natscale/react-calendar';
 import '@natscale/react-calendar/dist/main.css';
 import '~/widgets/project/style';
 
-import { DAY } from '~/shared/constants';
+import { DAY, PATH } from '~/shared/constants';
+import { getPath } from '~/shared/utils';
 
 export default function PlanContainer() {
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
-    <div className="rounded-auth border-main-board-border box-shadow-4 h-menu-height mt-6 flex min-w-[450px] flex-1 flex-col border-[1px] px-6 py-4 xl:mt-0">
+    <div className="rounded-auth border-main-board-border box-shadow-4 h-menu-height flex min-w-[450px] flex-1 flex-col border-[1px] px-6 py-4">
       <div className="mb-4 flex items-center justify-between font-light">
         <span className="text-md">일정</span>
-        <span className="text-light cursor-pointer">더보기 &gt;&gt;</span>
+        <span
+          className="text-light hover:text-dark cursor-pointer"
+          onClick={() => navigate(getPath(location.pathname, PATH.SCHEDULE))}
+        >
+          더보기 &gt;&gt;
+        </span>
       </div>
       <div className="flex h-[80%] w-full justify-between">
         <ToDoSection />
