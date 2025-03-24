@@ -11,3 +11,4 @@ export { default as InviteProjectModal } from './InviteProjectModal';
 export { default as ExpulsionProjectModal } from './ExpulsionProjectModal';
 export { default as ChangeProjectModal } from './ChangeProjectModal';
 export { default as LeaveProjectModal } from './LeaveProjectModal';
+export { default as CreateGroupBoardModal } from './CreateGroupBoardModal';

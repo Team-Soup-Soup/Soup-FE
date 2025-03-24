@@ -6,7 +6,7 @@ import { useModal } from '~/shared/hooks';
 import { CreateGroupBoardModal } from '~/widgets/modal/ui';
 
 export default function GroupBoardContainer() {
-  const groupBoard = ['발표원정대', '제네럴프론트'];
+  const groupBoard = ['제네럴프론트'];
   const { openModal } = useModal();
 
   return (
