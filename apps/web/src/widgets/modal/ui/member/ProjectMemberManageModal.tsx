@@ -1,13 +1,15 @@
-import { Button, Select } from '@soup/design-system';
 import React, { useState } from 'react';
+
+import { Button, Select } from '@soup/design-system';
+
 import { userList } from '~/mocks';
 import { MODAL, PROFILE_LEVEL } from '~/shared/constants';
 import { useModal, useModalState } from '~/shared/hooks';
 import type { ProfileItem, ProfileLevel, UserOptionItem } from '~/shared/types';
 import { Modal, Profile } from '~/shared/ui';
 import { getKoreanLevel } from '~/shared/utils';
-import ExpulsionProjectModal from './ExpulsionProjectModal';
-import LevelInfoModal from './LevelInfoModal';
+import { LevelInfoModal } from '~/widgets/modal/ui/member';
+import { ExpulsionProjectModal } from '~/widgets/modal/ui/project';
 
 interface MemberListByLevelProps {
   level: ProfileLevel;

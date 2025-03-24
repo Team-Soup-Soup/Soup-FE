@@ -1,8 +1,10 @@
+import React from 'react';
+
+import { Button } from '@soup/design-system';
+
 import { MODAL } from '~/shared/constants';
 import { useModal, useModalState } from '~/shared/hooks';
 import { Modal } from '~/shared/ui';
-import React from 'react';
-import { Button } from '@soup/design-system';
 
 export default function UpdateModal() {
   const { closeModal } = useModal();

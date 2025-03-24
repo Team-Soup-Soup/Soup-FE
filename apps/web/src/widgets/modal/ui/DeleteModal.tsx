@@ -9,6 +9,7 @@ import { DeleteModalItem } from '~/widgets/modal/types';
 
 export default function DeleteCommentModal() {
   const { closeModal } = useModal();
+
   const openedModal = useModalKeyState();
   const modalKey = DELETE_MODAL_KEYS.filter((modal) =>
     openedModal.includes(modal),

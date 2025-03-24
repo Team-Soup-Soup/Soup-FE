@@ -1,7 +1,9 @@
+import React, { ChangeEvent, useEffect, useState } from 'react';
+
+import { Header, Radio } from '@soup/design-system';
+
 import { MODAL } from '~/shared/constants';
 import { useModal, useModalState } from '~/shared/hooks';
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Header, Radio } from '@soup/design-system';
 import { alarmList, projectList } from '~/mocks';
 
 export default function AlarmModal() {
