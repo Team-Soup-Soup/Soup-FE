@@ -1,6 +1,7 @@
 export const MODAL = {
   CREATE_PROJECT: 'createProject',
   CREATE_POST: 'createPost',
+  CREATE_GROUP_BOARD: 'createGroupBoard',
   LOGOUT: 'logout',
   SETTING: 'setting',
   ALARM: 'alarm',
