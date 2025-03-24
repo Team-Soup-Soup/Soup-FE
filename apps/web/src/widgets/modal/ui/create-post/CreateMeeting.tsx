@@ -18,9 +18,9 @@ import { useModal } from '~/shared/hooks';
 import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
 
 export default function CreateMeeting() {
-  const { closeModal } = useModal();
   const [date, setDate] = useState(new Date());
-  const [visible, setVisible] = useState<boolean>(false);
+
+  const { closeModal } = useModal();
   const { register, handleSubmit, watch } = useForm<MeetingPostRequest>({
     defaultValues: {
       projectId: 1,
@@ -53,16 +53,7 @@ export default function CreateMeeting() {
             </Modal.Section>
             <Modal.Section title="마감 기한">
               <div className="flex gap-x-2">
-                <span
-                  className={cn(
-                    visible && 'border-point',
-                    'hover:border-point border-main-board-border rounded-auth relative w-fit cursor-pointer border-[1px] px-5 py-2',
-                  )}
-                  onClick={() => setVisible((prev) => !prev)}
-                >
-                  {getDate(date.toLocaleDateString(), 'YYYY. MM. DD')}
-                  {visible && <DatePicker date={date} setDate={setDate} />}
-                </span>
+                <DatePicker key="createMeeting" date={date} setDate={setDate} />
                 <TimePickerWrapper />
               </div>
             </Modal.Section>

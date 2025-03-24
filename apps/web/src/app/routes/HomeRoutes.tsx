@@ -5,6 +5,7 @@ import { ProjectBoardRoutes } from '~/app/routes/ProjectBoardRoutes';
 import { GroupBoardPage } from '~/pages/group-board/ui';
 import { HomePage } from '~/pages/home/ui';
 import { ProjectPage } from '~/pages/project/ui';
+import { SchedulePage } from '~/pages/schedule/ui';
 import { PATH } from '~/shared/constants';
 
 export const HomeRoutes: RouteObject = {
@@ -17,6 +18,7 @@ export const HomeRoutes: RouteObject = {
       children: [
         { index: true, element: <ProjectPage /> },
         { path: PATH.GROUP_BOARD, element: <GroupBoardPage /> },
+        { path: PATH.SCHEDULE, element: <SchedulePage /> },
         ProjectBoardRoutes,
       ],
     },
