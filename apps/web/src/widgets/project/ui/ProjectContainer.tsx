@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  GroupBoardContainer,
+  GroupBoardSection,
   ProjectHeader,
   ProjectMenuContainer,
 } from '~/widgets/project/ui';
@@ -10,7 +10,7 @@ export default function ProjectContainer() {
     <div className="scrollbar-hide h-full overflow-scroll">
       <ProjectHeader />
       <ProjectMenuContainer />
-      <GroupBoardContainer />
+      <GroupBoardSection />
     </div>
   );
 }

@@ -1,13 +1,17 @@
 import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import AddIcon from '~/assets/icons/plus.svg';
 import { MODAL } from '~/shared/constants';
 import { useModal } from '~/shared/hooks';
+import { getPath } from '~/shared/utils';
 import { CreateGroupBoardModal } from '~/widgets/modal/ui';
 
-export default function GroupBoardContainer() {
+export default function GroupBoardSection() {
   const groupBoard = ['제네럴프론트'];
   const { openModal } = useModal();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <>
@@ -27,6 +31,7 @@ export default function GroupBoardContainer() {
               <div
                 key={board}
                 className="rounded-auth border-main-board-border box-shadow-4 relative h-full w-[450px] flex-shrink-0 cursor-pointer border-[1px] bg-white"
+                onClick={() => navigate(getPath(location.pathname, board))}
               >
                 <div className="rounded-tl-auth rounded-br-auth bg-sub absolute left-0 top-0 px-8 py-2">
                   {board}
