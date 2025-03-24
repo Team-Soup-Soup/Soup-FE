@@ -7,3 +7,4 @@ export { default as MeetingTimeSelector } from './MeetingTimeSelector';
 export { default as DatePicker } from './DatePicker';
 export { default as TimePicker } from './TimePicker';
 export { default as LevelBadge } from './LevelBadge';
+export { default as UserItem } from './UserItem';

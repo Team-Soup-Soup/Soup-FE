@@ -7,7 +7,11 @@ export const LOCATION = new Proxy<Record<string, string>>(
   },
   {
     get(target, prop: string) {
-      return isNaN(Number(prop)) ? target[prop] : '게시글';
+      return isNaN(Number(prop))
+        ? prop in target
+          ? target[prop]
+          : prop
+        : '게시글';
     },
   },
 );

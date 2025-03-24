@@ -18,7 +18,8 @@ interface ModalBodyProps extends PropsWithChildren {
 }
 
 interface ModalSectionProps extends PropsWithChildren {
-  title: string;
+  title?: string;
+  description?: string;
   className?: string;
 }
 interface ModalFooterProps extends PropsWithChildren {
@@ -91,10 +92,18 @@ function ModalBody({ className, children }: ModalBodyProps) {
   );
 }
 
-function ModalSection({ title, className, children }: ModalSectionProps) {
+function ModalSection({
+  title,
+  description,
+  className,
+  children,
+}: ModalSectionProps) {
   return (
     <div className={cn('flex w-full flex-col gap-2', className)}>
-      <p>{title}</p>
+      <div>
+        {title && <p>{title}</p>}
+        {description && <p className="text-light text-sm">{description}</p>}
+      </div>
       {children}
     </div>
   );

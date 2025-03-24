@@ -2,6 +2,7 @@ import { type RouteObject } from 'react-router-dom';
 
 import { HomeLayout } from '~/app/layouts';
 import { ProjectBoardRoutes } from '~/app/routes/ProjectBoardRoutes';
+import { GroupBoardPage } from '~/pages/group-board/ui';
 import { HomePage } from '~/pages/home/ui';
 import { ProjectPage } from '~/pages/project/ui';
 import { SchedulePage } from '~/pages/schedule/ui';
@@ -16,8 +17,9 @@ export const HomeRoutes: RouteObject = {
       path: PATH.PROJECT_CONTENT,
       children: [
         { index: true, element: <ProjectPage /> },
-        ProjectBoardRoutes,
+        { path: PATH.GROUP_BOARD, element: <GroupBoardPage /> },
         { path: PATH.SCHEDULE, element: <SchedulePage /> },
+        ProjectBoardRoutes,
       ],
     },
   ],
