@@ -1,0 +1,4 @@
+import * as React from "react";
+import type { SVGProps } from "react";
+const SvgEyeOff = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" {...props}><g stroke="#9F9C95" strokeLinecap="round" strokeLinejoin="round" strokeWidth={0.833} clipPath="url(#eye_off_svg__a)"><path d="M14.95 14.95A8.4 8.4 0 0 1 10 16.667C4.168 16.667.835 10 .835 10a15.4 15.4 0 0 1 4.217-4.95m3.2-1.517a7.6 7.6 0 0 1 1.75-.2c5.833 0 9.166 6.667 9.166 6.667a15.4 15.4 0 0 1-1.8 2.658m-5.6-.891a2.5 2.5 0 0 1-3.596.063 2.5 2.5 0 0 1 .063-3.597M.834.833l18.333 18.334" /></g><defs><clipPath id="eye_off_svg__a"><path fill="#fff" d="M0 0h20v20H0z" /></clipPath></defs></svg>;
+export default SvgEyeOff;

@@ -1,5 +1,6 @@
 import { SelectHTMLAttributes, useRef, useState } from 'react';
 import { cn } from '@soup/utils';
+import { ChevronDown, ChevronUp } from '../assets/svg';
 
 type OptionItem = {
   name: string;
@@ -62,12 +63,11 @@ const Select = ({
           )}
           {value.name}
         </div>
-        <img
-          src={clicked ? '/icons/chevron_up.svg' : '/icons/chevron_down.svg'}
-          alt="down"
-          width={24}
-          height={24}
-        />
+        {clicked ? (
+          <ChevronUp width={24} height={24} />
+        ) : (
+          <ChevronDown width={24} height={24} />
+        )}
       </button>
       <div className="relative w-full">
         <ul

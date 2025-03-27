@@ -1,5 +1,6 @@
-import { InputHTMLAttributes, useEffect, useRef, useState } from 'react';
+import { InputHTMLAttributes, useRef, useState } from 'react';
 import { cn } from '@soup/utils';
+import { Eye, EyeOff, Search } from '../assets/svg';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -65,19 +66,9 @@ const Input = ({
             onClick={handlePasswordToggle}
           >
             {showPassword ? (
-              <img
-                src="/icons/eye.svg"
-                alt="show password"
-                width={20}
-                height={20}
-              />
+              <Eye width={20} height={20} />
             ) : (
-              <img
-                src="/icons/eye_off.svg"
-                alt="hide password"
-                width={20}
-                height={20}
-              />
+              <EyeOff width={20} height={20} />
             )}
           </button>
         )}
@@ -95,9 +86,7 @@ const Input = ({
           {...rest}
         />
         {isSearch && (
-          <img
-            src="/icons/search.svg"
-            alt="search"
+          <Search
             width={20}
             height={20}
             className="absolute left-3 top-1/2 -translate-y-1/2 transform"
