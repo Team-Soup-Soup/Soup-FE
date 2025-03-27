@@ -4,7 +4,10 @@ import path from 'path';
 import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
-  plugins: [react(), svgr({ include: '**/*.svg?react' })],
+  plugins: [
+    react(),
+    svgr({ include: '**/*.svg', svgrOptions: { icon: true } }),
+  ],
   resolve: {
     alias: {
       '@soup/design-system': path.resolve(
