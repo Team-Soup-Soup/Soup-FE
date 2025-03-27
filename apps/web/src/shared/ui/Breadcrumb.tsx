@@ -1,26 +1,30 @@
 import React, { useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { LOCATION } from '~/shared/constants/location';
 import { LocationKey } from '~/shared/types';
 
 export default function Breadcrumb() {
   const location = useLocation();
   const currentLocation = location.pathname.split('/');
+  const { projectId } = useParams();
 
   let locationParts = useMemo(() => {
     const currentLocation = location.pathname.split('/');
     return currentLocation
       .slice(1)
-      .filter((path) => !path.includes('%')) as LocationKey[];
+      .map((path) =>
+        path.includes('%') ? decodeURIComponent(path) : path,
+      ) as LocationKey[];
   }, [location.pathname]);
 
   if (locationParts.length === 0) return null;
-  if (locationParts.length >= 3) locationParts = locationParts.slice(0, 3);
+  locationParts = locationParts.filter((location) => location !== projectId);
 
   return (
-    <div className="absolute top-0 w-full px-8 py-5">
+    <div className="fixed top-0 z-20 w-full bg-white px-8 py-5">
       <div className="text-light flex items-center gap-x-2">
         {locationParts.map((path, index) => {
+          if (path === projectId) return;
           const isLastItem = index === locationParts.length - 1;
           const url = currentLocation.slice(0, 3 + index).join('/');
 

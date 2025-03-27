@@ -9,5 +9,7 @@ export const PATH = {
   BOARD: 'board',
   POST_DETAIL: ':postId',
   SEARCH: 'search',
+  GROUP_BOARD: ':groupBoardId',
+  SCHEDULE: 'schedule',
   ERROR: '/error',
 } as const;

@@ -16,6 +16,12 @@ interface ModalHeaderProps extends PropsWithChildren {
 interface ModalBodyProps extends PropsWithChildren {
   className?: string;
 }
+
+interface ModalSectionProps extends PropsWithChildren {
+  title?: string;
+  description?: string;
+  className?: string;
+}
 interface ModalFooterProps extends PropsWithChildren {
   className?: string;
 }
@@ -85,17 +91,34 @@ function ModalBody({ className, children }: ModalBodyProps) {
     </div>
   );
 }
-function ModalFooter({ className, children }: ModalFooterProps) {
+
+function ModalSection({
+  title,
+  description,
+  className,
+  children,
+}: ModalSectionProps) {
   return (
-    <div className={cn('mb-[16px] mt-[36px] flex', className)}>{children}</div>
+    <div className={cn('flex w-full flex-col gap-2', className)}>
+      <div>
+        {title && <p>{title}</p>}
+        {description && <p className="text-light text-sm">{description}</p>}
+      </div>
+      {children}
+    </div>
   );
+}
+function ModalFooter({ className, children }: ModalFooterProps) {
+  return <div className={cn('mb-[16px] flex', className)}>{children}</div>;
 }
 
 Modal.Header = ModalHeader;
 Modal.Body = ModalBody;
+Modal.Section = ModalSection;
 Modal.Footer = ModalFooter;
 
 Modal.displayName = 'Modal';
 ModalHeader.displayName = 'ModalHeader';
 ModalBody.displayName = 'ModalBody';
+ModalSection.displayName = 'ModalSection';
 ModalFooter.displayName = 'ModalFooter';

@@ -4,7 +4,7 @@ import { Breadcrumb } from '~/shared/ui';
 
 export default function ProjectBoardPostContainer() {
   return (
-    <div className="relative flex size-full flex-col">
+    <div className="scrollbar-hide relative flex size-full flex-col overflow-scroll">
       <Breadcrumb />
       <ProjectPost />
     </div>

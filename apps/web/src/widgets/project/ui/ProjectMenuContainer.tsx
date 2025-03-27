@@ -12,7 +12,7 @@ export default function ProjectMenuContainer() {
   return (
     <div className="flex h-fit w-full flex-col">
       <MenuHeader />
-      <div className="flex flex-wrap gap-x-6">
+      <div className="flex flex-wrap gap-6">
         <RoomButtons />
         <BoardContainer />
         <PlanContainer />

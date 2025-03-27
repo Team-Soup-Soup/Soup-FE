@@ -35,7 +35,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <div className="box-shadow border-main-board-border flex h-screen w-[270px] flex-col justify-between border-r py-[32px] text-center">
+      <div className="box-shadow border-main-board-border z-30 flex h-screen w-[270px] flex-col justify-between border-r py-[32px] text-center">
         <div>
           <div className="ml-[174px] flex gap-[16px]">
             <IconButton
@@ -78,7 +78,7 @@ export default function Sidebar() {
           </div>
         </div>
         <div className="flex flex-col gap-8">
-          <Profile image="" name="홍길동" />
+          <Profile image="" name="홍길동" className="pl-[32px]" />
           <div className="flex justify-end gap-[16px] pr-[32px]">
             <button
               className="text-light hover:text-dark text-sm hover:cursor-pointer"
