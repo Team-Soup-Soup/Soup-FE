@@ -75,22 +75,22 @@ export default function SettingModal() {
             </ul>
           )}
         </Modal.Header>
-        <Modal.Body className="font-light">
+        <Modal.Body className="size-full justify-between font-light">
           <div className="w-[520px]">{render[view]}</div>
+          {view !== SETTING_ITEM.WITHDRAW && (
+            <Modal.Footer className="justify-between">
+              <button
+                className="text-light text-sm font-light hover:cursor-pointer"
+                onClick={() => setView(SETTING_ITEM.WITHDRAW)}
+              >
+                회원탈퇴하기
+              </button>
+              <Button size="lg" color="normal" onClick={handleSaveButtonClick}>
+                저장하기
+              </Button>
+            </Modal.Footer>
+          )}
         </Modal.Body>
-        {view !== SETTING_ITEM.WITHDRAW && (
-          <Modal.Footer className="mt-20 justify-between">
-            <button
-              className="text-light text-sm font-light hover:cursor-pointer"
-              onClick={() => setView(SETTING_ITEM.WITHDRAW)}
-            >
-              회원탈퇴하기
-            </button>
-            <Button size="lg" color="normal" onClick={handleSaveButtonClick}>
-              저장하기
-            </Button>
-          </Modal.Footer>
-        )}
       </Modal>
     )
   );

@@ -27,10 +27,10 @@ export default function CreateScheduleModal() {
 
   return (
     isOpen && (
-      <Modal title="일정 추가하기" modalKey={MODAL.CREATE_SCHEDULE}>
+      <Modal size="md" title="일정 추가하기" modalKey={MODAL.CREATE_SCHEDULE}>
         <Modal.Header title="일정 추가하기" />
-        <Modal.Body className="w-250 h-230 flex font-light">
-          <form className="h-210 w-full">
+        <Modal.Body className="w-250 h-full font-light">
+          <form className="h-full w-full">
             <div className="flex size-full gap-x-10">
               <div className="flex h-full flex-1 flex-col gap-y-8">
                 <Modal.Section title="제목">
@@ -90,12 +90,12 @@ export default function CreateScheduleModal() {
                 </div>
               </div>
             </div>
-            <Modal.Footer className="justify-end">
-              <Button size="lg" color="normal" onClick={handleButtonClick}>
-                생성하기
-              </Button>
-            </Modal.Footer>
           </form>
+          <Modal.Footer className="justify-end">
+            <Button size="lg" color="normal" onClick={handleButtonClick}>
+              생성하기
+            </Button>
+          </Modal.Footer>
         </Modal.Body>
       </Modal>
     )

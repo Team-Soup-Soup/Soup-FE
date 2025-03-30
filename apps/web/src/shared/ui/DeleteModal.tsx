@@ -19,26 +19,31 @@ export default function DeleteCommentModal() {
 
   return (
     isOpen && (
-      <Modal modalKey={modalKey} coloredBg={false}>
-        <Modal.Body className="pt-[32px] font-light">
+      <Modal
+        size="sm"
+        modalKey={modalKey}
+        coloredBg={false}
+        className="max-h-[200px]"
+      >
+        <Modal.Body className="h-full justify-center gap-y-20 font-light">
           <p>정말 {DELETE_MODAL[modalKey]}을 삭제 하시겠습니까?</p>
+          <Modal.Footer className="mt-0 flex justify-end gap-4">
+            <Button
+              className="w-[100px]"
+              color="normal"
+              onClick={() => closeModal(modalKey)}
+            >
+              네
+            </Button>
+            <Button
+              className="w-[100px]"
+              color="normal"
+              onClick={() => closeModal(modalKey)}
+            >
+              아니요
+            </Button>
+          </Modal.Footer>
         </Modal.Body>
-        <Modal.Footer className="mt-0 flex justify-end gap-4">
-          <Button
-            className="w-[100px]"
-            color="normal"
-            onClick={() => closeModal(modalKey)}
-          >
-            네
-          </Button>
-          <Button
-            className="w-[100px]"
-            color="normal"
-            onClick={() => closeModal(modalKey)}
-          >
-            아니요
-          </Button>
-        </Modal.Footer>
       </Modal>
     )
   );
