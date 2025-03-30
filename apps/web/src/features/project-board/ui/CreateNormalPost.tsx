@@ -5,7 +5,10 @@ import { useForm } from 'react-hook-form';
 import { Button, Input, Toggle } from '@soup/design-system';
 
 import { Modal } from '~/shared/ui';
-import { BasicPostRequest, NoticePostRequest } from '~/widgets/modal/types';
+import {
+  BasicPostRequest,
+  NoticePostRequest,
+} from '~/features/project-board/types';
 import { useModal } from '~/shared/hooks';
 import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
 

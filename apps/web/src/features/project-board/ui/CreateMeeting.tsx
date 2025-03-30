@@ -13,7 +13,7 @@ import {
   UserItem,
 } from '~/shared/ui';
 import { getDate } from '~/shared/utils';
-import { MeetingPostRequest } from '~/widgets/modal/types';
+import { MeetingPostRequest } from '~/features/project-board/types';
 import { useModal } from '~/shared/hooks';
 import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
 

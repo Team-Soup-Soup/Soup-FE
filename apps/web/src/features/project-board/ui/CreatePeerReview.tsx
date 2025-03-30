@@ -5,7 +5,7 @@ import { Button, Input } from '@soup/design-system';
 
 import { DatePicker, Modal, TimePicker } from '~/shared/ui';
 import { getDate } from '~/shared/utils';
-import { PeerReviewPostRequest } from '~/widgets/modal/types';
+import { PeerReviewPostRequest } from '~/features/project-board/types';
 import { useForm } from 'react-hook-form';
 import { useModal } from '~/shared/hooks';
 import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';

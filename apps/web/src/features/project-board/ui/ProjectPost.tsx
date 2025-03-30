@@ -11,7 +11,7 @@ import {
 } from '~/features/project-board/ui';
 import { useModal } from '~/shared/hooks';
 import { BOARD, MODAL } from '~/shared/constants';
-import { DeleteModal } from '~/widgets/modal/ui';
+import { DeleteModal } from '~/shared/ui';
 import { getDate } from '~/shared/utils';
 
 export default function ProjectPost() {

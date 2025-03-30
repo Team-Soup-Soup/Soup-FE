@@ -10,11 +10,14 @@ import { Button, Checkbox, Input } from '@soup/design-system';
 
 import { DatePicker, Modal, TimePicker } from '~/shared/ui';
 import { getDate } from '~/shared/utils';
-import type { VotePostRequest, VoteSettingOption } from '~/widgets/modal/types';
-import { VOTE, VOTE_SETTING_OPTIONS } from '~/widgets/modal/model';
+import type {
+  VotePostRequest,
+  VoteSettingOption,
+} from '~/features/project-board/types';
 import PlusIcon from '~/assets/icons/plus.svg';
 import { useModal } from '~/shared/hooks';
 import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
+import { VOTE, VOTE_SETTING_OPTIONS } from '../model';
 
 interface SettingCheckBoxProps {
   option: VoteSettingOption;

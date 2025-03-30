@@ -9,7 +9,7 @@ import {
   CreateNormalPost,
   CreatePeerReview,
   CreateVote,
-} from '~/widgets/modal/ui/create-post';
+} from '~/features/project-board/ui';
 
 export default function CreatePostModal({ type }: { type: BoardItem }) {
   const { isOpen } = useModalState({ key: MODAL.CREATE_POST });
