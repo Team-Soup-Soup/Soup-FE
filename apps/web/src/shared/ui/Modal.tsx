@@ -58,10 +58,10 @@ export default function Modal({
     >
       <div
         className={cn(
-          'border-main-board-border min-h-[196px] min-w-[500px] rounded-[20px] border-[1px] bg-white px-[40px] pb-[20px]',
+          'border-main-board-border flex min-h-[196px] min-w-[500px] flex-col rounded-[20px] border-[1px] bg-white px-[40px] py-[20px]',
           className,
           coloredBg ? 'box-shadow' : 'box-shadow-4',
-          size === 'sm' ? 'h-[37%]' : 'h-[85%]',
+          size === 'sm' ? 'h-[356px]' : 'h-[85%]',
         )}
       >
         {children}

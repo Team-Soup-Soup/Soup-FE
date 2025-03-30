@@ -37,9 +37,9 @@ export default function ProjectMemberManageModal() {
   return (
     isOpen && (
       <>
-        <Modal modalKey={MODAL.MANAGE_MEMBER} className="w-[600px]">
+        <Modal size="md" modalKey={MODAL.MANAGE_MEMBER} className="w-[600px]">
           <Modal.Header title="멤버별 편집" />
-          <Modal.Body className="justify-between">
+          <Modal.Body className="flex-1 justify-between">
             <div className="scrollbar-hide flex h-[516px] flex-col gap-[30px] overflow-y-scroll">
               <MemberListByLevel
                 level={PROFILE_LEVEL.MASTER}

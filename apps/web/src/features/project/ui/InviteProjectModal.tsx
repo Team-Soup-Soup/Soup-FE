@@ -63,7 +63,7 @@ export default function InviteProjectModal() {
 
   return (
     isOpen && (
-      <Modal modalKey={MODAL.INVITE_PROJECT}>
+      <Modal size="sm" modalKey={MODAL.INVITE_PROJECT}>
         <Modal.Header title="초대하기" />
         <Modal.Body className="gap-[8px]">
           <p className="font-light">이메일</p>

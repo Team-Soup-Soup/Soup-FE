@@ -64,7 +64,7 @@ export default function LevelInfoModal() {
 
   return (
     isOpen && (
-      <Modal modalKey={MODAL.LEVEL_INFO}>
+      <Modal size="md" modalKey={MODAL.LEVEL_INFO}>
         <Modal.Header title="권한별 제한 보기" />
         <Modal.Body className="gap-[8px]">
           <LevelTable>

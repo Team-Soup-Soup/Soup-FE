@@ -38,7 +38,7 @@ export default function CreateGroupBoardModal() {
 
   return (
     isOpen && (
-      <Modal title="대시보드" modalKey={MODAL.CREATE_GROUP_BOARD}>
+      <Modal size="md" title="대시보드" modalKey={MODAL.CREATE_GROUP_BOARD}>
         <Modal.Header title="대시보드" />
         <Modal.Body className="h-fit min-w-[826px] font-light">
           <form onSubmit={handleSubmit(formSubmit)}>

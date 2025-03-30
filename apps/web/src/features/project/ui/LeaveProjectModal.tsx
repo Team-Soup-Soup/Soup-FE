@@ -11,7 +11,7 @@ export default function LeaveProjectModal() {
   const [selectedMember, setSelectedMember] = useState<string | null>(null);
 
   const defaultValue = { name: '멤버 선택' };
-  const myProfile = userList[1];
+  const myProfile = userList[0];
   const selectMemberList = userList.map((member) => ({
     name: member.name,
     image: member.profile,
@@ -23,9 +23,9 @@ export default function LeaveProjectModal() {
 
   return (
     isOpen && (
-      <Modal modalKey={MODAL.LOGOUT} className="w-[600px]">
+      <Modal size="sm" modalKey={MODAL.LOGOUT} className="w-[600px]">
         <Modal.Header title="프로젝트 나가기" />
-        <Modal.Body className="mt-2 flex flex-col gap-[50px]">
+        <Modal.Body className="mt-2 flex flex-1 flex-col gap-[50px]">
           {myProfile.level === PROFILE_LEVEL.MASTER ? (
             <>
               <div className="flex flex-col gap-[4px]">

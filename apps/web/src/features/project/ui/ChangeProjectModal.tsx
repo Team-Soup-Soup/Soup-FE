@@ -28,7 +28,7 @@ export default function ChangeProjectModal() {
 
   return (
     isOpen && (
-      <Modal modalKey={MODAL.CHANGE_PROJECT}>
+      <Modal size="sm" modalKey={MODAL.CHANGE_PROJECT}>
         <Modal.Header title="프로젝트 이름/설명 변경하기" />
         <Modal.Body className="gap-[12px]">
           <Input
