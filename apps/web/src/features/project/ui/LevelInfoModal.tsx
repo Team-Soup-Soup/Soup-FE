@@ -5,12 +5,7 @@ import { Button } from '@soup/design-system';
 import { MODAL } from '~/shared/constants';
 import { useModal, useModalState } from '~/shared/hooks';
 import { Modal } from '~/shared/ui';
-
-import {
-  LevelTable,
-  LevelTableBody,
-  LevelTableHead,
-} from '~/widgets/modal/ui/member';
+import { LevelTable, LevelTableBody, LevelTableHead } from './LevelTable';
 
 export default function LevelInfoModal() {
   const { closeModal } = useModal();

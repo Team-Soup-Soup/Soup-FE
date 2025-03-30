@@ -8,8 +8,8 @@ import { useModal, useModalState } from '~/shared/hooks';
 import type { ProfileItem, ProfileLevel, UserOptionItem } from '~/shared/types';
 import { Modal, Profile } from '~/shared/ui';
 import { getKoreanLevel } from '~/shared/utils';
-import { LevelInfoModal } from '~/widgets/modal/ui/member';
-import { ExpulsionProjectModal } from '~/widgets/modal/ui/project';
+import LevelInfoModal from './LevelInfoModal';
+import ExpulsionProjectModal from './ExpulsionProjectModal';
 
 interface MemberListByLevelProps {
   level: ProfileLevel;

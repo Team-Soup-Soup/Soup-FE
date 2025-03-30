@@ -7,7 +7,7 @@ import { Button, Input } from '@soup/design-system';
 import { Modal, UserItem } from '~/shared/ui';
 import { useModal, useModalState } from '~/shared/hooks';
 import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
-import { TEMPLATE } from '~/widgets/modal/model';
+import { TEMPLATE } from '~/features/project/model';
 
 import ImageIcon from '~/assets/icons/image.svg';
 
