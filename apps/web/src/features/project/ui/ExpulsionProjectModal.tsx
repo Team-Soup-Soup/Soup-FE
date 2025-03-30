@@ -18,26 +18,30 @@ export default function ExpulsionProjectModal({
 
   return (
     isOpen && (
-      <Modal size="sm" modalKey={MODAL.EXPULSION_PROJECT}>
-        <Modal.Body className="pt-[32px] font-light">
+      <Modal
+        size="sm"
+        modalKey={MODAL.EXPULSION_PROJECT}
+        className="max-h-[200px]"
+      >
+        <Modal.Body className="h-full justify-center gap-y-20 font-light">
           <p>'{name}'님을 정말 퇴출 시키겠습니까?</p>
+          <Modal.Footer className="mt-0 flex justify-end gap-4">
+            <Button
+              className="w-[100px]"
+              color="normal"
+              onClick={() => closeModal(MODAL.EXPULSION_PROJECT)}
+            >
+              네
+            </Button>
+            <Button
+              className="w-[100px]"
+              color="normal"
+              onClick={() => closeModal(MODAL.EXPULSION_PROJECT)}
+            >
+              아니요
+            </Button>
+          </Modal.Footer>
         </Modal.Body>
-        <Modal.Footer className="mt-0 flex justify-end gap-4">
-          <Button
-            className="w-[100px]"
-            color="normal"
-            onClick={() => closeModal(MODAL.EXPULSION_PROJECT)}
-          >
-            네
-          </Button>
-          <Button
-            className="w-[100px]"
-            color="normal"
-            onClick={() => closeModal(MODAL.EXPULSION_PROJECT)}
-          >
-            아니요
-          </Button>
-        </Modal.Footer>
       </Modal>
     )
   );
