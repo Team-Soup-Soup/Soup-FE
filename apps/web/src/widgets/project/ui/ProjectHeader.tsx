@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { descriptionList, userList } from '~/mocks';
-import { MODAL } from '~/shared/constants';
-import { useModal } from '~/shared/hooks';
-import { IconButton } from '~/shared/ui';
 import {
   ChangeProjectModal,
   InviteProjectModal,
   LeaveProjectModal,
   ProjectManageModal,
   ProjectMemberManageModal,
-} from '~/widgets/modal/ui';
+} from '~/features/project/ui';
+import { descriptionList, userList } from '~/mocks';
+import { MODAL } from '~/shared/constants';
+import { useModal } from '~/shared/hooks';
+import { IconButton } from '~/shared/ui';
 
 export default function ProjectHeader() {
   const { projectId } = useParams();

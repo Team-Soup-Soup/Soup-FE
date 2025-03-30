@@ -9,15 +9,14 @@ import { MODAL, PATH } from '~/shared/constants';
 import { useModal } from '~/shared/hooks';
 import { useProject } from '~/shared/hooks/useProject';
 import type { ModalItem } from '~/shared/types';
-import { IconButton, Profile } from '~/shared/ui';
+import { IconButton, LogoutModal, Profile } from '~/shared/ui';
+import { getPath } from '~/shared/utils';
 import {
   AlarmModal,
   CreateProjectModal,
-  LogoutModal,
   SettingModal,
   UpdateModal,
-} from '~/widgets/modal/ui';
-import { getPath } from '~/shared/utils';
+} from '~/features/menu/ui';
 
 export default function Sidebar() {
   const { openModal } = useModal();
