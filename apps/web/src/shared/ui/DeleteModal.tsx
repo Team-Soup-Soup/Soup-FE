@@ -4,8 +4,8 @@ import { Button } from '@soup/design-system';
 
 import { useModal, useModalKeyState, useModalState } from '~/shared/hooks';
 import { Modal } from '~/shared/ui';
-import { DELETE_MODAL_KEYS, DELETE_MODAL } from '~/widgets/modal/model';
-import { DeleteModalItem } from '~/widgets/modal/types';
+import { DELETE_MODAL_KEYS, DELETE_MODAL } from '~/shared/constants';
+import { DeleteModalItem } from '~/shared/types';
 
 export default function DeleteCommentModal() {
   const { closeModal } = useModal();
