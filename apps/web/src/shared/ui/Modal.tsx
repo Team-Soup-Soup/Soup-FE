@@ -8,6 +8,7 @@ interface ModalProps extends PropsWithChildren {
   title?: string;
   className?: string;
   coloredBg?: boolean;
+  size: 'sm' | 'md' | 'lg';
 }
 interface ModalHeaderProps extends PropsWithChildren {
   title: string;
@@ -31,6 +32,7 @@ export default function Modal({
   className,
   children,
   coloredBg = true,
+  size,
 }: ModalProps) {
   const { closeModal } = useModal();
 
@@ -59,6 +61,7 @@ export default function Modal({
           'border-main-board-border min-h-[196px] min-w-[500px] rounded-[20px] border-[1px] bg-white px-[40px] pb-[20px]',
           className,
           coloredBg ? 'box-shadow' : 'box-shadow-4',
+          size === 'sm' ? 'h-[37%]' : 'h-[85%]',
         )}
       >
         {children}

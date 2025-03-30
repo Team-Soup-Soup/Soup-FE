@@ -12,7 +12,7 @@ export default function UpdateModal() {
 
   return (
     isOpen && (
-      <Modal modalKey={MODAL.UPDATE}>
+      <Modal size="sm" modalKey={MODAL.UPDATE}>
         <Modal.Body className="pt-[32px] font-light">
           <p>변경한 정보로 업데이트 되었습니다.</p>
         </Modal.Body>

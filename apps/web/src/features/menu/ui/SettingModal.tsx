@@ -51,7 +51,7 @@ export default function SettingModal() {
 
   return (
     openSetting && (
-      <Modal modalKey={MODAL.SETTING}>
+      <Modal size="md" modalKey={MODAL.SETTING}>
         <Modal.Header
           title={view === SETTING_ITEM.WITHDRAW ? '회원탈퇴' : '설정'}
         >

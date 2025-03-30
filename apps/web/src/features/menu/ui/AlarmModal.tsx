@@ -35,7 +35,7 @@ export default function AlarmModal() {
 
   return (
     isOpen && (
-      <div className="border-main-board-border box-shadow absolute left-[214px] top-[60px] z-10 h-[400px] min-w-[600px] max-w-[626px] rounded-[20px] border bg-white px-[40px]">
+      <div className="border-main-board-border box-shadow absolute left-[214px] top-[60px] z-30 h-[400px] min-w-[600px] max-w-[626px] rounded-[20px] border bg-white px-[40px]">
         <p className="text-light py-[20px] text-start">알림</p>
         <div className="font-light">
           <div className="mb-[20px] flex gap-[42px]">
