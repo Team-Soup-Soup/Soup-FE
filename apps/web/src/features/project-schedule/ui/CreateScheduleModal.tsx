@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 
 import { Button, Input, Radio, Toggle } from '@soup/design-system';
 
-import { REPEAT_OPTION, repeatOptionKeys } from '~/widgets/modal/model';
-import type { RepeatOptionItem } from '~/widgets/modal/types';
+import {
+  REPEAT_OPTION,
+  repeatOptionKeys,
+} from '~/features/project-schedule/model';
+import type { RepeatOptionItem } from '~/features/project-schedule/types';
 
 import { MODAL } from '~/shared/constants';
 import { useModal, useModalState } from '~/shared/hooks';

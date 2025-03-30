@@ -5,7 +5,8 @@ import { Button } from '@soup/design-system';
 import { ScheduleCalendar, ScheduleItem } from '~/features/project-schedule/ui';
 import { useModal } from '~/shared/hooks';
 import { MODAL } from '~/shared/constants';
-import { CreateScheduleModal, DeleteModal } from '~/widgets/modal/ui';
+import { CreateScheduleModal } from '~/features/project-schedule/ui';
+import { DeleteModal } from '~/shared/ui';
 
 export default function EntireSchedule() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
