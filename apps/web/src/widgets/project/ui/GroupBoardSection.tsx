@@ -2,10 +2,10 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import AddIcon from '~/assets/icons/plus.svg';
+import { CreateGroupBoardModal } from '~/features/project/ui';
 import { MODAL } from '~/shared/constants';
 import { useModal } from '~/shared/hooks';
 import { getPath } from '~/shared/utils';
-import { CreateGroupBoardModal } from '~/widgets/modal/ui';
 
 export default function GroupBoardSection() {
   const groupBoard = ['제네럴프론트'];

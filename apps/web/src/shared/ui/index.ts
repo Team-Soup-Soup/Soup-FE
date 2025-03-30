@@ -8,3 +8,5 @@ export { default as DatePicker } from './DatePicker';
 export { default as TimePicker } from './TimePicker';
 export { default as LevelBadge } from './LevelBadge';
 export { default as UserItem } from './UserItem';
+export { default as DeleteModal } from './DeleteModal';
+export { default as LogoutModal } from './LogoutModal';

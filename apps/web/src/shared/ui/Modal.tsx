@@ -8,6 +8,7 @@ interface ModalProps extends PropsWithChildren {
   title?: string;
   className?: string;
   coloredBg?: boolean;
+  size: 'sm' | 'md' | 'lg';
 }
 interface ModalHeaderProps extends PropsWithChildren {
   title: string;
@@ -31,6 +32,7 @@ export default function Modal({
   className,
   children,
   coloredBg = true,
+  size,
 }: ModalProps) {
   const { closeModal } = useModal();
 
@@ -56,9 +58,10 @@ export default function Modal({
     >
       <div
         className={cn(
-          'border-main-board-border min-h-[196px] min-w-[500px] rounded-[20px] border-[1px] bg-white px-[40px] pb-[20px]',
+          'border-main-board-border flex min-h-[196px] min-w-[500px] flex-col rounded-[20px] border-[1px] bg-white px-[40px] py-[20px]',
           className,
           coloredBg ? 'box-shadow' : 'box-shadow-4',
+          size === 'sm' ? 'h-[356px]' : 'h-[85%]',
         )}
       >
         {children}
@@ -72,7 +75,7 @@ function ModalHeader({ title, className, children }: ModalHeaderProps) {
     <>
       <p
         className={cn(
-          'text-light place-items-start py-[20px] text-start',
+          'text-light place-items-start pb-[20px] text-start',
           className,
         )}
       >
@@ -84,9 +87,7 @@ function ModalHeader({ title, className, children }: ModalHeaderProps) {
 }
 function ModalBody({ className, children }: ModalBodyProps) {
   return (
-    <div
-      className={cn('flex min-h-[124px] flex-col justify-between', className)}
-    >
+    <div className={cn('flex min-h-[124px] flex-col', className)}>
       {children}
     </div>
   );
@@ -109,7 +110,7 @@ function ModalSection({
   );
 }
 function ModalFooter({ className, children }: ModalFooterProps) {
-  return <div className={cn('mb-[16px] flex', className)}>{children}</div>;
+  return <div className={cn('flex', className)}>{children}</div>;
 }
 
 Modal.Header = ModalHeader;

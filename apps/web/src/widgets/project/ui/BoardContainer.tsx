@@ -1,13 +1,14 @@
 import React, { type Dispatch, type SetStateAction, useState } from 'react';
 
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import boardDataList from '~/mocks/board.json';
+import { CreatePostModal } from '~/features/project-board/ui';
 import type { BoardItem } from '~/shared/types';
 import { BOARD, BOARD_LABEL, MODAL } from '~/shared/constants';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { PATH } from '~/shared/constants';
 import { getPath } from '~/shared/utils';
 import { useModal } from '~/shared/hooks';
-import { CreatePostModal } from '~/widgets/modal/ui';
 
 export default function BoardContainer() {
   const [selected, setSelected] = useState<BoardItem>('01');
