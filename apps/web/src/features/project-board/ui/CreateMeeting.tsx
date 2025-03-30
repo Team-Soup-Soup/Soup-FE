@@ -37,8 +37,8 @@ export default function CreateMeeting() {
   };
 
   return (
-    <Modal.Body className="min-w-256 h-200 font-light">
-      <form onSubmit={handleSubmit(formSubmit)}>
+    <form onSubmit={handleSubmit(formSubmit)} className="size-full">
+      <Modal.Body className="min-w-256 h-full justify-between font-light">
         <div className="flex h-[85%] gap-x-8">
           <div className="flex flex-1 flex-col gap-y-8">
             <Modal.Section title="제목">
@@ -81,8 +81,8 @@ export default function CreateMeeting() {
             게시하기
           </Button>
         </Modal.Footer>
-      </form>
-    </Modal.Body>
+      </Modal.Body>
+    </form>
   );
 }
 

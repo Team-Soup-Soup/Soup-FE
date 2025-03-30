@@ -30,7 +30,7 @@ export default function CreatePeerReview() {
 
   return (
     <>
-      <Modal.Body className="min-w-150 h-fit font-light">
+      <Modal.Body className="min-w-150 h-full font-light">
         <form onSubmit={handleSubmit(formSubmit)}>
           <div className="flex flex-col gap-8">
             <Modal.Section title="제목">

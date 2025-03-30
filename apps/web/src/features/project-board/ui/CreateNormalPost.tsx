@@ -43,8 +43,8 @@ export default function CreateNormalPost({
 
   return (
     <>
-      <Modal.Body className="min-w-256 h-fit font-light">
-        <form onSubmit={handleSubmit(formSubmit)}>
+      <form onSubmit={handleSubmit(formSubmit)} className="size-full">
+        <Modal.Body className="min-w-150 h-full justify-between font-light">
           <div className="flex flex-col gap-8">
             <Modal.Section title="제목">
               <Input
@@ -97,8 +97,8 @@ export default function CreateNormalPost({
               게시하기
             </Button>
           </Modal.Footer>
-        </form>
-      </Modal.Body>
+        </Modal.Body>
+      </form>
     </>
   );
 }

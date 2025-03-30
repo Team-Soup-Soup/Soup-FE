@@ -65,9 +65,12 @@ export default function CreateVote() {
 
   return (
     <>
-      <Modal.Body className="min-w-150 h-230 font-light">
-        <form onSubmit={handleSubmit(formSubmit)}>
-          <div className="flex flex-col gap-y-8">
+      <form
+        onSubmit={handleSubmit(formSubmit)}
+        className="size-full overflow-hidden"
+      >
+        <Modal.Body className="scrollbar-hide h-full overflow-scroll">
+          <div className="scrollbar-hide flex h-full flex-col gap-y-8 overflow-scroll">
             <Modal.Section title="제목">
               <Input
                 id="title"
@@ -104,18 +107,16 @@ export default function CreateVote() {
               </div>
             </Modal.Section>
             <Modal.Section title="항목">
-              <div className="h-58 scrollbar-hide flex flex-col gap-y-[1px] overflow-scroll">
-                {options.map((option) => (
-                  <Input
-                    id={`option${option}`}
-                    key={`option${option}`}
-                    placeholder="항목 입력"
-                    inputClassName="bg-lock h-[42px] p-6 border-none"
-                    {...register(`options.${option - 1}.option`)}
-                  />
-                ))}
-                <AddOptionButton onClick={handleAddButton} />
-              </div>
+              {options.map((option) => (
+                <Input
+                  id={`option${option}`}
+                  key={`option${option}`}
+                  placeholder="항목 입력"
+                  inputClassName="bg-lock h-[42px] p-6 border-none"
+                  {...register(`options.${option - 1}.option`)}
+                />
+              ))}
+              <AddOptionButton onClick={handleAddButton} />
               <div className="mt-1 flex gap-x-[42px]">
                 {VOTE_SETTING_OPTIONS.map((option) => (
                   <SettingCheckBox
@@ -134,12 +135,13 @@ export default function CreateVote() {
               color="normal"
               locked={!isFormValid}
               type="submit"
+              className="mt-[20px]"
             >
               게시하기
             </Button>
           </Modal.Footer>
-        </form>
-      </Modal.Body>
+        </Modal.Body>
+      </form>
     </>
   );
 }

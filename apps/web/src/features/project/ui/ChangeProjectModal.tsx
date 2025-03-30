@@ -49,7 +49,6 @@ export default function ChangeProjectModal() {
           {errors.name && (
             <p className="text-important text-sm">{errors.name.message}</p>
           )}
-
           <Input
             id="description"
             maxLength={CREATE_PROJECT_MAX_LENGTH.DESCRIPTION}
