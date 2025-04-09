@@ -23,6 +23,7 @@ import {
   EmailVerification,
   FormUnitWithButton,
 } from '~/features/signup/ui';
+import { fetchIdValidation } from '~/features/signup/api';
 
 const Description = ({ content }: { content: string }) => (
   <p className="text-light mt-1 p-0 text-sm font-light">{content}</p>
@@ -43,10 +44,10 @@ export default function SignupForm() {
     [USER.EMAIL]: z
       .string()
       .min(1, '*')
-      .refine(() => clicked.email, {
+      .refine(() => clicked[USER.EMAIL], {
         message: '*이메일 인증 필요',
       })
-      .refine(() => valid.email, { message: '*코드가 틀렸습니다' }),
+      .refine(() => valid[USER.EMAIL], { message: '*코드가 틀렸습니다' }),
     [USER.PW]: z
       .string()
       .min(8, '*')
@@ -63,32 +64,36 @@ export default function SignupForm() {
     watch,
     formState: { errors },
     clearErrors,
+    setError,
   } = useForm<SignupInfo>({
     resolver: zodResolver(schema),
   });
 
   const isFormValid = (key: SignupItem) => checkValidation(watch(key), key);
 
-  const handleUsernameValidation = () => {
+  const handleUsernameValidation = async (target: string) => {
     setClicked((prev) => ({
       ...prev,
-      username: true,
+      [USER.ID]: true,
     }));
-    setValid((prev) => ({ ...prev, username: true }));
-    clearErrors(USER.ID);
+    fetchIdValidation(target).then((isValid) => {
+      setValid((prev) => ({ ...prev, [USER.ID]: isValid }));
+      if (isValid) clearErrors(USER.ID);
+      else setError(USER.ID, { message: '*이미 사용중인 아이디입니다' });
+    });
   };
 
-  const handleEmailValidation = () => {
+  const handleEmailValidation = async () => {
     setClicked((prev) => ({
       ...prev,
-      email: true,
+      [USER.EMAIL]: true,
     }));
   };
 
   const handleEmailCodeValidation = () => {
     setValid((prev) => ({
       ...prev,
-      email: true,
+      [USER.EMAIL]: true,
     }));
     clearErrors(USER.EMAIL);
   };
@@ -106,6 +111,9 @@ export default function SignupForm() {
         register={register}
         handler={handleUsernameValidation}
         isFormValid={isFormValid}
+        watch={watch}
+        setClicked={setClicked}
+        setValid={setValid}
       />
       <div>
         <FormUnitWithButton
@@ -115,8 +123,11 @@ export default function SignupForm() {
           register={register}
           handler={handleEmailValidation}
           isFormValid={isFormValid}
+          watch={watch}
+          setClicked={setClicked}
+          setValid={setValid}
         />
-        {clicked.email && !valid.email && (
+        {clicked[USER.EMAIL] && !valid[USER.EMAIL] && (
           <EmailVerification handler={handleEmailCodeValidation} />
         )}
         <Description content={FORM.EMAIL.description || ''} />

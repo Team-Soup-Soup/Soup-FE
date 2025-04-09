@@ -1,6 +1,11 @@
-import type { FieldErrors, UseFormRegister } from 'react-hook-form';
+import type {
+  FieldErrors,
+  UseFormRegister,
+  UseFormWatch,
+} from 'react-hook-form';
 import { type SignupInfo } from '~/features/signup/types';
 import { USER } from '~/features/signup/model';
+import { ChangeEvent } from 'react';
 
 export type FormItem = keyof typeof USER;
 
@@ -17,10 +22,12 @@ export interface FormInputProps {
   disabled?: boolean;
   className?: string;
   errors?: boolean;
+  onChangeHandler?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface FormUnitProps {
   id: FormItem;
   errors: FieldErrors<SignupInfo>;
   register: UseFormRegister<SignupInfo>;
+  watch: UseFormWatch<SignupInfo>;
 }

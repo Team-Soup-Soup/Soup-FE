@@ -10,7 +10,11 @@ const Description = ({ content }: { content: string }) => (
   <p className="text-light mt-1 p-0 text-sm font-light">{content}</p>
 );
 
-export default function FormUnit({ id, errors, register }: FormUnitProps) {
+export default function FormUnit({
+  id,
+  errors,
+  register,
+}: Omit<FormUnitProps, 'watch'>) {
   return (
     <div className="relative flex w-full flex-col items-start">
       <p
