@@ -12,3 +12,5 @@ export const SETTING_MIN_LENGTH = {
 };
 
 export const TITLE_MAX_LENGTH = 20;
+
+export const SHARE_LINK_MAX_LENGTH = 10;

@@ -5,3 +5,5 @@ export { default as LeaveProjectModal } from './LeaveProjectModal';
 export { default as ProjectManageModal } from './ProjectManageModal';
 export { default as CreateGroupBoardModal } from './CreateGroupBoardModal';
 export { default as ProjectMemberManageModal } from './ProjectMemberManageModal';
+export { default as AddShareLinkModal } from './AddShareLinkModal';
+export { default as DeleteShareLinkModal } from './DeleteShareLinkModal';
