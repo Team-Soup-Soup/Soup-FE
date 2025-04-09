@@ -2,16 +2,35 @@ import React from 'react';
 
 import LinkAddIcon from '~/assets/icons/share-link-add.svg';
 import LinkDeleteIcon from '~/assets/icons/share-link-delete.svg';
+import { AddShareLinkModal } from '~/features/project/ui';
+import { MODAL } from '~/shared/constants';
+import { useModal } from '~/shared/hooks';
 import { IconButton } from '~/shared/ui';
 
 export default function ShareLinkContainer() {
+  const { openModal } = useModal();
+  const handleAddClick = () => {
+    openModal(MODAL.CREATE_SHARE_LINK);
+  };
+  const handleDeleteClick = () => {
+    openModal(MODAL.DELETE_SHARE_LINK);
+  };
+
   return (
     <div className="rounded-auth box-shadow-inner bg-lock h-menu-height flex basis-full flex-col px-6 py-4 2xl:mt-0 2xl:flex-1">
       <div className="mb-4 flex items-center justify-between font-light">
         <span className="text-md">공유링크</span>
         <span className="flex gap-x-2">
-          <IconButton name="del-link" icon={LinkDeleteIcon} />
-          <IconButton name="add-link" icon={LinkAddIcon} />
+          <IconButton
+            name="del-link"
+            icon={LinkDeleteIcon}
+            onClick={handleDeleteClick}
+          />
+          <IconButton
+            name="add-link"
+            icon={LinkAddIcon}
+            onClick={handleAddClick}
+          />
         </span>
       </div>
       <div className="flex size-full items-center justify-center">
@@ -19,6 +38,7 @@ export default function ShareLinkContainer() {
           등록된 공유 링크가 없습니다.
         </p>
       </div>
+      <AddShareLinkModal />
     </div>
   );
 }
