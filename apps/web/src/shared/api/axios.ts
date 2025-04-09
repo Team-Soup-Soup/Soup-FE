@@ -2,7 +2,7 @@ import axios, { AxiosHeaders, AxiosResponse } from 'axios';
 
 interface GetRequestParams<TParams> {
   request: string;
-  headers: AxiosHeaders;
+  headers?: AxiosHeaders;
   params: TParams;
 }
 
@@ -17,7 +17,7 @@ export async function get<TResponse, TParams = unknown>(
   try {
     const response = await instance.get<TResponse>(request, {
       params: params,
-      headers: headers,
+      headers: headers || undefined,
     });
     return response;
   } catch (error: unknown) {
