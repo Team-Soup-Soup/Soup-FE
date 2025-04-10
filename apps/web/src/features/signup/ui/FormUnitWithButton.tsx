@@ -61,10 +61,7 @@ export default function FormUnitWithButton({
         className="ml-3 h-[39px]"
         locked={!isFormValid(USER[id])}
         type="button"
-        onClick={() => {
-          console.log(watch(formId));
-          handler(watch(formId));
-        }}
+        onClick={() => handler(watch(formId))}
       >
         {FORM[id].button}
       </Button>

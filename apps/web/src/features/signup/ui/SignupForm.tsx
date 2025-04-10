@@ -23,7 +23,11 @@ import {
   EmailVerification,
   FormUnitWithButton,
 } from '~/features/signup/ui';
-import { fetchIdValidation } from '~/features/signup/api';
+import {
+  fetchEmailCode,
+  fetchEmailCodeValidation,
+  fetchIdValidation,
+} from '~/features/signup/api';
 
 const Description = ({ content }: { content: string }) => (
   <p className="text-light mt-1 p-0 text-sm font-light">{content}</p>
@@ -32,6 +36,7 @@ const Description = ({ content }: { content: string }) => (
 export default function SignupForm() {
   const [clicked, setClicked] = useState<FormState>(clickedState);
   const [valid, setValid] = useState<FormState>(validState);
+  const authId = 0;
   const schema = z.object({
     [USER.NAME]: z.string().min(1, '*'),
     [USER.ID]: z
@@ -83,19 +88,31 @@ export default function SignupForm() {
     });
   };
 
-  const handleEmailValidation = async () => {
+  const handleEmailValidation = async (email: string) => {
     setClicked((prev) => ({
       ...prev,
       [USER.EMAIL]: true,
     }));
+    fetchEmailCode(email).then((response) => console.log(response));
   };
 
-  const handleEmailCodeValidation = () => {
-    setValid((prev) => ({
-      ...prev,
-      [USER.EMAIL]: true,
-    }));
-    clearErrors(USER.EMAIL);
+  const handleEmailCodeValidation = (authCode: string) => {
+    fetchEmailCodeValidation(authId, authCode)
+      .then((isValid) => {
+        setValid((prev) => ({ ...prev, [USER.EMAIL]: isValid }));
+        if (isValid) {
+          clearErrors(USER.EMAIL);
+          setValid((prev) => ({
+            ...prev,
+            [USER.EMAIL]: true,
+          }));
+        } else setError(USER.EMAIL, { message: '*코드가 틀렸습니다' });
+      })
+      .catch(() =>
+        setError(USER.EMAIL, {
+          message: '*인증에 실패했어요. 다시 시도해 주세요.',
+        }),
+      );
   };
 
   return (
