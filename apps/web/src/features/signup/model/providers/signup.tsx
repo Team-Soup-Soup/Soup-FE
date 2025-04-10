@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from 'react';
+import React, { type ReactNode, useState } from 'react';
 
 import { FormState } from '~/features/signup/types';
 import { clickedState, SignupContext } from '~/features/signup/model';
