@@ -1,22 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 
+import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 
 import {
   checkValidation,
-  clickedState,
   FORM,
   handleFormSubmit,
   USER,
-  validState,
+  useSignupContext,
 } from '~/features/signup/model';
-import type {
-  FormState,
-  SignupInfo,
-  SignupItem,
-} from '~/features/signup/types';
+import type { SignupInfo, SignupItem } from '~/features/signup/types';
 import {
   FormSubmit,
   FormUnit,
@@ -34,9 +29,8 @@ const Description = ({ content }: { content: string }) => (
 );
 
 export default function SignupForm() {
-  const [clicked, setClicked] = useState<FormState>(clickedState);
-  const [valid, setValid] = useState<FormState>(validState);
-  const authId = 0;
+  const { clicked, setClicked, valid, setValid } = useSignupContext();
+  const authId = 0; /**이메일 인증 백엔드 미구현으로 인해 샘플 응답값을 생성했습니다. */
   const schema = z.object({
     [USER.NAME]: z.string().min(1, '*'),
     [USER.ID]: z
@@ -129,8 +123,6 @@ export default function SignupForm() {
         handler={handleUsernameValidation}
         isFormValid={isFormValid}
         watch={watch}
-        setClicked={setClicked}
-        setValid={setValid}
       />
       <div>
         <FormUnitWithButton
@@ -141,8 +133,6 @@ export default function SignupForm() {
           handler={handleEmailValidation}
           isFormValid={isFormValid}
           watch={watch}
-          setClicked={setClicked}
-          setValid={setValid}
         />
         {clicked[USER.EMAIL] && !valid[USER.EMAIL] && (
           <EmailVerification handler={handleEmailCodeValidation} />

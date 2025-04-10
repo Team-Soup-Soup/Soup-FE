@@ -1,9 +1,9 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 
 import { Button } from '@soup/design-system';
 import { cn } from '@soup/utils';
 
-import { FORM, USER } from '~/features/signup/model';
+import { FORM, USER, useSignupContext } from '~/features/signup/model';
 import type {
   FormState,
   FormUnitProps,
@@ -15,8 +15,6 @@ interface ButtonedUnitProps extends FormUnitProps {
   valid: FormState;
   handler: (target: string) => void;
   isFormValid: (key: SignupItem) => boolean;
-  setClicked: Dispatch<SetStateAction<FormState>>;
-  setValid: Dispatch<SetStateAction<FormState>>;
 }
 
 export default function FormUnitWithButton({
@@ -27,10 +25,9 @@ export default function FormUnitWithButton({
   handler,
   isFormValid,
   watch,
-  setClicked,
-  setValid,
 }: ButtonedUnitProps) {
   const formId = USER[id as 'ID' | 'EMAIL'];
+  const { setClicked, setValid } = useSignupContext();
   const handleChange = () => {
     setClicked((prev) => ({
       ...prev,
