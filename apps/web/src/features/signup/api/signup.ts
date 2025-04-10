@@ -1,4 +1,5 @@
 import { get, post, REQUEST } from '~/shared/api';
+import { SignupInfo } from '../types';
 
 interface IdValidationResponse {
   result: boolean;
@@ -43,4 +44,12 @@ export const fetchEmailCodeValidation = async (
     data: { authId: authId, authCode: authCode },
   });
   return response.status === 200;
+};
+
+export const fetchUserJoin = async (data: SignupInfo) => {
+  const response = await post<SignupInfo>({
+    request: REQUEST.SIGNUP,
+    data: data,
+  });
+  return response.status;
 };
