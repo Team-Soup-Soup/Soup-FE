@@ -1,36 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 
+import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 
 import {
   checkValidation,
-  clickedState,
   FORM,
   handleFormSubmit,
   USER,
-  validState,
+  useSignupContext,
 } from '~/features/signup/model';
-import type {
-  FormState,
-  SignupInfo,
-  SignupItem,
-} from '~/features/signup/types';
+import type { SignupInfo, SignupItem } from '~/features/signup/types';
 import {
   FormSubmit,
   FormUnit,
   EmailVerification,
   FormUnitWithButton,
 } from '~/features/signup/ui';
+import {
+  fetchEmailCode,
+  fetchEmailCodeValidation,
+  fetchIdValidation,
+} from '~/features/signup/api';
 
 const Description = ({ content }: { content: string }) => (
   <p className="text-light mt-1 p-0 text-sm font-light">{content}</p>
 );
 
 export default function SignupForm() {
-  const [clicked, setClicked] = useState<FormState>(clickedState);
-  const [valid, setValid] = useState<FormState>(validState);
+  const { clicked, setClicked, valid, setValid } = useSignupContext();
+  const authId = 0; /**이메일 인증 백엔드 미구현으로 인해 샘플 응답값을 생성했습니다. */
   const schema = z.object({
     [USER.NAME]: z.string().min(1, '*'),
     [USER.ID]: z
@@ -43,10 +43,10 @@ export default function SignupForm() {
     [USER.EMAIL]: z
       .string()
       .min(1, '*')
-      .refine(() => clicked.email, {
+      .refine(() => clicked[USER.EMAIL], {
         message: '*이메일 인증 필요',
       })
-      .refine(() => valid.email, { message: '*코드가 틀렸습니다' }),
+      .refine(() => valid[USER.EMAIL], { message: '*코드가 틀렸습니다' }),
     [USER.PW]: z
       .string()
       .min(8, '*')
@@ -63,34 +63,58 @@ export default function SignupForm() {
     watch,
     formState: { errors },
     clearErrors,
+    setError,
   } = useForm<SignupInfo>({
     resolver: zodResolver(schema),
   });
 
   const isFormValid = (key: SignupItem) => checkValidation(watch(key), key);
 
-  const handleUsernameValidation = () => {
+  const handleUsernameValidation = async (target: string) => {
     setClicked((prev) => ({
       ...prev,
-      username: true,
+      [USER.ID]: true,
     }));
-    setValid((prev) => ({ ...prev, username: true }));
-    clearErrors(USER.ID);
+    fetchIdValidation(target).then((isValid) => {
+      setValid((prev) => ({ ...prev, [USER.ID]: isValid }));
+      if (isValid) clearErrors(USER.ID);
+      else setError(USER.ID, { message: '*이미 사용중인 아이디입니다' });
+    });
   };
 
-  const handleEmailValidation = () => {
+  const handleEmailValidation = async (email: string) => {
     setClicked((prev) => ({
       ...prev,
-      email: true,
+      [USER.EMAIL]: true,
     }));
+    fetchEmailCode(email).then((response) => console.log(response));
   };
 
-  const handleEmailCodeValidation = () => {
-    setValid((prev) => ({
-      ...prev,
-      email: true,
-    }));
-    clearErrors(USER.EMAIL);
+  const handleEmailCodeValidation = (authCode: string) => {
+    fetchEmailCodeValidation(authId, authCode)
+      .then((isValid) => {
+        setValid((prev) => ({ ...prev, [USER.EMAIL]: isValid }));
+        if (isValid) {
+          clearErrors(USER.EMAIL);
+          setValid((prev) => ({
+            ...prev,
+            [USER.EMAIL]: true,
+          }));
+        } else setError(USER.EMAIL, { message: '*코드가 틀렸습니다' });
+      })
+      .catch(() =>
+        setError(USER.EMAIL, {
+          message: '*인증에 실패했어요. 다시 시도해 주세요.',
+        }),
+      );
+  };
+
+  const formProps = {
+    errors: errors,
+    valid: valid,
+    register: register,
+    isFormValid: isFormValid,
+    watch: watch,
   };
 
   return (
@@ -101,22 +125,16 @@ export default function SignupForm() {
       <FormUnit id="NAME" errors={errors} register={register} />
       <FormUnitWithButton
         id="ID"
-        errors={errors}
-        valid={valid}
-        register={register}
         handler={handleUsernameValidation}
-        isFormValid={isFormValid}
+        {...formProps}
       />
       <div>
         <FormUnitWithButton
           id="EMAIL"
-          errors={errors}
-          valid={valid}
-          register={register}
           handler={handleEmailValidation}
-          isFormValid={isFormValid}
+          {...formProps}
         />
-        {clicked.email && !valid.email && (
+        {clicked[USER.EMAIL] && !valid[USER.EMAIL] && (
           <EmailVerification handler={handleEmailCodeValidation} />
         )}
         <Description content={FORM.EMAIL.description || ''} />

@@ -11,6 +11,7 @@ export default function FormInput({
   register,
   disabled = false,
   className = '',
+  onChangeHandler,
 }: FormInputProps) {
   const formConfig = FORM[id];
   return (
@@ -25,7 +26,7 @@ export default function FormInput({
       )}
       type={USER[id]}
       disabled={!!disabled}
-      {...register(USER[id], { required: true })}
+      {...register(USER[id], { required: true, onChange: onChangeHandler })}
     />
   );
 }
