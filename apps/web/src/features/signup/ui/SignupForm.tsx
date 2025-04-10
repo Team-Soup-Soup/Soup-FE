@@ -109,6 +109,14 @@ export default function SignupForm() {
       );
   };
 
+  const formProps = {
+    errors: errors,
+    valid: valid,
+    register: register,
+    isFormValid: isFormValid,
+    watch: watch,
+  };
+
   return (
     <form
       className="mt-30 flex flex-col gap-y-7 p-16 pt-0"
@@ -117,22 +125,14 @@ export default function SignupForm() {
       <FormUnit id="NAME" errors={errors} register={register} />
       <FormUnitWithButton
         id="ID"
-        errors={errors}
-        valid={valid}
-        register={register}
         handler={handleUsernameValidation}
-        isFormValid={isFormValid}
-        watch={watch}
+        {...formProps}
       />
       <div>
         <FormUnitWithButton
           id="EMAIL"
-          errors={errors}
-          valid={valid}
-          register={register}
           handler={handleEmailValidation}
-          isFormValid={isFormValid}
-          watch={watch}
+          {...formProps}
         />
         {clicked[USER.EMAIL] && !valid[USER.EMAIL] && (
           <EmailVerification handler={handleEmailCodeValidation} />
