@@ -13,17 +13,19 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit(useSubmit)}>
       <Input
+        id="LoginUserId"
         label="아이디"
         placeholder="아이디를 입력해주세요"
         className="mb-7"
-        {...register('username', { required: '아이디를 입력하세요' })}
+        {...register('userId', { required: '아이디를 입력하세요' })}
       />
       <Input
-        type="password"
+        id="LoginPassword"
         label="비밀번호"
         placeholder="비밀번호를 입력해주세요"
         className="mb-3"
         {...register('password', { required: '비밀번호를 입력하세요' })}
+        showPasswordButton
       />
       <LoginOption className="mb-11" />
       <Button
