@@ -1,17 +1,30 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useSetAtom } from 'jotai';
 
 import { Button, Input } from '@soup/design-system';
 
 import { LoginOption } from '~/features/login/ui';
 import { type UserInfo } from '~/features/login/types';
-import { useSubmit } from '~/features/login/model';
+import { fetchUserLogin } from '~/features/login/api';
+import { userAtom } from '~/shared/atoms';
+import { PATH } from '~/shared/constants';
 
 export default function LoginForm() {
   const { register, handleSubmit } = useForm<UserInfo>();
+  const navigate = useNavigate();
+  const setUserAtom = useSetAtom(userAtom);
+
+  const handleFormSubmit = async (data: UserInfo) => {
+    fetchUserLogin(data).then((response) => {
+      setUserAtom(response);
+      navigate(PATH.HOME);
+    });
+  };
 
   return (
-    <form onSubmit={handleSubmit(useSubmit)}>
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Input
         id="LoginUserId"
         label="아이디"
