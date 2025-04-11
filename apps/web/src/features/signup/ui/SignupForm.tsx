@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   checkValidation,
   FORM,
-  handleFormSubmit,
   USER,
   useSignupContext,
 } from '~/features/signup/model';
@@ -22,7 +21,10 @@ import {
   fetchEmailCode,
   fetchEmailCodeValidation,
   fetchIdValidation,
+  fetchUserJoin,
 } from '~/features/signup/api';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '~/shared/constants';
 
 const Description = ({ content }: { content: string }) => (
   <p className="text-light mt-1 p-0 text-sm font-light">{content}</p>
@@ -30,6 +32,8 @@ const Description = ({ content }: { content: string }) => (
 
 export default function SignupForm() {
   const { clicked, setClicked, valid, setValid } = useSignupContext();
+  const navigate = useNavigate();
+
   const authId = 0; /**이메일 인증 백엔드 미구현으로 인해 샘플 응답값을 생성했습니다. */
   const schema = z.object({
     [USER.NAME]: z.string().min(1, '*'),
@@ -57,6 +61,7 @@ export default function SignupForm() {
         },
       ),
   });
+
   const {
     register,
     handleSubmit,
@@ -107,6 +112,12 @@ export default function SignupForm() {
           message: '*인증에 실패했어요. 다시 시도해 주세요.',
         }),
       );
+  };
+
+  const handleFormSubmit = async (data: SignupInfo) => {
+    const response = await fetchUserJoin(data);
+    if (response === 200) navigate(PATH.LOGIN);
+    else alert('회원가입에 실패했어요!');
   };
 
   const formProps = {
