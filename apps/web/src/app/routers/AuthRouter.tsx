@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useLoginStatus } from '~/shared/hooks';
+import { checkLoginStatus } from '~/shared/utils';
 
 export default function AuthRouter() {
-  return useLoginStatus() ? (
+  return checkLoginStatus() ? (
     <Suspense>
       <Outlet />
     </Suspense>
