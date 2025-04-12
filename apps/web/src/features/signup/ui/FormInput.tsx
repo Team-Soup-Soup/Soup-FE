@@ -4,7 +4,7 @@ import { Input } from '@soup/design-system';
 import { cn } from '@soup/utils';
 
 import { FORM, USER } from '~/features/signup/model';
-import { FormInputProps } from '~/features/signup/types';
+import type { FormInputProps } from '~/features/signup/types';
 
 export default function FormInput({
   id,

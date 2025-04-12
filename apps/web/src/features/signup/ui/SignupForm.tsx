@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import {
   checkValidation,
   FORM,
-  handleFormSubmit,
   USER,
   useSignupContext,
+  useSignupHandlers,
+  useSignupSchema,
 } from '~/features/signup/model';
 import type { SignupInfo, SignupItem } from '~/features/signup/types';
 import {
@@ -18,11 +18,6 @@ import {
   EmailVerification,
   FormUnitWithButton,
 } from '~/features/signup/ui';
-import {
-  fetchEmailCode,
-  fetchEmailCodeValidation,
-  fetchIdValidation,
-} from '~/features/signup/api';
 
 const Description = ({ content }: { content: string }) => (
   <p className="text-light mt-1 p-0 text-sm font-light">{content}</p>
@@ -30,33 +25,7 @@ const Description = ({ content }: { content: string }) => (
 
 export default function SignupForm() {
   const { clicked, setClicked, valid, setValid } = useSignupContext();
-  const authId = 0; /**이메일 인증 백엔드 미구현으로 인해 샘플 응답값을 생성했습니다. */
-  const schema = z.object({
-    [USER.NAME]: z.string().min(1, '*'),
-    [USER.ID]: z
-      .string()
-      .min(1, '*')
-      .refine(() => clicked[USER.ID], {
-        message: '*중복 확인 필요',
-      })
-      .refine(() => valid[USER.ID], { message: '*이미 사용중인 아이디입니다' }),
-    [USER.EMAIL]: z
-      .string()
-      .min(1, '*')
-      .refine(() => clicked[USER.EMAIL], {
-        message: '*이메일 인증 필요',
-      })
-      .refine(() => valid[USER.EMAIL], { message: '*코드가 틀렸습니다' }),
-    [USER.PW]: z
-      .string()
-      .min(8, '*')
-      .refine(
-        (password) => /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(password),
-        {
-          message: '*올바르지 않은 비밀번호',
-        },
-      ),
-  });
+  const schema = useSignupSchema({ clicked, valid });
   const {
     register,
     handleSubmit,
@@ -66,48 +35,21 @@ export default function SignupForm() {
     setError,
   } = useForm<SignupInfo>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      [USER.NAME]: '',
+      [USER.ID]: '',
+      [USER.EMAIL]: '',
+      [USER.PW]: '',
+    },
   });
+  const {
+    handleUsernameValidation,
+    handleEmailValidation,
+    handleEmailCodeValidation,
+    handleFormSubmit,
+  } = useSignupHandlers({ setClicked, setValid, clearErrors, setError });
 
   const isFormValid = (key: SignupItem) => checkValidation(watch(key), key);
-
-  const handleUsernameValidation = async (target: string) => {
-    setClicked((prev) => ({
-      ...prev,
-      [USER.ID]: true,
-    }));
-    fetchIdValidation(target).then((isValid) => {
-      setValid((prev) => ({ ...prev, [USER.ID]: isValid }));
-      if (isValid) clearErrors(USER.ID);
-      else setError(USER.ID, { message: '*이미 사용중인 아이디입니다' });
-    });
-  };
-
-  const handleEmailValidation = async (email: string) => {
-    setClicked((prev) => ({
-      ...prev,
-      [USER.EMAIL]: true,
-    }));
-    fetchEmailCode(email).then((response) => console.log(response));
-  };
-
-  const handleEmailCodeValidation = (authCode: string) => {
-    fetchEmailCodeValidation(authId, authCode)
-      .then((isValid) => {
-        setValid((prev) => ({ ...prev, [USER.EMAIL]: isValid }));
-        if (isValid) {
-          clearErrors(USER.EMAIL);
-          setValid((prev) => ({
-            ...prev,
-            [USER.EMAIL]: true,
-          }));
-        } else setError(USER.EMAIL, { message: '*코드가 틀렸습니다' });
-      })
-      .catch(() =>
-        setError(USER.EMAIL, {
-          message: '*인증에 실패했어요. 다시 시도해 주세요.',
-        }),
-      );
-  };
 
   const formProps = {
     errors: errors,

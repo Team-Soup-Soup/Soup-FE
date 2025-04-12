@@ -24,10 +24,7 @@ export default function EmailVerification({ handler }: EmailVerificationProps) {
         size="sm"
         className="ml-3 h-[39px]"
         type="button"
-        onClick={() => {
-          handler(value);
-          console.log(value);
-        }}
+        onClick={() => handler(value)}
       >
         인증 확인
       </Button>

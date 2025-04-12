@@ -16,18 +16,24 @@ export type FormField = {
   button: string | null;
 };
 
-export interface FormInputProps {
+export type FormError = {
+  ACTION_NOT_COMPLETED: string;
+  AUTH_FAILURE: string;
+  AUTH_EXCEPTION: string;
+};
+
+export type FormInputProps = {
   id: FormItem;
   register: UseFormRegister<SignupInfo>;
   disabled?: boolean;
   className?: string;
   errors?: boolean;
   onChangeHandler?: (e: ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
-export interface FormUnitProps {
+export type FormUnitProps = {
   id: FormItem;
   errors: FieldErrors<SignupInfo>;
   register: UseFormRegister<SignupInfo>;
   watch: UseFormWatch<SignupInfo>;
-}
+};
