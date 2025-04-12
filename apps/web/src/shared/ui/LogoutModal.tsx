@@ -5,6 +5,7 @@ import { Button } from '@soup/design-system';
 import { MODAL } from '~/shared/constants';
 import { useModal, useModalState } from '~/shared/hooks';
 import { Modal } from '~/shared/ui';
+import { logout } from '~/shared/utils';
 
 export default function LogoutModal() {
   const { closeModal } = useModal();
@@ -19,7 +20,7 @@ export default function LogoutModal() {
             <Button
               className="w-[100px]"
               color="normal"
-              onClick={() => closeModal(MODAL.LOGOUT)}
+              onClick={() => logout()}
             >
               네
             </Button>
