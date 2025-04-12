@@ -53,17 +53,30 @@ export default function FormUnitWithButton({
           ? errors[USER[id]]?.message
           : valid[formId] && '*인증 완료'}
       </p>
-      <FormInput id={id} register={register} onChangeHandler={handleChange} />
-      <Button
-        color="normal"
-        size="sm"
-        className="ml-3 h-[39px]"
-        locked={!isFormValid(USER[id]) || buttonLocked}
-        type="button"
-        onClick={() => handler(watch(formId))}
-      >
-        {FORM[id].button}
-      </Button>
+      <div className="flex flex-1 flex-col">
+        <div className="flex items-end">
+          <FormInput
+            id={id}
+            register={register}
+            onChangeHandler={handleChange}
+          />
+          <Button
+            color="normal"
+            size="sm"
+            className="ml-3 h-[39px]"
+            locked={!isFormValid(USER[id]) || buttonLocked}
+            type="button"
+            onClick={() => handler(watch(formId))}
+          >
+            {FORM[id].button}
+          </Button>
+        </div>
+        <Description content={FORM[id].description || ''} />
+      </div>
     </div>
   );
 }
+
+const Description = ({ content }: { content: string }) => (
+  <p className="text-light mt-1 p-0 text-sm font-light">{content}</p>
+);
