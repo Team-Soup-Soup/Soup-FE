@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -33,8 +33,8 @@ const Description = ({ content }: { content: string }) => (
 export default function SignupForm() {
   const { clicked, setClicked, valid, setValid } = useSignupContext();
   const navigate = useNavigate();
+  const [authId, setAuthId] = useState<number | undefined>(undefined);
 
-  const authId = 0; /**이메일 인증 백엔드 미구현으로 인해 샘플 응답값을 생성했습니다. */
   const schema = z.object({
     [USER.NAME]: z.string().min(1, '*'),
     [USER.ID]: z
@@ -92,12 +92,15 @@ export default function SignupForm() {
       ...prev,
       [USER.EMAIL]: true,
     }));
-    fetchEmailCode(email).then((response) => console.log(response));
+    fetchEmailCode(email).then(({ authId }) => {
+      setAuthId(authId);
+    });
   };
 
   const handleEmailCodeValidation = (authCode: string) => {
-    fetchEmailCodeValidation(authId, authCode)
+    fetchEmailCodeValidation(authId!, authCode)
       .then((isValid) => {
+        console.log(isValid, authCode);
         setValid((prev) => ({ ...prev, [USER.EMAIL]: isValid }));
         if (isValid) {
           clearErrors(USER.EMAIL);
@@ -115,9 +118,11 @@ export default function SignupForm() {
   };
 
   const handleFormSubmit = async (data: SignupInfo) => {
-    const response = await fetchUserJoin(data);
-    if (response === 200) navigate(PATH.LOGIN);
-    else alert('회원가입에 실패했어요!');
+    fetchUserJoin({ ...data, authId: authId! })
+      .then((response) => {
+        if (response === 200) navigate(PATH.LOGIN);
+      })
+      .catch((error) => alert(error.message));
   };
 
   const formProps = {

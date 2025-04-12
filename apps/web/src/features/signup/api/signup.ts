@@ -1,5 +1,5 @@
 import { get, post, REQUEST } from '~/shared/api';
-import { SignupInfo } from '../types';
+import { AuthId, SignupInfo } from '../types';
 
 interface IdValidationResponse {
   result: boolean;
@@ -12,6 +12,10 @@ interface IdValidationParams {
 
 interface EmailCodeRequest {
   email: string;
+}
+
+interface EmailCodeResponse {
+  authId: number;
 }
 
 interface EmailCodeValidationRequest {
@@ -28,7 +32,7 @@ export const fetchIdValidation = async (id: string) => {
 };
 
 export const fetchEmailCode = async (email: string) => {
-  const response = await post<EmailCodeRequest>({
+  const response = await post<EmailCodeRequest, EmailCodeResponse>({
     request: REQUEST.SEND_EMAIL_CODE,
     data: { email: email },
   });
@@ -46,7 +50,7 @@ export const fetchEmailCodeValidation = async (
   return response.status === 200;
 };
 
-export const fetchUserJoin = async (data: SignupInfo) => {
+export const fetchUserJoin = async (data: SignupInfo & AuthId) => {
   const response = await post<SignupInfo>({
     request: REQUEST.SIGNUP,
     data: data,

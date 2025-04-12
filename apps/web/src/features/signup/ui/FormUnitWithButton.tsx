@@ -27,7 +27,9 @@ export default function FormUnitWithButton({
   watch,
 }: ButtonedUnitProps) {
   const formId = USER[id as 'ID' | 'EMAIL'];
-  const { setClicked, setValid } = useSignupContext();
+  const { clicked, setClicked, setValid } = useSignupContext();
+  const buttonLocked = id === 'EMAIL' && clicked[USER[id]] === true;
+
   const handleChange = () => {
     setClicked((prev) => ({
       ...prev,
@@ -56,7 +58,7 @@ export default function FormUnitWithButton({
         color="normal"
         size="sm"
         className="ml-3 h-[39px]"
-        locked={!isFormValid(USER[id])}
+        locked={!isFormValid(USER[id]) || buttonLocked}
         type="button"
         onClick={() => handler(watch(formId))}
       >
