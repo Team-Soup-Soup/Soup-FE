@@ -1,4 +1,4 @@
-import { FormField, FormItem } from '~/features/signup/types';
+import { FormError, FormField, FormItem } from '~/features/signup/types';
 
 export const FORM: Record<FormItem, FormField> = {
   NAME: {
@@ -24,5 +24,23 @@ export const FORM: Record<FormItem, FormField> = {
     placeholder: '비밀번호를 입력해주세요',
     description: '영어 + 특수문자 + 숫자 조합으로 최소 8자',
     button: null,
+  },
+};
+
+export const ERROR: Record<'ID' | 'EMAIL' | 'PW', FormError> = {
+  ID: {
+    ACTION_NOT_COMPLETED: '*중복 확인 필요',
+    AUTH_FAILURE: '*이미 사용중인 아이디입니다.',
+    AUTH_EXCEPTION: '*인증에 실패했어요. 다시 시도해 주세요.',
+  },
+  EMAIL: {
+    ACTION_NOT_COMPLETED: '*중복 확인 필요',
+    AUTH_FAILURE: '*코드가 틀렸습니다.',
+    AUTH_EXCEPTION: '*인증에 실패했어요. 다시 시도해 주세요.',
+  },
+  PW: {
+    ACTION_NOT_COMPLETED: '*중복 확인 필요',
+    AUTH_FAILURE: '*비밀번호는 8자 이상이어야 해요.',
+    AUTH_EXCEPTION: '*영어, 특수문자, 숫자를 모두 포함해야 해요.',
   },
 };
