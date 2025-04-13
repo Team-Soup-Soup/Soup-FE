@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useLoginStatus } from '~/shared/hooks';
+import { LoadingPage } from '~/pages/loading/ui';
+import { checkLoginStatus } from '~/shared/utils';
 
 export default function AuthRouter() {
-  return useLoginStatus() ? <Outlet /> : <Navigate to="/login" />;
+  return checkLoginStatus() ? (
+    <Suspense fallback={<LoadingPage />}>
+      <Outlet />
+    </Suspense>
+  ) : (
+    <Navigate to="/login" />
+  );
 }
