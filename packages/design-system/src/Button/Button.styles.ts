@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 export const buttonVariants = cva(
-  'font-regular border duration-300 ease-in-out rounded-[43px]',
+  'font-regular border duration-300 ease-in-out ',
   {
     variants: {
       color: {
@@ -12,8 +12,8 @@ export const buttonVariants = cva(
           'bg-normal hover:bg-normal-dark border-main-board-border text-dark',
       },
       size: {
-        lg: 'py-[12px] px-[28px]',
-        md: 'py-[8px] px-[20px] ',
+        lg: 'py-[12px] px-[28px] rounded-[10px]',
+        md: 'py-[8px] px-[20px] rounded-[43px]',
         sm: 'px-[12px] text-sm',
       },
       locked: {
