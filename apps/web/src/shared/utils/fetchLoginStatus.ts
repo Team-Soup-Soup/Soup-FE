@@ -1,4 +1,4 @@
-export const checkLoginStatus = () => {
+export const fetchLoginStatus = () => {
   const stored = sessionStorage.getItem('userToken');
   if (stored) {
     const parsed = JSON.parse(stored);
