@@ -23,7 +23,7 @@ export default function FormSubmit() {
         size="lg"
         type="submit"
         disabled={!checked}
-        className="bg-point hover:bg-point-dark auth-button disabled:bg-main-board-border font-semibold text-white disabled:pointer-events-none"
+        className="bg-point hover:bg-point-dark auth-button disabled:bg-main-board-border rounded-[10px] font-semibold text-white disabled:pointer-events-none"
       >
         회원가입 하기
       </Button>

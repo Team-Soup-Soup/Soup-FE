@@ -1,5 +1,10 @@
 import axios, { AxiosHeaders, AxiosResponse } from 'axios';
 
+export type ErrorWithCause = {
+  message: string;
+  cause: { code: string; message: null | string; desc: string };
+};
+
 interface GetRequestParams<TParams> {
   request: string;
   headers?: AxiosHeaders;
@@ -48,7 +53,8 @@ export async function post<TData, TResponse = unknown>(
     return response;
   } catch (error: unknown) {
     console.log(error);
-    if (axios.isAxiosError(error)) throw new Error(error.message);
+    if (axios.isAxiosError(error))
+      throw new Error(error.message, { cause: error.response?.data });
     else throw new Error('에러가 발생했습니다');
   }
 }

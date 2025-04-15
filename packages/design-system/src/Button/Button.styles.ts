@@ -13,7 +13,7 @@ export const buttonVariants = cva(
       },
       size: {
         lg: 'py-[12px] px-[28px]',
-        md: 'py-[8px] px-[20px] ',
+        md: 'py-[8px] px-[20px]',
         sm: 'px-[12px] text-sm',
       },
       locked: {

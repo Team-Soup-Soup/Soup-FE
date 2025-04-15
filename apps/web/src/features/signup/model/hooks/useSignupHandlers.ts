@@ -49,12 +49,19 @@ export default function useSignupHandlers({
   };
 
   const handleEmailValidation = async (email: string) => {
-    setClicked((prev) => ({
-      ...prev,
-      [USER.EMAIL]: true,
-    }));
-    const { authId } = await fetchEmailCode(email);
-    setAuthId(authId);
+    try {
+      const { authId } = await fetchEmailCode(email);
+      clearErrors(USER.EMAIL);
+      setClicked((prev) => ({
+        ...prev,
+        [USER.EMAIL]: true,
+      }));
+      setAuthId(authId);
+    } catch (error: unknown) {
+      const convertedError = error as { message: string };
+      if (convertedError.message.includes('400'))
+        setError(USER.EMAIL, { message: '*이미 가입된 이메일이에요' });
+    }
   };
 
   const handleEmailCodeValidation = async (authCode: string) => {
