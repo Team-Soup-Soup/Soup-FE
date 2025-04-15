@@ -15,6 +15,7 @@ export const HomeRoutes: RouteObject = {
   element: <HomeLayout />,
   path: PATH.HOME,
   children: [
+    { index: true, element: <></> },
     {
       path: PATH.PROJECT_CONTENT,
       children: [
