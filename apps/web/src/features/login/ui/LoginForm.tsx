@@ -43,7 +43,7 @@ export default function LoginForm() {
       <LoginOption className="mb-11" />
       <Button
         size="lg"
-        className="bg-point hover:bg-point-dark auth-button font-semibold text-white"
+        className="bg-point hover:bg-point-dark auth-button rounded-[10px] font-semibold text-white"
         type="submit"
       >
         로그인 하기
