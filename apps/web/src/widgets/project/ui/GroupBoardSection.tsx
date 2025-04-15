@@ -15,7 +15,7 @@ export default function GroupBoardSection() {
 
   return (
     <>
-      <div className="max-w-[calc(100vw-334px)] overflow-hidden">
+      <div className="max-w-[calc(100vw-334px)] overflow-hidden pb-8">
         <div className="mt-23">
           <p className="text-lg">우리들의 보드</p>
         </div>
