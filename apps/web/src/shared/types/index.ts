@@ -3,3 +3,4 @@ export * from './board';
 export * from './location';
 export * from './profile';
 export * from './delete';
+export * from './project';
