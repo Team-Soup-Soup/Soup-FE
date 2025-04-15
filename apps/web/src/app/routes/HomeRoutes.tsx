@@ -5,7 +5,6 @@ import { HomeLayout } from '~/app/layouts';
 import { PATH } from '~/shared/constants';
 import { ProjectBoardRoutes } from '~/app/routes/ProjectBoardRoutes';
 
-const HomePage = lazy(() => import('~/pages/home/ui/HomePage'));
 const ProjectPage = lazy(() => import('~/pages/project/ui/ProjectPage'));
 const SchedulePage = lazy(() => import('~/pages/schedule/ui/SchedulePage'));
 const GroupBoardPage = lazy(
@@ -16,10 +15,6 @@ export const HomeRoutes: RouteObject = {
   element: <HomeLayout />,
   path: PATH.HOME,
   children: [
-    {
-      index: true,
-      element: <HomePage />,
-    },
     {
       path: PATH.PROJECT_CONTENT,
       children: [

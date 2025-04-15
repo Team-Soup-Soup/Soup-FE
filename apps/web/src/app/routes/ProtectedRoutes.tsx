@@ -1,9 +1,25 @@
 import { RouteObject } from 'react-router-dom';
 
-import { AuthRouter } from '~/app/routers';
-import { HomeRoutes } from '~/app/routes/HomeRoutes';
+import { AuthRouter, HomeRouter } from '~/app/routers';
+
+import { fetchJoinedRoom } from '~/shared/utils';
+import { LoadingPage } from '~/pages/loading/ui';
+import { HomeRoutes } from './HomeRoutes';
+import { DefaultPage } from '~/pages/default/ui';
+import { PATH } from '~/shared/constants';
 
 export const ProtectedRoutes: RouteObject = {
   element: <AuthRouter />,
-  children: [HomeRoutes],
+  children: [
+    {
+      element: <HomeRouter />,
+      loader: fetchJoinedRoom,
+      hydrateFallbackElement: <LoadingPage />,
+      children: [HomeRoutes],
+    },
+    {
+      element: <DefaultPage />,
+      path: PATH.DEFAULT,
+    },
+  ],
 };
