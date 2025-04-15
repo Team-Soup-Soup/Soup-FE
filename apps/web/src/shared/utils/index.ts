@@ -2,5 +2,6 @@ export { default as Providers } from './Providers';
 export * from './path';
 export * from './getDate';
 export * from './string';
-export * from './checkLoginStatus';
+export * from './fetchLoginStatus';
+export * from './fetchJoinedRoom';
 export * from './logout';
