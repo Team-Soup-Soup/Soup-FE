@@ -19,6 +19,7 @@ export const MODAL = {
   LEVEL_INFO: 'levelInfo',
   CHANGE_PROJECT: 'changeProject',
   LEVEL_PROJECT: 'levelProject',
+  LOGIN_FAILED: 'loginFailed',
 } as const;
 
 export const SETTING_ITEM = {
