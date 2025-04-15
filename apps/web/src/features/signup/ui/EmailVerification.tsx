@@ -10,7 +10,7 @@ export default function EmailVerification({ handler }: EmailVerificationProps) {
   const [value, setValue] = useState<string>('');
 
   return (
-    <div className="relative mt-1 flex w-full items-end">
+    <div className="relative flex w-full items-end">
       <Input
         id="emailVerification"
         placeholder="인증코드를 입력해주세요"
