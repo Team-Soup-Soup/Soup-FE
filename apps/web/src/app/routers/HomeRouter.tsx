@@ -1,13 +1,14 @@
-import React from 'react';
-
-import { Navigate, Outlet, useLoaderData } from 'react-router-dom';
-
-import { PATH } from '~/shared/constants';
+import React, { useEffect } from 'react';
+import { Outlet, useLoaderData } from 'react-router-dom';
 
 export default function HomeRouter() {
   const data = useLoaderData();
 
-  return (
-    <>{data && data.length > 0 ? <Outlet /> : <Navigate to={PATH.DEFAULT} />}</>
-  );
+  useEffect(() => {
+    if (data && data.length !== 0) {
+      window.history.back();
+    }
+  }, []);
+
+  return <Outlet />;
 }

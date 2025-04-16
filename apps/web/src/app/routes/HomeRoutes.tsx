@@ -4,6 +4,9 @@ import { type RouteObject } from 'react-router-dom';
 import { HomeLayout } from '~/app/layouts';
 import { PATH } from '~/shared/constants';
 import { ProjectBoardRoutes } from '~/app/routes/ProjectBoardRoutes';
+import { fetchJoinedRoom } from '~/shared/utils';
+import { LoadingPage } from '~/shared/ui';
+import { HomePage } from '~/pages/home/ui';
 
 const ProjectPage = lazy(() => import('~/pages/project/ui/ProjectPage'));
 const SchedulePage = lazy(() => import('~/pages/schedule/ui/SchedulePage'));
@@ -15,7 +18,12 @@ export const HomeRoutes: RouteObject = {
   element: <HomeLayout />,
   path: PATH.HOME,
   children: [
-    { index: true, element: <></> },
+    {
+      index: true,
+      loader: fetchJoinedRoom,
+      hydrateFallbackElement: <LoadingPage />,
+      element: <HomePage />,
+    },
     {
       path: PATH.PROJECT_CONTENT,
       children: [

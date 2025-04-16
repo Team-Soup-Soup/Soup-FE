@@ -15,11 +15,13 @@ export const ProtectedRoutes: RouteObject = {
       element: <HomeRouter />,
       loader: fetchJoinedRoom,
       hydrateFallbackElement: <LoadingPage />,
-      children: [HomeRoutes],
+      children: [
+        {
+          element: <DefaultPage />,
+          path: PATH.DEFAULT,
+        },
+      ],
     },
-    {
-      element: <DefaultPage />,
-      path: PATH.DEFAULT,
-    },
+    HomeRoutes,
   ],
 };
