@@ -9,10 +9,11 @@ export default function AuthLayout(): React.ReactElement {
           <Outlet />
         </div>
       </div>
-      <div
+      <img
+        src={AuthPageImg}
         className="hidden size-full bg-cover bg-center xl:block"
-        style={{ backgroundImage: `url(${AuthPageImg})` }}
-      ></div>
+        loading="eager"
+      />
     </div>
   );
 }

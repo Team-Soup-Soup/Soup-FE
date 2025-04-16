@@ -1,10 +1,18 @@
 import React from 'react';
-import { HomeContainer } from '~/widgets/home/ui';
+import { Navigate, useLoaderData } from 'react-router-dom';
+import { PATH } from '~/shared/constants';
+import { getPath } from '~/shared/utils';
 
 export default function HomePage() {
+  const data = useLoaderData();
+
   return (
-    <div className="flex flex-col justify-center">
-      <HomeContainer />
-    </div>
+    <>
+      {data.length > 0 ? (
+        <Navigate to={getPath(PATH.PROJECT, data.data[0].projectId)} />
+      ) : (
+        <Navigate to={PATH.DEFAULT} />
+      )}
+    </>
   );
 }

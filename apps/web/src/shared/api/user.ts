@@ -1,7 +1,5 @@
-import { getDefaultStore } from 'jotai';
 import axios, { AxiosError, AxiosHeaders, AxiosResponse } from 'axios';
 
-import { userAtom } from '~/shared/atoms';
 import { REQUEST, post } from '~/shared/api';
 
 interface RefreshTokenResponse {
@@ -15,14 +13,21 @@ interface PostRequestParams<TData> {
   data: TData;
 }
 
+interface GetRequestParams<TParams> {
+  request: string;
+  headers?: AxiosHeaders;
+  params?: TParams;
+}
+
 const instance = axios.create({
   baseURL: 'http://student-p.p-e.kr/api',
 });
 
 instance.interceptors.request.use(async (config) => {
-  const store = getDefaultStore();
-  const { accessToken } = await store.get(userAtom);
-  if (accessToken) {
+  const stored = sessionStorage.getItem('userToken');
+  if (stored) {
+    const parsed = JSON.parse(stored);
+    const accessToken = parsed.accessToken;
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
   return config;
@@ -32,30 +37,53 @@ instance.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     if (error.response?.status === 401) {
-      const store = getDefaultStore();
-      try {
-        const { refreshToken } = await store.get(userAtom);
-        const response = await post<
-          { refreshToken: string },
-          RefreshTokenResponse
-        >({
-          request: REQUEST.REFRESH,
-          data: { refreshToken },
-        });
-        const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
-          response.data;
-        store.set(userAtom, {
-          accessToken: newAccessToken,
-          refreshToken: newRefreshToken,
-        });
-      } catch (refreshError) {
-        console.log(refreshError);
-        store.set(userAtom, { accessToken: '', refreshToken: '' });
+      const stored = sessionStorage.getItem('userToken');
+
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        const refreshToken = parsed.accessToken;
+        try {
+          const response = await post<
+            { refreshToken: string },
+            RefreshTokenResponse
+          >({
+            request: REQUEST.REFRESH,
+            data: { refreshToken },
+          });
+          const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+            response.data;
+          sessionStorage.setItem(
+            'userToken',
+            `{
+            accessToken: ${newAccessToken},
+            refreshToken: ${newRefreshToken},
+          }`,
+          );
+        } catch (refreshError) {
+          console.log(refreshError);
+        }
       }
     }
     return Promise.reject(error);
   },
 );
+
+export async function userGet<TResponse, TParams = unknown>(
+  config: GetRequestParams<TParams>,
+): Promise<AxiosResponse<TResponse>> {
+  const { request, headers, params } = config;
+  try {
+    const response = await instance.get<TResponse>(request, {
+      params: params,
+      headers: headers || undefined,
+    });
+    return response;
+  } catch (error: unknown) {
+    console.log(error);
+    if (axios.isAxiosError(error)) throw new Error(error.message);
+    else throw new Error('에러가 발생했습니다');
+  }
+}
 
 export async function userPost<TData, TResponse = unknown>(
   config: PostRequestParams<TData>,

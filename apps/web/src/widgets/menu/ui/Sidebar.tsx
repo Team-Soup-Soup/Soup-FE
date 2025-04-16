@@ -1,36 +1,37 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { NavLink } from 'react-router-dom';
 
 import { cn } from '@soup/utils';
 
-import { projectList } from '~/mocks';
 import { MODAL, PATH } from '~/shared/constants';
 import { useModal } from '~/shared/hooks';
-import { useProject } from '~/shared/hooks/useProject';
 import type { ModalItem } from '~/shared/types';
 import { IconButton, LogoutModal, Profile } from '~/shared/ui';
-import { getPath } from '~/shared/utils';
+import { fetchJoinedRoom, getPath } from '~/shared/utils';
 import {
   AlarmModal,
   CreateProjectModal,
   SettingModal,
   UpdateModal,
 } from '~/features/menu/ui';
+import { useQuery } from '@tanstack/react-query';
 
-export default function Sidebar() {
+export default function Sidebar({
+  isDefault = false,
+}: {
+  isDefault?: boolean;
+}) {
   const { openModal } = useModal();
-  const { changeProject } = useProject();
 
   const handleModal = (key: ModalItem) => {
     openModal(key);
   };
 
-  useEffect(() => {
-    if (projectList.length) {
-      changeProject(projectList[0].project);
-    }
-  }, [changeProject]);
+  const { data, isFetched, isLoading, refetch } = useQuery({
+    queryKey: ['todos'],
+    queryFn: fetchJoinedRoom,
+  });
 
   return (
     <>
@@ -53,10 +54,12 @@ export default function Sidebar() {
             <span>프로젝트</span>
           </div>
           <div className="text-md mx-[32px] my-[16px] flex flex-col items-start gap-4 font-light">
-            {projectList.length > 0 ? (
-              projectList.map(({ project }) => (
+            {isLoading && <span>프로젝트 데이터를 받아오는 중..</span>}
+            {isFetched &&
+              data!.length > 0 &&
+              data!.data.map(({ projectId, projectName }) => (
                 <NavLink
-                  key={project}
+                  key={projectId}
                   className={({ isActive }) =>
                     cn(
                       'pl-3 hover:cursor-pointer',
@@ -64,13 +67,13 @@ export default function Sidebar() {
                         'border-point border-bold text-point border-l-3',
                     )
                   }
-                  to={getPath(PATH.PROJECT, project)}
+                  to={getPath(PATH.PROJECT, `${projectId}`)}
                 >
-                  <span>{project}</span>
+                  <span>{projectName}</span>
                 </NavLink>
-              ))
-            ) : (
-              <p className="text-light mt-[12px]">
+              ))}
+            {isDefault && (
+              <p className="text-light mt-[12px] text-sm">
                 참여중인 프로젝트가 없습니다
               </p>
             )}
@@ -94,7 +97,7 @@ export default function Sidebar() {
           </div>
         </div>
       </div>
-      <CreateProjectModal />
+      <CreateProjectModal refetch={refetch} />
       <LogoutModal />
       <SettingModal />
       <AlarmModal />

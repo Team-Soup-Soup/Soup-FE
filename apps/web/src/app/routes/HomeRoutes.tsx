@@ -4,8 +4,10 @@ import { type RouteObject } from 'react-router-dom';
 import { HomeLayout } from '~/app/layouts';
 import { PATH } from '~/shared/constants';
 import { ProjectBoardRoutes } from '~/app/routes/ProjectBoardRoutes';
+import { fetchJoinedRoom } from '~/shared/utils';
+import { LoadingPage } from '~/shared/ui';
+import { HomePage } from '~/pages/home/ui';
 
-const HomePage = lazy(() => import('~/pages/home/ui/HomePage'));
 const ProjectPage = lazy(() => import('~/pages/project/ui/ProjectPage'));
 const SchedulePage = lazy(() => import('~/pages/schedule/ui/SchedulePage'));
 const GroupBoardPage = lazy(
@@ -18,6 +20,8 @@ export const HomeRoutes: RouteObject = {
   children: [
     {
       index: true,
+      loader: fetchJoinedRoom,
+      hydrateFallbackElement: <LoadingPage />,
       element: <HomePage />,
     },
     {

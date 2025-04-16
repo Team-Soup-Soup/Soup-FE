@@ -19,7 +19,10 @@ export default function IconButton({
   return (
     <>
       <button
-        className={cn('hover:cursor-pointer', buttonClassName)}
+        className={cn(
+          'hover:cursor-pointer focus:outline-none',
+          buttonClassName,
+        )}
         onClick={onClick}
         disabled={disabled}
       >

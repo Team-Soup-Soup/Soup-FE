@@ -1,10 +1,22 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
+
+import { useQuery } from '@tanstack/react-query';
+
 import { ProjectContainer } from '~/widgets/project/ui';
+import { fetchProjectInfo } from '~/pages/project/api';
 
 export default function ProjectPage() {
+  const { projectId } = useParams();
+
+  const { data, isFetched } = useQuery({
+    queryKey: [`project${projectId}`],
+    queryFn: () => fetchProjectInfo(projectId!),
+  });
+
   return (
     <div className="h-full w-full p-8">
-      <ProjectContainer />
+      {isFetched && <ProjectContainer {...data!.data} />}
     </div>
   );
 }
