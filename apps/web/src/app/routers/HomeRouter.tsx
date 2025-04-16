@@ -8,6 +8,7 @@ export default function HomeRouter() {
     if (data && data.length !== 0) {
       window.history.back();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <Outlet />;
