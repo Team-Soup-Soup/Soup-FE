@@ -17,7 +17,7 @@ export const MODAL = {
   INVITE_PROJECT: 'inviteProject',
   EXPULSION_PROJECT: 'expulsionProject',
   LEVEL_INFO: 'levelInfo',
-  CHANGE_PROJECT: 'changeProject',
+  UPDATE_PROJECT: 'updateProject',
   LEVEL_PROJECT: 'levelProject',
   LOGIN_FAILED: 'loginFailed',
 } as const;

@@ -14,6 +14,12 @@ export default function ProjectManageModal({ data }: { data: User[] }) {
   const { isOpen } = useModalState({ key: MODAL.MANAGE_PROJECT });
   const { openModal, closeModal } = useModal();
 
+  const LEVEL: Record<'M' | 'S' | 'C', ProfileLevel> = {
+    M: 'master',
+    S: 'subMaster',
+    C: 'classic',
+  };
+
   useEffect(() => {
     const escKeyModalClose = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -25,12 +31,6 @@ export default function ProjectManageModal({ data }: { data: User[] }) {
 
     return () => document.removeEventListener('keydown', escKeyModalClose);
   }, [closeModal]);
-
-  const LEVEL: Record<'M' | 'S' | 'C', ProfileLevel> = {
-    M: 'master',
-    S: 'subMaster',
-    C: 'classic',
-  };
 
   return (
     isOpen && (
@@ -64,7 +64,7 @@ export default function ProjectManageModal({ data }: { data: User[] }) {
             />
             <ManageButton
               content="프로젝트 이름/설명 변경하기"
-              onClick={() => openModal(MODAL.CHANGE_PROJECT)}
+              onClick={() => openModal(MODAL.UPDATE_PROJECT)}
             />
             <ManageButton
               content=" 프로젝트 나가기"

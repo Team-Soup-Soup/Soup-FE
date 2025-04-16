@@ -1,4 +1,4 @@
-export { default as ChangeProjectModal } from './ChangeProjectModal';
+export { default as UpdateProjectModal } from './UpdateProjectModal';
 export { default as ExpulsionProjectModal } from './ExpulsionProjectModal';
 export { default as InviteProjectModal } from './InviteProjectModal';
 export { default as LeaveProjectModal } from './LeaveProjectModal';

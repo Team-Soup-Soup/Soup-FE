@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import { fetchJoinedUser } from '~/features/project/api';
 import {
-  ChangeProjectModal,
+  UpdateProjectModal,
   InviteProjectModal,
   LeaveProjectModal,
   ProjectManageModal,
@@ -75,7 +75,7 @@ export default function ProjectHeader({
       <ProjectManageModal data={data} />
       <ProjectMemberManageModal />
       <InviteProjectModal />
-      <ChangeProjectModal />
+      <UpdateProjectModal />
       <LeaveProjectModal />
     </>
   );
