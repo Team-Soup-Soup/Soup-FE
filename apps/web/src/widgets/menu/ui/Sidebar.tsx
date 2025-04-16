@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { NavLink } from 'react-router-dom';
 
 import { cn } from '@soup/utils';
 
-import { projectList } from '~/mocks';
 import { MODAL, PATH } from '~/shared/constants';
 import { useModal } from '~/shared/hooks';
-import { useProject } from '~/shared/hooks/useProject';
 import type { ModalItem } from '~/shared/types';
 import { IconButton, LogoutModal, Profile } from '~/shared/ui';
 import { fetchJoinedRoom, getPath } from '~/shared/utils';
@@ -25,19 +23,12 @@ export default function Sidebar({
   isDefault?: boolean;
 }) {
   const { openModal } = useModal();
-  const { changeProject } = useProject();
 
   const handleModal = (key: ModalItem) => {
     openModal(key);
   };
 
-  useEffect(() => {
-    if (projectList.length) {
-      changeProject(projectList[0].project);
-    }
-  }, [changeProject]);
-
-  const { data, isFetched, isLoading } = useQuery({
+  const { data, isFetched, isLoading, refetch } = useQuery({
     queryKey: ['todos'],
     queryFn: fetchJoinedRoom,
   });
@@ -106,7 +97,7 @@ export default function Sidebar({
           </div>
         </div>
       </div>
-      <CreateProjectModal />
+      <CreateProjectModal refetch={refetch} />
       <LogoutModal />
       <SettingModal />
       <AlarmModal />
