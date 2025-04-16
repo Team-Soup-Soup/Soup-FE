@@ -10,3 +10,4 @@ export { default as LevelBadge } from './LevelBadge';
 export { default as UserItem } from './UserItem';
 export { default as DeleteModal } from './DeleteModal';
 export { default as LogoutModal } from './LogoutModal';
+export { default as LoadingPage } from './LoadingPage';

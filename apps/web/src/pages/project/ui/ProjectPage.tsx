@@ -1,9 +1,10 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+
 import { ProjectContainer } from '~/widgets/project/ui';
-import { fetchProjectInfo } from '../api';
+import { fetchProjectInfo } from '~/pages/project/api';
 
 export default function ProjectPage() {
   const { projectId } = useParams();
