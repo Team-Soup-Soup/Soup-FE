@@ -7,5 +7,6 @@ export const REQUEST = {
   CHECK_VALID_ID: '/v1/user/valid/id',
   CHECK_VALID_EMAIL_CODE: '/v1/email/auth',
   FETCH_JOINED_PROJECT: '/v1/project/join-project',
+  FETCH_JOINED_USER_PROJECT: '/v1/project/join-user',
   SEND_EMAIL_CODE: '/v1/email/auth/send',
 };

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { userList } from '~/mocks';
+
 import { MODAL } from '~/shared/constants';
 import { useModal, useModalState } from '~/shared/hooks';
-import { ProfileLevel } from '~/shared/types';
+import { ProfileLevel, User } from '~/shared/types';
 import { Profile } from '~/shared/ui';
 
 interface ManageButtonProps {
@@ -10,7 +10,7 @@ interface ManageButtonProps {
   onClick?: () => void;
 }
 
-export default function ProjectManageModal() {
+export default function ProjectManageModal({ data }: { data: User[] }) {
   const { isOpen } = useModalState({ key: MODAL.MANAGE_PROJECT });
   const { openModal, closeModal } = useModal();
 
@@ -26,19 +26,24 @@ export default function ProjectManageModal() {
     return () => document.removeEventListener('keydown', escKeyModalClose);
   }, [closeModal]);
 
+  const LEVEL: Record<'M' | 'S' | 'C', ProfileLevel> = {
+    M: 'master',
+    S: 'subMaster',
+    C: 'classic',
+  };
+
   return (
     isOpen && (
       <div className="border-main-board-border box-shadow absolute right-8 top-[98px] z-20 flex flex-col gap-[30px] rounded-[10px] border bg-white p-[24px]">
         <div className="flex flex-col gap-[8px]">
           <div>멤버</div>
           <div className="flex flex-col gap-[24px]">
-            {userList.map(({ name, profile, connecting, level }) => (
+            {data.map(({ username, userId, userRole }) => (
               <Profile
-                key={name}
-                name={name}
-                image={profile}
-                connecting={connecting}
-                level={level as ProfileLevel}
+                key={userId}
+                name={username}
+                connecting={'얼마 전 접속'}
+                level={LEVEL[userRole]}
               />
             ))}
           </div>
