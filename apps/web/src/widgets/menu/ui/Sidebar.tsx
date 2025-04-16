@@ -29,7 +29,7 @@ export default function Sidebar({
   };
 
   const { data, isFetched, isLoading, refetch } = useQuery({
-    queryKey: ['todos'],
+    queryKey: ['joinedRooms'],
     queryFn: fetchJoinedRoom,
   });
 
