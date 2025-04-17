@@ -4,7 +4,7 @@ import { User } from '~/shared/types';
 export const fetchJoinedUser = async (projectId: number) => {
   const response = await userGet<User[]>({
     request: REQUEST.FETCH_JOINED_USER_PROJECT,
-    params: { id: projectId },
+    params: { projectId: projectId },
   });
   return response.data;
 };

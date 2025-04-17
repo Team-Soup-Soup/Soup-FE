@@ -30,7 +30,7 @@ export default function ProjectHeader({
   const { data } = useQuery({
     queryKey: [`project${projectId}JoinedUser`],
     queryFn: () => fetchJoinedUser(Number(projectId)),
-    retry: false,
+    retry: 2,
     initialData: [],
   });
 
