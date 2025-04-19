@@ -69,6 +69,11 @@ export default function ProjectBoard() {
             if (data.category === selected)
               return <ProjectBoardItem key={data.postId} {...data} />;
           })}
+        {data && data.count === 0 && (
+          <div className="text-light grid size-full place-items-center font-light">
+            게시판에 글이 없어요
+          </div>
+        )}
         <div className="absolute bottom-0 flex h-fit w-full items-center justify-center">
           {data && data.count !== 0 && (
             <Pagination
