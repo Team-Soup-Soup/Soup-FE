@@ -27,7 +27,13 @@ export type Comment = {
   commentId: number;
   content: string;
   parentId: number;
+  createBy: string;
+  createByName: string;
+  createUserProfile: string;
   createAt: string;
+  updateBy: string;
+  updateAt: string;
+  childComments: string[];
 };
 
 export type PostType =
