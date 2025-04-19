@@ -4,7 +4,12 @@ import { Button, Input } from '@soup/design-system';
 import { useParams } from 'react-router-dom';
 
 import { boardDetailedDataList } from '~/mocks';
-import type { Comment, DetailedBoardContent, ModalItem } from '~/shared/types';
+import type {
+  BoardItem,
+  Comment,
+  DetailedBoardContent,
+  ModalItem,
+} from '~/shared/types';
 import {
   ProjectPostComment,
   ProjectPostContent,
@@ -13,30 +18,34 @@ import { useModal } from '~/shared/hooks';
 import { BOARD, MODAL } from '~/shared/constants';
 import { DeleteModal } from '~/shared/ui';
 import { getDate } from '~/shared/utils';
+import { useFetchPostDetail } from '../api';
 
 export default function ProjectPost() {
   const { postId } = useParams();
-  const post: DetailedBoardContent = boardDetailedDataList[
-    Number(postId) - 1
-  ] as DetailedBoardContent;
-  const { content, comments, category } = post;
+  const { data } = useFetchPostDetail(postId!);
+  const { content, comments, category } = data || boardDetailedDataList[0];
 
   return (
     <>
-      <div className="w-200 mt-30 scrollbar-hide mx-auto flex h-full flex-col overflow-visible md:w-[70%]">
-        <ProjectPostHeader {...post} />
-        <ProjectPostContent category={category} content={content} />
-        <div className="flex size-full flex-col">
-          <ProjectPostCommentHeader {...post} />
-          <div className="flex-1">
-            <div className="flex w-full flex-1 flex-col gap-y-6 overflow-visible pb-10">
-              {comments.map((comment: Comment) => (
-                <ProjectPostComment {...comment} key={comment.commentId} />
-              ))}
+      {data && (
+        <div className="w-200 mt-30 scrollbar-hide mx-auto flex h-full flex-col overflow-visible md:w-[70%]">
+          <ProjectPostHeader {...data} />
+          <ProjectPostContent
+            category={category as BoardItem}
+            content={content}
+          />
+          <div className="flex size-full flex-col">
+            <ProjectPostCommentHeader {...data} />
+            <div className="flex-1">
+              <div className="flex w-full flex-1 flex-col gap-y-6 overflow-visible pb-10">
+                {comments.map((comment: Comment) => (
+                  <ProjectPostComment {...comment} key={comment.commentId} />
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
       <DeleteModal />
     </>
   );
@@ -46,7 +55,7 @@ const ProjectPostHeader = ({
   category,
   title,
   createAt,
-  createdBy,
+  createBy,
 }: DetailedBoardContent) => {
   const { openModal } = useModal();
   const handleModal = (key: ModalItem) => {
@@ -63,7 +72,7 @@ const ProjectPostHeader = ({
         <div className="text-md flex w-fit items-center gap-x-4 font-light">
           <div className="flex items-center gap-x-4">
             <div className="size-10 rounded-[50%] bg-black" />
-            <span>{createdBy}</span>
+            <span>{createBy}</span>
           </div>
           <span className="text-light">{getDate(createAt, 'YYYY.MM.DD')}</span>
           <span className="text-light">{getDate(createAt, 'HH:mm')}</span>

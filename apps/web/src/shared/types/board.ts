@@ -16,6 +16,7 @@ export type DetailedBoardContent = Omit<
   BoardContent,
   'commentCnt' | 'postId'
 > & {
+  createUserProfile: string;
   updateBy: string;
   updateAt: string;
   comments: Comment[];
