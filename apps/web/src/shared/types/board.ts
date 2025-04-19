@@ -12,11 +12,10 @@ export type BoardContent = {
   commentCnt: number;
 };
 
-export type DetailedBoardContent = {
-  title: string;
-  category: BoardItem;
-  createdBy: string;
-  createAt: string;
+export type DetailedBoardContent = Omit<
+  BoardContent,
+  'commentCnt' | 'postId'
+> & {
   updateBy: string;
   updateAt: string;
   comments: Comment[];

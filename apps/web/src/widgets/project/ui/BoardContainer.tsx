@@ -1,14 +1,15 @@
 import React, { type Dispatch, type SetStateAction, useState } from 'react';
 
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import boardDataList from '~/mocks/board.json';
-import { CreatePostModal } from '~/features/project-board/ui';
 import type { BoardItem } from '~/shared/types';
 import { BOARD, BOARD_LABEL, MODAL } from '~/shared/constants';
 import { PATH } from '~/shared/constants';
 import { getPath } from '~/shared/utils';
 import { useModal } from '~/shared/hooks';
+import { useFetchProjectBoardList } from '~/widgets/project/api';
+import { CreatePostModal } from '~/features/project-board/ui';
+import { Loader } from '~/assets/images';
 
 export default function BoardContainer() {
   const [selected, setSelected] = useState<BoardItem>('01');
@@ -21,7 +22,10 @@ export default function BoardContainer() {
 }
 
 function BoardView({ selected }: { selected: BoardItem }) {
-  const data = boardDataList;
+  const { projectId } = useParams();
+  const { data, isLoading } = useFetchProjectBoardList({
+    projectId: projectId!,
+  });
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -37,25 +41,36 @@ function BoardView({ selected }: { selected: BoardItem }) {
         </span>
       </div>
       <div className="flex size-full flex-col gap-y-[6px]">
-        {data.slice(0, 4).map(({ postId, category, title, createAt }) => (
-          <div
-            className="text-md flex h-fit w-full justify-between gap-x-4 font-light"
-            key={postId}
-          >
+        {data &&
+          data.data.slice(0, 4).map(({ postId, category, title, createAt }) => (
             <div
-              className="flex w-44 items-center justify-center text-nowrap py-[1px]"
-              style={{
-                backgroundColor: `${BOARD[category as BoardItem].color}`,
-              }}
+              className="text-md flex h-fit w-full justify-between gap-x-4 font-light"
+              key={postId}
             >
-              {BOARD[category as BoardItem].title}
+              <div
+                className="flex w-44 items-center justify-center text-nowrap py-[1px]"
+                style={{
+                  backgroundColor: `${BOARD[category as BoardItem].color}`,
+                }}
+              >
+                {BOARD[category as BoardItem].title}
+              </div>
+              <div className="w-full text-ellipsis text-nowrap">{title}</div>
+              <div className="text-light flex">
+                {createAt.slice(0, 10).split('-').join('.')}
+              </div>
             </div>
-            <div className="w-full text-ellipsis text-nowrap">{title}</div>
-            <div className="text-light flex">
-              {createAt.slice(0, 10).split('-').join('.')}
-            </div>
+          ))}
+        {data && data.count === 0 && (
+          <div className="text-light grid size-full place-items-center font-light">
+            게시판에 글이 없어요
           </div>
-        ))}
+        )}
+        {isLoading && (
+          <div className="text-light grid size-full place-items-center font-light">
+            <img src={Loader} className="h-16 w-14" />
+          </div>
+        )}
       </div>
       <CreatePostModal type={selected} />
     </div>
