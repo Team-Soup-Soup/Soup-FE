@@ -41,7 +41,7 @@ export type BasicPost = {
 };
 
 export type NoticePost = BasicPost & {
-  fixedYn: 'Y' | 'N';
+  fixYn: 'Y' | 'N';
 };
 
 export type VotePost = BasicPost & {
