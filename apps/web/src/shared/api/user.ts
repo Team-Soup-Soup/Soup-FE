@@ -19,6 +19,12 @@ interface GetRequestParams<TParams> {
   params?: TParams;
 }
 
+interface PutRequestParams<TData> {
+  request: string;
+  headers?: AxiosHeaders;
+  data: TData;
+}
+
 const instance = axios.create({
   baseURL: 'http://student-p.p-e.kr/api',
 });
@@ -97,6 +103,24 @@ export async function userPost<TData, TResponse = unknown>(
     >(request, data, {
       headers: headers || undefined,
     });
+    return response;
+  } catch (error: unknown) {
+    console.log(error);
+    if (axios.isAxiosError(error)) throw new Error(error.message);
+    else throw new Error('에러가 발생했습니다');
+  }
+}
+
+export async function userPut<TData, TResponse = unknown>(
+  config: PutRequestParams<TData>,
+): Promise<AxiosResponse<TResponse>> {
+  const { request, headers, data } = config;
+  try {
+    const response = await instance.put<
+      TResponse,
+      AxiosResponse<TResponse>,
+      TData
+    >(request, data, { headers: headers || undefined });
     return response;
   } catch (error: unknown) {
     console.log(error);

@@ -1,65 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Button, Input } from '@soup/design-system';
 
 import { MODAL } from '~/shared/constants';
-import { useModal, useModalState } from '~/shared/hooks';
+import { useModalState } from '~/shared/hooks';
 import { IconButton, Modal } from '~/shared/ui';
-import { z, ZodError } from 'zod';
+
+import { useInviteProject } from '~/features/project/model';
 
 export default function InviteProjectModal() {
-  const { closeModal } = useModal();
   const { isOpen } = useModalState({ key: MODAL.INVITE_PROJECT });
-  const [inviteEmails, setInviteEmails] = useState<string[]>(['']);
-  const [emailErrors, setEmailErrors] = useState<string[]>([]);
-
-  const schema = z.string().email({ message: '유효한 이메일을 입력해주세요.' });
-
-  const handleChange = (index: number, value: string) => {
-    setInviteEmails((prev: Array<string>) => {
-      const newEmails = [...prev];
-      newEmails[index] = value;
-      return newEmails;
-    });
-  };
-
-  const handleEmailInput = (index: number) => {
-    if (index == inviteEmails.length - 1) {
-      setInviteEmails((prev) => [...prev, '']);
-    } else {
-      setInviteEmails((prev) => {
-        const newEmails = [...prev];
-        newEmails.splice(index, 1);
-        return newEmails;
-      });
-    }
-  };
-
-  const handleSubmit = () => {
-    const errors = [''];
-
-    inviteEmails.forEach((email, index) => {
-      if (email.trim() === '') {
-        errors[index] = '';
-      } else {
-        try {
-          schema.parse(email);
-          errors[index] = '';
-        } catch (err) {
-          if (err instanceof ZodError) {
-            errors[index] = err.errors[0].message;
-          }
-        }
-      }
-    });
-
-    setEmailErrors(errors);
-
-    if (errors.every((error) => error === '')) {
-      closeModal(MODAL.INVITE_PROJECT);
-      setInviteEmails(['']);
-    }
-  };
+  const {
+    inviteEmails,
+    handleChange,
+    handleEmailInput,
+    handleSubmit,
+    emailErrors,
+  } = useInviteProject();
 
   return (
     isOpen && (

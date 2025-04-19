@@ -1,4 +1,4 @@
-export { default as ChangeProjectModal } from './ChangeProjectModal';
+export { default as UpdateProjectModal } from './UpdateProjectModal';
 export { default as ExpulsionProjectModal } from './ExpulsionProjectModal';
 export { default as InviteProjectModal } from './InviteProjectModal';
 export { default as LeaveProjectModal } from './LeaveProjectModal';
@@ -7,3 +7,4 @@ export { default as CreateGroupBoardModal } from './CreateGroupBoardModal';
 export { default as ProjectMemberManageModal } from './ProjectMemberManageModal';
 export { default as AddShareLinkModal } from './AddShareLinkModal';
 export { default as DeleteShareLinkModal } from './DeleteShareLinkModal';
+export { default as LevelInfoModal } from './LevelInfoModal';

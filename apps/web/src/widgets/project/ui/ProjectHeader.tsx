@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
+
+import { fetchJoinedUser } from '~/features/project/api';
 import {
-  ChangeProjectModal,
+  UpdateProjectModal,
   InviteProjectModal,
   LeaveProjectModal,
   ProjectManageModal,
   ProjectMemberManageModal,
 } from '~/features/project/ui';
-import { userList } from '~/mocks';
 import { MODAL } from '~/shared/constants';
 import { useModal } from '~/shared/hooks';
 import { IconButton } from '~/shared/ui';
@@ -20,8 +24,15 @@ export default function ProjectHeader({
   description,
   name,
 }: ProjectHeaderProps) {
+  const { projectId } = useParams();
   const { openModal, closeModal } = useModal();
   const [openManageModal, setOpenManageModal] = useState(false);
+  const { data } = useQuery({
+    queryKey: [`project${projectId}JoinedUser`],
+    queryFn: () => fetchJoinedUser(Number(projectId)),
+    retry: 2,
+    initialData: [],
+  });
 
   const handleManageModal = () => {
     if (!openManageModal) {
@@ -45,10 +56,11 @@ export default function ProjectHeader({
         </div>
         <div className="flex h-fit gap-[12px]">
           <div className="avatar-group -space-x-6">
-            {userList.map(({ profile, name }) => (
-              <div className="avatar" key={name}>
+            {data.map(({ username }) => (
+              <div className="avatar" key={username}>
                 <div className="w-12">
-                  <img src={profile} alt={name} />
+                  <img src={''} alt={username} />
+                  {/*이미지 추가시 추가예정**/}
                 </div>
               </div>
             ))}
@@ -60,10 +72,10 @@ export default function ProjectHeader({
           />
         </div>
       </div>
-      <ProjectManageModal />
+      <ProjectManageModal data={data} />
       <ProjectMemberManageModal />
       <InviteProjectModal />
-      <ChangeProjectModal />
+      <UpdateProjectModal />
       <LeaveProjectModal />
     </>
   );
