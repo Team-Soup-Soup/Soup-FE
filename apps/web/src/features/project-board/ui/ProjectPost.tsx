@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Button, Input } from '@soup/design-system';
 import { useParams } from 'react-router-dom';
 
 import { boardDetailedDataList } from '~/mocks';
@@ -10,20 +9,26 @@ import type {
   DetailedBoardContent,
   ModalItem,
 } from '~/shared/types';
-import {
-  ProjectPostComment,
-  ProjectPostContent,
-} from '~/features/project-board/ui';
 import { useModal } from '~/shared/hooks';
 import { BOARD, MODAL } from '~/shared/constants';
 import { DeleteModal } from '~/shared/ui';
 import { getDate } from '~/shared/utils';
-import { useFetchPostDetail } from '../api';
+
+import { useFetchPostDetail } from '~/features/project-board/api';
+import {
+  ProjectPostComment,
+  ProjectPostContent,
+  ProjectCommentHeader,
+} from '~/features/project-board/ui';
 
 export default function ProjectPost() {
   const { postId } = useParams();
   const { data } = useFetchPostDetail(postId!);
   const { content, comments, category } = data || boardDetailedDataList[0];
+
+  console.log(
+    `postId: ${postId}\ncomment\n${comments.map((comment) => comment.content).join('\n')}`,
+  ); /**페이지별 댓글 데이터가 공유되는 것 같아 참고 코드 작성해 두었습니다. 서버 쪽 오류로 추정, 오류 해결 시 삭제 예정 */
 
   return (
     <>
@@ -35,7 +40,7 @@ export default function ProjectPost() {
             content={content}
           />
           <div className="flex size-full flex-col">
-            <ProjectPostCommentHeader {...data} />
+            <ProjectCommentHeader {...data} />
             <div className="flex-1">
               <div className="flex w-full flex-1 flex-col gap-y-6 overflow-visible pb-10">
                 {comments.map((comment: Comment) => (
@@ -56,6 +61,7 @@ const ProjectPostHeader = ({
   title,
   createAt,
   createBy,
+  createUserProfile,
 }: DetailedBoardContent) => {
   const { openModal } = useModal();
   const handleModal = (key: ModalItem) => {
@@ -71,7 +77,14 @@ const ProjectPostHeader = ({
       <div className="border-lock mb-8 flex w-full items-center justify-between border-b-[1px] pb-3">
         <div className="text-md flex w-fit items-center gap-x-4 font-light">
           <div className="flex items-center gap-x-4">
-            <div className="size-10 rounded-[50%] bg-black" />
+            <img
+              className="size-10 rounded-[50%]"
+              src={
+                createUserProfile === '-' || createUserProfile === undefined
+                  ? '/images/user_profile.webp'
+                  : createUserProfile
+              }
+            />
             <span>{createBy}</span>
           </div>
           <span className="text-light">{getDate(createAt, 'YYYY.MM.DD')}</span>
@@ -87,15 +100,3 @@ const ProjectPostHeader = ({
     </>
   );
 };
-
-const ProjectPostCommentHeader = ({ comments }: DetailedBoardContent) => (
-  <>
-    <div className="mb-12 flex w-full flex-col gap-y-3">
-      <p className="text-light text-sm font-light">댓글 {comments.length}개</p>
-      <div className="flex gap-x-6">
-        <Input className="flex-1" placeholder="댓글 새로 달기" />
-        <Button color="sub">전송하기</Button>
-      </div>
-    </div>
-  </>
-);

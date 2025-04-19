@@ -12,6 +12,7 @@ export const REQUEST = {
 };
 
 export const BOARD_REQUEST = {
+  COMMENT: '/v1/post/comment',
   POST: '/v1/post',
   BASIC_POST: '/v1/free',
   NOTICE_POST: '/v1/notice',

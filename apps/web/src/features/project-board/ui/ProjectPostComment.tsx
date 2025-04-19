@@ -13,17 +13,29 @@ interface MoreOptionModal {
   setHidden: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function ProjectPostComment({ content, createAt }: Comment) {
+export default function ProjectPostComment({
+  content,
+  createAt,
+  createBy,
+  createUserProfile,
+}: Comment) {
   const [hidden, setHidden] = useState<boolean>(true);
 
   return (
     <div className="hover:bg-lock rounded-auth relative cursor-pointer overflow-visible">
       <MoreOptionModal hidden={hidden} setHidden={setHidden} />
       <div className="text-md flex w-full gap-x-8 p-2">
-        <div className="size-10 rounded-[50%] bg-black" />
+        <img
+          className="size-10 rounded-[50%]"
+          src={
+            createUserProfile === '-'
+              ? '/images/user_profile.webp'
+              : createUserProfile
+          }
+        />
         <div className="flex flex-1 flex-col gap-y-1">
           <div className="flex items-center gap-x-3">
-            <span>키위새</span>
+            <span>{createBy}</span>
             <div className="text-light flex gap-x-2 text-sm font-light">
               <span>{getDate(createAt, 'YYYY.MM.DD')}</span>
               <span>{getDate(createAt, 'HH:mm')}</span>
