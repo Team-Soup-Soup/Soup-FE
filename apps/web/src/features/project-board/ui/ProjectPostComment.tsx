@@ -8,13 +8,19 @@ import { useModal } from '~/shared/hooks';
 import { MODAL } from '~/shared/constants';
 import MoreIcon from '~/assets/icons/comment-more.svg';
 import { getDate } from '~/shared/utils';
-import { useDeletePostComment } from '~/features/project-board/api';
+import {
+  useDeletePost,
+  useDeletePostComment,
+  useUpdatePostComment,
+} from '~/features/project-board/api';
 import { DeleteModal } from '~/shared/ui';
+import { Button, Input } from '@soup/design-system';
 
 interface MoreOptionModalProps {
   commentId: number;
   hidden: boolean;
   setHidden: Dispatch<SetStateAction<boolean>>;
+  setUpdate: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function ProjectPostComment({
@@ -25,6 +31,14 @@ export default function ProjectPostComment({
   createUserProfile,
 }: Comment) {
   const [hidden, setHidden] = useState<boolean>(true);
+  const [update, setUpdate] = useState<boolean>(false);
+  const [value, setValue] = useState<string>(content);
+  const { mutate } = useUpdatePostComment();
+
+  const handleUpdate = () => {
+    mutate({ commentId: commentId, content: value });
+    setUpdate((prev) => !prev);
+  };
 
   return (
     <div className="hover:bg-lock rounded-auth relative cursor-pointer overflow-visible">
@@ -32,6 +46,7 @@ export default function ProjectPostComment({
         commentId={commentId}
         hidden={hidden}
         setHidden={setHidden}
+        setUpdate={setUpdate}
       />
       <div className="text-md flex w-full gap-x-8 p-2">
         <img
@@ -50,7 +65,29 @@ export default function ProjectPostComment({
               <span>{getDate(createAt, 'HH:mm')}</span>
             </div>
           </div>
-          {content}
+          {update ? (
+            <div className="flex h-14 w-full items-end gap-2">
+              <Input
+                id="comment-update"
+                placeholder="댓글 수정하기"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                className="mb-2 h-12 flex-1"
+                inputClassName="bg-white"
+              />
+              <Button
+                name="수정하기"
+                size="sm"
+                color="normal"
+                className="h-12"
+                onClick={handleUpdate}
+              >
+                수정하기
+              </Button>
+            </div>
+          ) : (
+            content
+          )}
         </div>
         <div
           className="h-full cursor-pointer"
@@ -67,14 +104,30 @@ const MoreOptionModal = ({
   commentId,
   hidden,
   setHidden,
+  setUpdate,
 }: MoreOptionModalProps) => {
   const { openModal } = useModal();
   const { postId } = useParams();
   const { mutate } = useDeletePostComment();
+  const deletePost = useDeletePost().mutate;
+
+  const deleteModalProp = {
+    [MODAL.DELETE_COMMENT]: () => {
+      mutate({ commentId: commentId, postId: postId! });
+    },
+    [MODAL.DELETE_POST]: () => {
+      deletePost(postId!);
+    },
+  };
 
   const handleDeleteButton = () => {
     setHidden(true);
     openModal(MODAL.DELETE_COMMENT);
+  };
+
+  const handleUpdateButton = () => {
+    setHidden(true);
+    setUpdate((prev) => !prev);
   };
 
   return (
@@ -90,14 +143,18 @@ const MoreOptionModal = ({
         </button>
         <button
           className="hover:bg-normal-dark rounded-auth cursor-pointer p-2 transition duration-200 ease-in-out"
+          onClick={handleUpdateButton}
+        >
+          수정하기
+        </button>
+        <button
+          className="hover:bg-normal-dark rounded-auth cursor-pointer p-2 transition duration-200 ease-in-out"
           onClick={handleDeleteButton}
         >
           삭제하기
         </button>
       </div>
-      <DeleteModal
-        deleteHandler={() => mutate({ commentId: commentId, postId: postId! })}
-      />
+      <DeleteModal deleteHandler={deleteModalProp} />
     </>
   );
 };

@@ -3,12 +3,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { boardDetailedDataList } from '~/mocks';
-import type {
-  BoardItem,
-  Comment,
-  DetailedBoardContent,
-  ModalItem,
-} from '~/shared/types';
+import type { BoardItem, Comment, DetailedBoardContent } from '~/shared/types';
 import { useModal } from '~/shared/hooks';
 import { BOARD, MODAL } from '~/shared/constants';
 import { getDate } from '~/shared/utils';
@@ -62,9 +57,6 @@ const ProjectPostHeader = ({
   createUserProfile,
 }: DetailedBoardContent) => {
   const { openModal } = useModal();
-  const handleModal = (key: ModalItem) => {
-    openModal(key);
-  };
 
   return (
     <>
@@ -86,11 +78,11 @@ const ProjectPostHeader = ({
             <span>{createBy}</span>
           </div>
           <span className="text-light">{getDate(createAt, 'YYYY.MM.DD')}</span>
-          <span className="text-light">{getDate(createAt, 'HH:mm')}</span>
+          <span className="text-light">{getDate(createAt, 'h:mm')}</span>
         </div>
         <span
           className="text-light hover:text-dark w-fit cursor-pointer text-nowrap text-sm"
-          onClick={() => handleModal(MODAL.DELETE_POST)}
+          onClick={() => openModal(MODAL.DELETE_POST)}
         >
           삭제
         </span>

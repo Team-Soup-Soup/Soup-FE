@@ -1,8 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
-import { BOARD_REQUEST, userDelete, userPost } from '~/shared/api';
-import { CommentRequestType } from '~/features/project-board/types';
+import { BOARD_REQUEST, userDelete, userPost, userPut } from '~/shared/api';
+import {
+  CommentRequestType,
+  CommentUpdateRequestType,
+} from '~/features/project-board/types';
 import { useFetchPostDetail } from './postDetail';
 import { getPath } from '~/shared/utils';
 
@@ -26,6 +29,13 @@ const deletePostComment = async ({
   });
 };
 
+const updatePostComment = async (data: CommentUpdateRequestType) => {
+  await userPut<CommentUpdateRequestType>({
+    request: BOARD_REQUEST.COMMENT,
+    data: data,
+  });
+};
+
 export const useSubmitPostComment = () => {
   const { postId } = useParams();
   const { refetch } = useFetchPostDetail(postId!);
@@ -42,6 +52,16 @@ export const useDeletePostComment = () => {
 
   return useMutation({
     mutationFn: deletePostComment,
+    onSuccess: () => refetch(),
+  });
+};
+
+export const useUpdatePostComment = () => {
+  const { postId } = useParams();
+  const { refetch } = useFetchPostDetail(postId!);
+
+  return useMutation({
+    mutationFn: updatePostComment,
     onSuccess: () => refetch(),
   });
 };

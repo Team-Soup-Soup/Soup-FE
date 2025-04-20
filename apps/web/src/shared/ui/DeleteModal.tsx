@@ -8,7 +8,7 @@ import { DELETE_MODAL_KEYS, DELETE_MODAL } from '~/shared/constants';
 import { DeleteModalItem } from '~/shared/types';
 
 interface DeleteModalProps {
-  deleteHandler?: () => void;
+  deleteHandler?: Partial<Record<DeleteModalItem, () => void>>;
 }
 
 export default function DeleteCommentModal({
@@ -24,7 +24,7 @@ export default function DeleteCommentModal({
   const { isOpen } = useModalState({ key: modalKey });
 
   const handleDelete = () => {
-    if (deleteHandler) deleteHandler();
+    if (deleteHandler && deleteHandler[modalKey]) deleteHandler[modalKey]();
     closeModal(modalKey);
   };
 
