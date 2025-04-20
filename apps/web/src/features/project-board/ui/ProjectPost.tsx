@@ -11,7 +11,6 @@ import type {
 } from '~/shared/types';
 import { useModal } from '~/shared/hooks';
 import { BOARD, MODAL } from '~/shared/constants';
-import { DeleteModal } from '~/shared/ui';
 import { getDate } from '~/shared/utils';
 
 import { useFetchPostDetail } from '~/features/project-board/api';
@@ -51,7 +50,6 @@ export default function ProjectPost() {
           </div>
         </div>
       )}
-      <DeleteModal />
     </>
   );
 }
