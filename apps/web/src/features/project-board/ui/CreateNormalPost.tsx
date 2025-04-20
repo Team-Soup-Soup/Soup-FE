@@ -1,16 +1,19 @@
 import React from 'react';
 
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 
 import { Button, Input, Toggle } from '@soup/design-system';
 
 import { Modal } from '~/shared/ui';
-import {
-  BasicPostRequest,
-  NoticePostRequest,
-} from '~/features/project-board/types';
 import { useModal } from '~/shared/hooks';
 import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
+
+import { NoticePostRequest } from '~/features/project-board/types';
+import {
+  useSubmitBasicPost,
+  useSubmitNoticePost,
+} from '~/features/project-board/api';
 
 interface CreateNormalPostProps {
   notice?: boolean;
@@ -20,23 +23,28 @@ export default function CreateNormalPost({
   notice = false,
 }: CreateNormalPostProps) {
   const { closeModal } = useModal();
+  const { projectId } = useParams();
+  const submitBasicPost = useSubmitBasicPost().mutate;
+  const submitNoticePost = useSubmitNoticePost().mutate;
+
   const { register, handleSubmit, watch, setValue } =
     useForm<NoticePostRequest>({
       defaultValues: {
-        fixedYn: 'N',
-        projectId: 1 /** 차후 프로젝트 id 받아와 넣을 예정입니다 */,
+        fixYn: 'N',
+        projectId: Number(projectId),
       },
     });
-  const isFixed = watch('fixedYn') === 'Y';
+
+  const isFixed = watch('fixYn') === 'Y';
   const isFormValid =
     watch('content')?.length > 0 && watch('title')?.length > 0;
   const formSubmit = (data: NoticePostRequest) => {
-    if (notice) console.log(data);
+    if (notice) submitNoticePost(data);
     else {
       const temp = data;
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { fixedYn, ...normalData } = temp;
-      console.log(normalData as BasicPostRequest);
+      const { fixYn, ...normalData } = temp;
+      submitBasicPost(normalData);
     }
     closeModal(MODAL.CREATE_POST);
   };
@@ -75,7 +83,7 @@ export default function CreateNormalPost({
                     checked={isFixed}
                     onChange={(e) => {
                       const value = e.target.checked ? 'Y' : 'N';
-                      setValue('fixedYn', value);
+                      setValue('fixYn', value);
                     }}
                   />
                 )}

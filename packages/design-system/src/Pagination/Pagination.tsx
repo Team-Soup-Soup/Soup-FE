@@ -63,6 +63,7 @@ const Pagination = ({
       <div className="flex gap-[8px]">
         {pages.map((page) => (
           <button
+            key={page}
             className={cn(
               'text-light size-[42px] gap-[10px] font-normal leading-6 tracking-[-0.5%]',
               current === page &&

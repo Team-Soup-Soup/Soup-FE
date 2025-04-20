@@ -128,3 +128,19 @@ export async function userPut<TData, TResponse = unknown>(
     else throw new Error('에러가 발생했습니다');
   }
 }
+
+export async function userDelete<TResponse>(
+  config: GetRequestParams<unknown>,
+): Promise<AxiosResponse<TResponse>> {
+  const { request, headers } = config;
+  try {
+    const response = await instance.delete<TResponse>(request, {
+      headers: headers || undefined,
+    });
+    return response;
+  } catch (error: unknown) {
+    console.log(error);
+    if (axios.isAxiosError(error)) throw new Error(error.message);
+    else throw new Error('에러가 발생했습니다');
+  }
+}

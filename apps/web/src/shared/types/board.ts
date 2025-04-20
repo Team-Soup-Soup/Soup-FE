@@ -12,11 +12,11 @@ export type BoardContent = {
   commentCnt: number;
 };
 
-export type DetailedBoardContent = {
-  title: string;
-  category: BoardItem;
-  createdBy: string;
-  createAt: string;
+export type DetailedBoardContent = Omit<
+  BoardContent,
+  'commentCnt' | 'postId'
+> & {
+  createUserProfile: string;
   updateBy: string;
   updateAt: string;
   comments: Comment[];
@@ -27,7 +27,13 @@ export type Comment = {
   commentId: number;
   content: string;
   parentId: number;
+  createBy: string;
+  createByName: string;
+  createUserProfile: string;
   createAt: string;
+  updateBy: string;
+  updateAt: string;
+  childComments: string[];
 };
 
 export type PostType =
@@ -42,7 +48,7 @@ export type BasicPost = {
 };
 
 export type NoticePost = BasicPost & {
-  fixedYn: 'Y' | 'N';
+  fixYn: 'Y' | 'N';
 };
 
 export type VotePost = BasicPost & {

@@ -1,14 +1,16 @@
 import React, { type Dispatch, type SetStateAction, useState } from 'react';
 
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import boardDataList from '~/mocks/board.json';
-import { CreatePostModal } from '~/features/project-board/ui';
 import type { BoardItem } from '~/shared/types';
 import { BOARD, BOARD_LABEL, MODAL } from '~/shared/constants';
 import { PATH } from '~/shared/constants';
-import { getPath } from '~/shared/utils';
+import { getDate, getPath } from '~/shared/utils';
 import { useModal } from '~/shared/hooks';
+
+import { useFetchProjectBoardList } from '~/widgets/project/api';
+import { CreatePostModal } from '~/features/project-board/ui';
+import { Loader } from '~/assets/images';
 
 export default function BoardContainer() {
   const [selected, setSelected] = useState<BoardItem>('01');
@@ -21,7 +23,10 @@ export default function BoardContainer() {
 }
 
 function BoardView({ selected }: { selected: BoardItem }) {
-  const data = boardDataList;
+  const { projectId } = useParams();
+  const { data, isLoading } = useFetchProjectBoardList({
+    projectId: projectId!,
+  });
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -37,36 +42,52 @@ function BoardView({ selected }: { selected: BoardItem }) {
         </span>
       </div>
       <div className="flex size-full flex-col gap-y-[6px]">
-        {data.slice(0, 4).map(({ postId, category, title, createAt }) => (
-          <div
-            className="text-md flex h-fit w-full justify-between gap-x-4 font-light"
-            key={postId}
-          >
-            <div
-              className="flex w-44 items-center justify-center text-nowrap py-[1px]"
-              style={{
-                backgroundColor: `${BOARD[category as BoardItem].color}`,
-              }}
+        {data &&
+          data.data.slice(0, 4).map(({ postId, category, title, createAt }) => (
+            <button
+              className="text-md flex h-fit w-full cursor-pointer justify-between font-light focus:outline-none"
+              key={postId}
+              onClick={() =>
+                navigate(getPath(location.pathname, `board/${postId}`))
+              }
             >
-              {BOARD[category as BoardItem].title}
-            </div>
-            <div className="w-full text-ellipsis text-nowrap">{title}</div>
-            <div className="text-light flex">
-              {createAt.slice(0, 10).split('-').join('.')}
-            </div>
+              <div
+                className="w-22 flex flex-shrink-0 items-center justify-center text-nowrap py-[1px]"
+                style={{
+                  backgroundColor: `${BOARD[category as BoardItem].color}`,
+                }}
+              >
+                {BOARD[category as BoardItem].title}
+              </div>
+              <div className="w-53 overflow-hidden text-ellipsis text-nowrap text-start">
+                {title}
+              </div>
+              <div className="text-light flex">
+                {getDate(createAt, 'YYYY.MM.DD')}
+              </div>
+            </button>
+          ))}
+        {data && data.count === 0 && (
+          <div className="text-light grid size-full place-items-center font-light">
+            게시판에 글이 없어요
           </div>
-        ))}
+        )}
+        {isLoading && (
+          <div className="text-light grid size-full place-items-center font-light">
+            <img src={Loader} className="h-16 w-14" />
+          </div>
+        )}
       </div>
       <CreatePostModal type={selected} />
     </div>
   );
 }
 
-function BoardButtons({
+const BoardButtons = ({
   setSelected,
 }: {
   setSelected: Dispatch<SetStateAction<BoardItem>>;
-}) {
+}) => {
   const { openModal } = useModal();
   const handleClick = (label: BoardItem) => {
     openModal(MODAL.CREATE_POST);
@@ -84,15 +105,15 @@ function BoardButtons({
       ))}
     </div>
   );
-}
+};
 
-function BoardButton({
+const BoardButton = ({
   label,
   onClick,
 }: {
   label: BoardItem;
   onClick: () => void;
-}) {
+}) => {
   return (
     <button
       className="rounded-auth border-main-board-border box-shadow-4 flex h-full cursor-pointer gap-x-2 text-nowrap border-[1px] p-2 font-light focus:outline-none"
@@ -102,4 +123,4 @@ function BoardButton({
       {BOARD[label].title}
     </button>
   );
-}
+};
