@@ -4,3 +4,4 @@ export * from './postDetail';
 export * from './comment';
 export * from './post';
 export * from './vote';
+export * from './peerReviewPost';

@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 import { cn } from '@soup/utils';
 import { Button, Input } from '@soup/design-system';
 
 import { DatePicker, Modal, TimePicker } from '~/shared/ui';
 import { getDate } from '~/shared/utils';
-import { PeerReviewPostRequest } from '~/features/project-board/types';
-import { useForm } from 'react-hook-form';
 import { useModal } from '~/shared/hooks';
 import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
 
+import { useSubmitPeerReviewPost } from '~/features/project-board/api';
+import { PeerReviewPostRequest } from '~/features/project-board/types';
+
 export default function CreatePeerReview() {
   const { closeModal } = useModal();
+  const { mutate, isPending } = useSubmitPeerReviewPost();
   const [date, setDate] = useState(new Date());
   const { register, handleSubmit, watch } = useForm<PeerReviewPostRequest>({
     defaultValues: {
@@ -25,6 +28,7 @@ export default function CreatePeerReview() {
       deadLineDt: date.toLocaleDateString(),
     };
     console.log(formattedData);
+    mutate(formattedData);
     closeModal(MODAL.CREATE_POST);
   };
 
@@ -59,7 +63,7 @@ export default function CreatePeerReview() {
             </Modal.Section>
           </div>
           <Modal.Footer className="justify-end">
-            <Button size="lg" color="normal" locked={!isFormValid}>
+            <Button size="lg" color="normal" locked={!isFormValid || isPending}>
               게시하기
             </Button>
           </Modal.Footer>
