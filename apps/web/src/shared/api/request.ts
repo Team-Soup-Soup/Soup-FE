@@ -16,4 +16,5 @@ export const BOARD_REQUEST = {
   POST: '/v1/post',
   BASIC_POST: '/v1/free',
   NOTICE_POST: '/v1/notice',
+  VOTE_POST: '/v1/vote',
 };

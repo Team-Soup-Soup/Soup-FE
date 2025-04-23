@@ -17,7 +17,8 @@ import type {
 import PlusIcon from '~/assets/icons/plus.svg';
 import { useModal } from '~/shared/hooks';
 import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
-import { VOTE, VOTE_SETTING_OPTIONS } from '../model';
+import { VOTE, VOTE_SETTING_OPTIONS } from '~/features/project-board/model';
+import { useSubmitVotePost } from '~/features/project-board/api';
 
 interface SettingCheckBoxProps {
   option: VoteSettingOption;
@@ -27,6 +28,7 @@ interface SettingCheckBoxProps {
 
 export default function CreateVote() {
   const { closeModal } = useModal();
+  const { mutate, isPending } = useSubmitVotePost();
   const [options, setOption] = useState<number[]>([1, 2, 3]);
   const [date, setDate] = useState(new Date());
   const [visible, setVisible] = useState(false);
@@ -60,6 +62,7 @@ export default function CreateVote() {
       options: data.options.filter((option) => option.option.trim().length > 0),
     };
     console.log(formattedData);
+    mutate(formattedData);
     closeModal(MODAL.CREATE_POST);
   };
 
@@ -133,7 +136,7 @@ export default function CreateVote() {
             <Button
               size="lg"
               color="normal"
-              locked={!isFormValid}
+              locked={!isFormValid || isPending}
               type="submit"
               className="mt-[20px]"
             >
