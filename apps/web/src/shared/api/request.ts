@@ -18,4 +18,5 @@ export const BOARD_REQUEST = {
   NOTICE_POST: '/v1/notice',
   VOTE_POST: '/v1/vote',
   PEER_REVIEW_POST: '/v1/review',
+  MEETING_POST: '/v1/meeting',
 };

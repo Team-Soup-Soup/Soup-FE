@@ -13,12 +13,15 @@ import {
   UserItem,
 } from '~/shared/ui';
 import { getDate } from '~/shared/utils';
-import { MeetingPostRequest } from '~/features/project-board/types';
 import { useModal } from '~/shared/hooks';
+
 import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
+import { useSubmitMeetingPost } from '~/features/project-board/api';
+import { MeetingPostRequest } from '~/features/project-board/types';
 
 export default function CreateMeeting() {
   const [date, setDate] = useState(new Date());
+  const { mutate, isPending } = useSubmitMeetingPost();
 
   const { closeModal } = useModal();
   const { register, handleSubmit, watch } = useForm<MeetingPostRequest>({
@@ -32,7 +35,7 @@ export default function CreateMeeting() {
       ...data,
       deadLineDt: date.toLocaleDateString(),
     };
-    console.log(formattedData);
+    mutate(formattedData);
     closeModal(MODAL.CREATE_POST);
   };
 
@@ -77,7 +80,7 @@ export default function CreateMeeting() {
           </div>
         </div>
         <Modal.Footer className="justify-end">
-          <Button size="lg" color="normal" type="submit">
+          <Button size="lg" color="normal" type="submit" locked={isPending}>
             게시하기
           </Button>
         </Modal.Footer>

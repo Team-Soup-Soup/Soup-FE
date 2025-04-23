@@ -5,3 +5,4 @@ export * from './comment';
 export * from './post';
 export * from './vote';
 export * from './peerReviewPost';
+export * from './meetingPost';
