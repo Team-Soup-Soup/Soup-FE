@@ -113,7 +113,7 @@ const MoreOptionModal = ({
 
   const deleteModalProp = {
     [MODAL.DELETE_COMMENT]: () => {
-      mutate({ commentId: commentId, postId: postId! });
+      mutate({ commentId: commentId });
     },
     [MODAL.DELETE_POST]: () => {
       deletePost(postId!);

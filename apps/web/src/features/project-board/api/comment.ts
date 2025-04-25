@@ -16,15 +16,9 @@ const submitPostComment = async (data: CommentRequestType) => {
   });
 };
 
-const deletePostComment = async ({
-  commentId,
-  postId,
-}: {
-  commentId: number;
-  postId: string;
-}) => {
+const deletePostComment = async ({ commentId }: { commentId: number }) => {
   await userDelete({
-    request: getPath(BOARD_REQUEST.COMMENT, `${postId}`),
+    request: getPath(BOARD_REQUEST.COMMENT, `${commentId}`),
     params: { id: commentId },
   });
 };
