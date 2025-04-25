@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useParams } from 'react-router-dom';
 import {
   useForm,
   type UseFormSetValue,
@@ -8,15 +8,17 @@ import {
 
 import { Button, Checkbox, Input } from '@soup/design-system';
 
+import { PlusIcon } from '~/assets/icons';
+
+import { useModal } from '~/shared/hooks';
+import { getDate, getPostDate } from '~/shared/utils';
 import { DatePicker, Modal, TimePicker } from '~/shared/ui';
-import { getDate } from '~/shared/utils';
+import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
+
 import type {
   VotePostRequest,
   VoteSettingOption,
 } from '~/features/project-board/types';
-import PlusIcon from '~/assets/icons/plus.svg';
-import { useModal } from '~/shared/hooks';
-import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
 import { VOTE, VOTE_SETTING_OPTIONS } from '~/features/project-board/model';
 import { useSubmitVotePost } from '~/features/project-board/api';
 
@@ -27,15 +29,17 @@ interface SettingCheckBoxProps {
 }
 
 export default function CreateVote() {
+  const { projectId } = useParams();
   const { closeModal } = useModal();
   const { mutate, isPending } = useSubmitVotePost();
+
   const [options, setOption] = useState<number[]>([1, 2, 3]);
   const [date, setDate] = useState(new Date());
   const [visible, setVisible] = useState(false);
 
   const { register, handleSubmit, watch, setValue } = useForm<VotePostRequest>({
     defaultValues: {
-      startDt: new Date().toLocaleDateString(),
+      startDt: getPostDate(date),
       endDt: '',
       duplicateYn: 'N',
       anonymousYn: 'N',
@@ -58,10 +62,10 @@ export default function CreateVote() {
   const formSubmit = (data: VotePostRequest) => {
     const formattedData = {
       ...data,
-      endDt: date.toLocaleDateString(),
+      projectId: Number(projectId!),
+      endDt: getPostDate(date),
       options: data.options.filter((option) => option.option.trim().length > 0),
     };
-    console.log(formattedData);
     mutate(formattedData);
     closeModal(MODAL.CREATE_POST);
   };
