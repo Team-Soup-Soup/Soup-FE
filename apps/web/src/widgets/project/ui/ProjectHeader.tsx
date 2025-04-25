@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
 
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
-
-import { fetchJoinedUser } from '~/features/project/api';
 import {
   UpdateProjectModal,
   InviteProjectModal,
@@ -11,9 +7,12 @@ import {
   ProjectManageModal,
   ProjectMemberManageModal,
 } from '~/features/project/ui';
+
 import { MODAL } from '~/shared/constants';
 import { useModal } from '~/shared/hooks';
 import { IconButton } from '~/shared/ui';
+
+import { useFetchJoinedUser } from '~/widgets/project/api';
 
 interface ProjectHeaderProps {
   description: string;
@@ -24,15 +23,9 @@ export default function ProjectHeader({
   description,
   name,
 }: ProjectHeaderProps) {
-  const { projectId } = useParams();
   const { openModal, closeModal } = useModal();
   const [openManageModal, setOpenManageModal] = useState(false);
-  const { data } = useQuery({
-    queryKey: [`project${projectId}JoinedUser`],
-    queryFn: () => fetchJoinedUser(Number(projectId)),
-    retry: 2,
-    initialData: [],
-  });
+  const { data } = useFetchJoinedUser();
 
   const handleManageModal = () => {
     if (!openManageModal) {
