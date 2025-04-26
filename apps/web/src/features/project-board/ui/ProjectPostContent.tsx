@@ -36,13 +36,8 @@ export default function ProjectPostContent({
     } else if (isVotePost(content)) {
       return <VoteContent {...content} />;
     }
-    return null;
+    return <div className="mb-25 text-md font-light">{textContent}</div>;
   };
 
-  return (
-    <div className="mb-25 text-md font-light">
-      {textContent}
-      {renderContentByType()}
-    </div>
-  );
+  return <>{renderContentByType()}</>;
 }
