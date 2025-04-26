@@ -22,14 +22,14 @@ export const BOARD = {
     color: '#F8F1E3',
   },
   '04': {
-    title: '회의플래너',
-    icon: meetingIcon,
-    color: '#F1F0EE',
-  },
-  '05': {
     title: '동료평가',
     icon: peerReviewIcon,
     color: '#FFF7E1',
+  },
+  '05': {
+    title: '회의플래너',
+    icon: meetingIcon,
+    color: '#F1F0EE',
   },
 } as const;
 
