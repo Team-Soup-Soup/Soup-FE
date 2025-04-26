@@ -32,7 +32,12 @@ export default function ProjectPostContent({
 
   const renderContentByType = () => {
     if (isPeerReviewPost(content)) {
-      return <PeerReviewContent content={content} contentType={boardTitle} />;
+      return (
+        <PeerReviewContent
+          content={content}
+          contentType={boardTitle as '회의플래너' | '동료평가'}
+        />
+      );
     } else if (isVotePost(content)) {
       return <VoteContent {...content} />;
     }
