@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 
 import { cn } from '@soup/utils';
 import { Button, Input } from '@soup/design-system';
@@ -13,12 +14,13 @@ import { useSubmitPeerReviewPost } from '~/features/project-board/api';
 import { PeerReviewPostRequest } from '~/features/project-board/types';
 
 export default function CreatePeerReview() {
+  const { projectId } = useParams();
   const { closeModal } = useModal();
   const { mutate, isPending } = useSubmitPeerReviewPost();
   const [date, setDate] = useState(new Date());
   const { register, handleSubmit, watch } = useForm<PeerReviewPostRequest>({
     defaultValues: {
-      projectId: 1,
+      projectId: Number(projectId),
     },
   });
   const isFormValid = watch('title')?.length > 0;
