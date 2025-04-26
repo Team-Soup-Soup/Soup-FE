@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { useForm } from 'react-hook-form';
 
@@ -12,28 +13,38 @@ import {
   TimePicker,
   UserItem,
 } from '~/shared/ui';
-import { getDate } from '~/shared/utils';
+import { getDate, getPostDate } from '~/shared/utils';
 import { useModal } from '~/shared/hooks';
-
 import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
+
 import { useSubmitMeetingPost } from '~/features/project-board/api';
 import { MeetingPostRequest } from '~/features/project-board/types';
+import { useFetchJoinedUser } from '~/widgets/project/api';
 
 export default function CreateMeeting() {
   const [date, setDate] = useState(new Date());
-  const { mutate, isPending } = useSubmitMeetingPost();
 
+  const { projectId } = useParams();
   const { closeModal } = useModal();
-  const { register, handleSubmit, watch } = useForm<MeetingPostRequest>({
-    defaultValues: {
-      projectId: 1,
-    },
-  });
+  const { mutate, isPending } = useSubmitMeetingPost();
+  const { data } = useFetchJoinedUser();
+
+  const { register, handleSubmit, watch, setValue } =
+    useForm<MeetingPostRequest>({
+      defaultValues: {
+        projectId: Number(projectId!),
+        participants: [],
+      },
+    });
+
+  const { participants, title } = watch();
+
+  const isFormValid = participants.length > 0 && title.length > 0;
 
   const formSubmit = (data: MeetingPostRequest) => {
     const formattedData = {
       ...data,
-      deadLineDt: date.toLocaleDateString(),
+      deadLineDt: getPostDate(date),
     };
     mutate(formattedData);
     closeModal(MODAL.CREATE_POST);
@@ -48,7 +59,7 @@ export default function CreateMeeting() {
               <Input
                 id="title"
                 placeholder="제목 입력"
-                value={watch('title') || ''}
+                value={title || ''}
                 maxLength={TITLE_MAX_LENGTH}
                 inputClassName="bg-lock h-[42px] p-6 border-none"
                 {...register('title', { required: '제목을 입력해주세요' })}
@@ -69,9 +80,22 @@ export default function CreateMeeting() {
                 <p>게시판에 자동 기재되며 누구나 확인 가능합니다.</p>
               </div>
               <div className="rounded-auth bg-lock scrollbar-hide h-63 mt-2 box-border flex w-full flex-col gap-y-6 overflow-y-scroll p-6">
-                <UserItem id="user1" />
-                {/** 해당부분은 유저값이 어떻게 나올지 확정되면 타입
-              생성 후 수정 예정입니다! 현재 유저 이미지 속성이 없어서 일단 보류해 두었습니다*/}
+                {data.map(({ participantId, userId, username }) => (
+                  <UserItem
+                    key={participantId}
+                    id={userId}
+                    name={username}
+                    nonCheckedHandler={() =>
+                      setValue('participants', [...participants, participantId])
+                    }
+                    checkedHandler={() =>
+                      setValue(
+                        'participants',
+                        participants.filter((val) => val !== participantId),
+                      )
+                    }
+                  />
+                ))}
               </div>
             </Modal.Section>
           </div>
@@ -80,7 +104,12 @@ export default function CreateMeeting() {
           </div>
         </div>
         <Modal.Footer className="justify-end">
-          <Button size="lg" color="normal" type="submit" locked={isPending}>
+          <Button
+            size="lg"
+            color="normal"
+            type="submit"
+            locked={!isFormValid || isPending}
+          >
             게시하기
           </Button>
         </Modal.Footer>

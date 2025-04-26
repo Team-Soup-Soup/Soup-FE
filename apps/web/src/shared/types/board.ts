@@ -75,6 +75,7 @@ export type MeetingPost = {
   joinYn: string;
   createBy: string;
   createAt: string;
+  participants: number[];
 };
 
 export type PeerReviewPost = MeetingPost & {
