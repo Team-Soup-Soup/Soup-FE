@@ -52,8 +52,7 @@ export default function ProjectHeader({
             {data.map(({ username }) => (
               <div className="avatar" key={username}>
                 <div className="w-12">
-                  <img src={''} alt={username} />
-                  {/*이미지 추가시 추가예정**/}
+                  <img src={'/images/user_profile.webp'} alt={username} />
                 </div>
               </div>
             ))}
