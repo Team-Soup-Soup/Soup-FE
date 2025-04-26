@@ -118,7 +118,7 @@
     box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.04) inset;
   }
 
-  .checkbox:checked::after {
+  .checkbox-custom:checked::after {
     content: '✓';
     color: #fff;
     font-size: 14px;
