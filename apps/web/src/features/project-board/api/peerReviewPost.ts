@@ -1,6 +1,9 @@
+import { useParams } from 'react-router-dom';
+
 import { useMutation } from '@tanstack/react-query';
 
 import { BOARD_REQUEST, userPost } from '~/shared/api';
+import { useFetchProjectBoardList } from '~/widgets/project/api';
 import { PeerReviewPostRequest } from '~/features/project-board/types';
 
 const submitPeerReviewPost = async (data: PeerReviewPostRequest) => {
@@ -11,7 +14,11 @@ const submitPeerReviewPost = async (data: PeerReviewPostRequest) => {
 };
 
 export const useSubmitPeerReviewPost = () => {
-  return useMutation({
+  const { projectId } = useParams();
+  const { refetch } = useFetchProjectBoardList({ projectId: projectId! });
+
+  return useMutation<unknown, unknown, PeerReviewPostRequest>({
     mutationFn: submitPeerReviewPost,
+    onSuccess: () => refetch(),
   });
 };

@@ -29,7 +29,6 @@ export default function CreatePeerReview() {
       ...data,
       deadLineDt: date.toLocaleDateString(),
     };
-    console.log(formattedData);
     mutate(formattedData);
     closeModal(MODAL.CREATE_POST);
   };
