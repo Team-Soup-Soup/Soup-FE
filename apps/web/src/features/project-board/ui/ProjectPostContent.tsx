@@ -7,6 +7,7 @@ import type {
   VotePost,
 } from '~/shared/types';
 import { BOARD } from '~/shared/constants';
+
 import { PeerReviewContent, VoteContent } from '~/features/project-board/ui';
 
 interface ProjectPostContentProps {
@@ -33,7 +34,7 @@ export default function ProjectPostContent({
     if (isPeerReviewPost(content)) {
       return <PeerReviewContent content={content} contentType={boardTitle} />;
     } else if (isVotePost(content)) {
-      return <VoteContent content={content} />;
+      return <VoteContent {...content} />;
     }
     return null;
   };

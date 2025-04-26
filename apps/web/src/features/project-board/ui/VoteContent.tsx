@@ -1,30 +1,39 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Button, Checkbox } from '@soup/design-system';
+import { cn } from '@soup/utils';
 
 import PlusIcon from '~/assets/icons/plus.svg';
+
 import { VotePost } from '~/shared/types';
 import { getDate } from '~/shared/utils';
 
-export default function VoteContent({ content }: { content: VotePost }) {
-  const [addOption, setAddOption] = useState<boolean>(false);
+import { useVoteContent } from '../model';
+
+export default function VoteContent({
+  duplicateYn,
+  optionAddYn,
+  anonymousYn,
+  voteId,
+  options,
+  endDt,
+}: VotePost) {
+  const {
+    isChecked,
+    handleAddOption,
+    handleCancel,
+    handleConfirm,
+    handleSelectOption,
+    handleSubmitVote,
+    addOption,
+    option,
+    setOption,
+  } = useVoteContent({ voteId: voteId });
 
   const voteOptions = {
-    duplicateYn: content.duplicateYn === 'Y',
-    optionAddYn: content.optionAddYn === 'Y',
-    anonymousYn: content.anonymousYn === 'Y',
-  };
-
-  const handleAddOption = () => {
-    setAddOption(true);
-  };
-
-  const handleCancel = () => {
-    setAddOption(false);
-  };
-
-  const handleConfirm = () => {
-    setAddOption(false);
+    duplicateYn: duplicateYn === 'Y',
+    optionAddYn: optionAddYn === 'Y',
+    anonymousYn: anonymousYn === 'Y',
   };
 
   return (
@@ -37,19 +46,23 @@ export default function VoteContent({ content }: { content: VotePost }) {
       </p>
 
       <div className="flex flex-col gap-y-2">
-        {content.options.map((option) => (
-          <div
-            key={option.voteSeq}
-            className="rounded-auth border-main-board-border flex w-full gap-x-4 border-[1px] p-4"
+        {options.map(({ voteSeq, option }) => (
+          <button
+            key={voteSeq}
+            onClick={() => handleSelectOption(voteSeq)}
+            className={cn(
+              isChecked(voteSeq) ? 'border-point' : 'border-main-board-border',
+              'hover:border-point rounded-auth flex w-full cursor-pointer gap-x-4 border-[1px] p-4 focus:outline-none',
+            )}
           >
             <Checkbox
-              id={`vote-option-${option.voteSeq}`}
-              aria-label={option.option}
+              checked={isChecked(voteSeq)}
+              onChange={() => handleSelectOption(voteSeq)}
+              id={`vote-option-${voteSeq}`}
+              aria-label={option}
             />
-            <label htmlFor={`vote-option-${option.voteSeq}`}>
-              {option.option}
-            </label>
-          </div>
+            <label htmlFor={`vote-option-${voteSeq}`}>{option}</label>
+          </button>
         ))}
       </div>
 
@@ -63,6 +76,8 @@ export default function VoteContent({ content }: { content: VotePost }) {
                 placeholder="항목 입력"
                 className="h-fit w-full rounded-[10px] bg-transparent p-0 font-light focus:outline-none"
                 aria-label="새 항목 입력"
+                value={option}
+                onChange={(e) => setOption(e.target.value)}
               />
             </div>
           ) : (
@@ -85,7 +100,9 @@ export default function VoteContent({ content }: { content: VotePost }) {
             </div>
           ) : (
             <div className="mb-6 mt-2">
-              <Button color="normal">투표하기</Button>
+              <Button color="normal" onClick={handleSubmitVote}>
+                투표하기
+              </Button>
             </div>
           )}
         </>
@@ -93,11 +110,13 @@ export default function VoteContent({ content }: { content: VotePost }) {
 
       {!addOption && !voteOptions.optionAddYn && (
         <div className="mb-6 mt-2">
-          <Button color="normal">투표하기</Button>
+          <Button color="normal" onClick={handleSubmitVote}>
+            투표하기
+          </Button>
         </div>
       )}
 
-      <p>마감기한 : {getDate(content.endDt, 'YYYY. MM. DD')}</p>
+      <p>마감기한 : {getDate(endDt, 'YYYY. MM. DD')}</p>
     </div>
   );
 }

@@ -17,6 +17,7 @@ export const BOARD_REQUEST = {
   BASIC_POST: '/v1/free',
   NOTICE_POST: '/v1/notice',
   VOTE_POST: '/v1/vote',
+  VOTE_OPTION: '/v1/vote/option',
   PEER_REVIEW_POST: '/v1/review',
   MEETING_POST: '/v1/meeting',
 };
