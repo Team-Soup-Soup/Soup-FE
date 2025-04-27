@@ -29,7 +29,7 @@ const Checkbox = ({
         checked={checked}
         onChange={onChange}
         className={cn(
-          'checked:bg-point checkbox border-main-board-border relative size-[18px] cursor-pointer appearance-none rounded-[2.5px] border-[1px]',
+          'checked:bg-point checkbox-custom border-main-board-border relative size-[18px] cursor-pointer appearance-none rounded-[2.5px] border-[1px]',
           checkboxClassName,
         )}
         {...rest}

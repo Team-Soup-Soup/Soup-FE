@@ -22,6 +22,13 @@ export const MODAL = {
   LOGIN_FAILED: 'loginFailed',
 } as const;
 
+export const BOARD_MODAL = {
+  PEER_REVIEW_JOIN: 'peerReviewJoin',
+  PEER_REVIEW_RESULT: 'peerReviewResult',
+  MEETING_JOIN: 'meetingJoin',
+  MEETING_RESULT: 'meetingResult',
+} as const;
+
 export const SETTING_ITEM = {
   PROFILE: '내 계정',
   ALARM: '알림설정',

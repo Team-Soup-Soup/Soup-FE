@@ -58,7 +58,7 @@ export default function Modal({
     >
       <div
         className={cn(
-          'border-main-board-border flex min-h-[196px] min-w-[500px] flex-col rounded-[20px] border-[1px] bg-white px-[40px] py-[20px]',
+          'border-main-board-border scrollbar-hide flex min-h-[196px] min-w-[500px] flex-col rounded-[20px] border-[1px] bg-white px-[40px] pb-[20px]',
           className,
           coloredBg ? 'box-shadow' : 'box-shadow-4',
           size === 'sm' ? 'h-[356px]' : 'h-[85%]',
@@ -75,7 +75,7 @@ function ModalHeader({ title, className, children }: ModalHeaderProps) {
     <>
       <p
         className={cn(
-          'text-light place-items-start pb-[20px] text-start',
+          'text-light mb-[17px] flex h-[64px] flex-shrink-0 place-items-start items-center text-start',
           className,
         )}
       >

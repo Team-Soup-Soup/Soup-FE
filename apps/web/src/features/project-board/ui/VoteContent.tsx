@@ -1,103 +1,157 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Button, Checkbox } from '@soup/design-system';
+import { cn } from '@soup/utils';
 
 import PlusIcon from '~/assets/icons/plus.svg';
+
 import { VotePost } from '~/shared/types';
 import { getDate } from '~/shared/utils';
 
-export default function VoteContent({ content }: { content: VotePost }) {
-  const [addOption, setAddOption] = useState<boolean>(false);
+import { useVoteContent } from '~/features/project-board/model';
+
+export default function VoteContent({
+  duplicateYn,
+  optionAddYn,
+  anonymousYn,
+  content,
+  voteId,
+  options,
+  endDt,
+}: VotePost) {
+  const {
+    isChecked,
+    handleAddOption,
+    handleCancel,
+    handleConfirm,
+    handleSelectOption,
+    handleSubmitVote,
+    addOption,
+    option,
+    setOption,
+  } = useVoteContent({ voteId: voteId });
 
   const voteOptions = {
-    duplicateYn: content.duplicateYn === 'Y',
-    optionAddYn: content.optionAddYn === 'Y',
-    anonymousYn: content.anonymousYn === 'Y',
+    duplicateYn: duplicateYn === 'Y',
+    optionAddYn: optionAddYn === 'Y',
+    anonymousYn: anonymousYn === 'Y',
   };
 
-  const handleAddOption = () => {
-    setAddOption(true);
-  };
+  const isEnded = endDt ? new Date(endDt) < new Date() : false;
 
-  const handleCancel = () => {
-    setAddOption(false);
-  };
-
-  const handleConfirm = () => {
-    setAddOption(false);
-  };
+  if (isEnded)
+    return (
+      <VoteResult content={content} endDt={endDt} voteOptions={voteOptions} />
+    );
 
   return (
-    <div className="text-md mt-8 flex flex-col gap-y-2 font-light">
-      <p className="flex gap-x-2">
-        <span>{voteOptions.duplicateYn ? '복수 투표' : '단일 항목 투표'}</span>·
-        <span>
-          {voteOptions.optionAddYn ? '항목 추가 허용' : '항목 추가 불가'}
-        </span>
-      </p>
+    <div className="mb-25 text-md font-light">
+      {content}
+      <div className="text-md mt-8 flex flex-col gap-y-2 font-light">
+        <p className="flex gap-x-2">
+          <span>
+            {voteOptions.duplicateYn ? '복수 투표' : '단일 항목 투표'}
+          </span>
+          ·
+          <span>
+            {voteOptions.optionAddYn ? '항목 추가 허용' : '항목 추가 불가'}
+          </span>
+        </p>
 
-      <div className="flex flex-col gap-y-2">
-        {content.options.map((option) => (
-          <div
-            key={option.voteSeq}
-            className="rounded-auth border-main-board-border flex w-full gap-x-4 border-[1px] p-4"
-          >
-            <Checkbox
-              id={`vote-option-${option.voteSeq}`}
-              aria-label={option.option}
-            />
-            <label htmlFor={`vote-option-${option.voteSeq}`}>
-              {option.option}
-            </label>
-          </div>
-        ))}
-      </div>
-
-      {voteOptions.optionAddYn && (
-        <>
-          {addOption ? (
-            <div className="rounded-auth bg-lock flex w-full gap-x-4 p-4">
-              <Checkbox id="newitem" disabled={true} />
-              <input
-                type="text"
-                placeholder="항목 입력"
-                className="h-fit w-full rounded-[10px] bg-transparent p-0 font-light focus:outline-none"
-                aria-label="새 항목 입력"
-              />
-            </div>
-          ) : (
+        <div className="flex flex-col gap-y-2">
+          {options.map(({ voteSeq, option }) => (
             <button
-              className="rounded-auth bg-lock flex w-full cursor-pointer items-center justify-center gap-x-4 p-4"
-              onClick={handleAddOption}
-              aria-label="항목 추가"
+              key={voteSeq}
+              onClick={() => handleSelectOption(voteSeq)}
+              className={cn(
+                isChecked(voteSeq)
+                  ? 'border-point'
+                  : 'border-main-board-border',
+                'hover:border-point rounded-auth flex w-full cursor-pointer gap-x-4 border-[1px] p-4 focus:outline-none',
+              )}
             >
-              <img src={PlusIcon} className="size-6" alt="추가" /> 항목 추가
+              <Checkbox
+                checked={isChecked(voteSeq)}
+                onChange={() => handleSelectOption(voteSeq)}
+                id={`vote-option-${voteSeq}`}
+                aria-label={option}
+              />
+              <label htmlFor={`vote-option-${voteSeq}`}>{option}</label>
             </button>
-          )}
-          {addOption ? (
-            <div className="mb-6 mt-2 flex gap-x-4">
-              <Button color="sub" onClick={handleConfirm}>
-                확인
-              </Button>
-              <Button color="normal" onClick={handleCancel}>
-                취소
-              </Button>
-            </div>
-          ) : (
-            <div className="mb-6 mt-2">
-              <Button color="normal">투표하기</Button>
-            </div>
-          )}
-        </>
-      )}
-
-      {!addOption && !voteOptions.optionAddYn && (
-        <div className="mb-6 mt-2">
-          <Button color="normal">투표하기</Button>
+          ))}
         </div>
-      )}
 
-      <p>마감기한 : {getDate(content.endDt, 'YYYY. MM. DD')}</p>
+        {voteOptions.optionAddYn && (
+          <>
+            {addOption ? (
+              <div className="rounded-auth bg-lock flex w-full gap-x-4 p-4">
+                <Checkbox id="newitem" disabled={true} />
+                <input
+                  type="text"
+                  placeholder="항목 입력"
+                  className="h-fit w-full rounded-[10px] bg-transparent p-0 font-light focus:outline-none"
+                  aria-label="새 항목 입력"
+                  value={option}
+                  onChange={(e) => setOption(e.target.value)}
+                />
+              </div>
+            ) : (
+              <button
+                className="rounded-auth bg-lock flex w-full cursor-pointer items-center justify-center gap-x-4 p-4"
+                onClick={handleAddOption}
+                aria-label="항목 추가"
+              >
+                <img src={PlusIcon} className="size-6" alt="추가" /> 항목 추가
+              </button>
+            )}
+            {addOption ? (
+              <div className="mb-6 mt-2 flex gap-x-4">
+                <Button color="sub" onClick={handleConfirm}>
+                  확인
+                </Button>
+                <Button color="normal" onClick={handleCancel}>
+                  취소
+                </Button>
+              </div>
+            ) : (
+              <div className="mb-6 mt-2">
+                <Button color="normal" onClick={handleSubmitVote}>
+                  투표하기
+                </Button>
+              </div>
+            )}
+          </>
+        )}
+
+        {!addOption && !voteOptions.optionAddYn && (
+          <div className="mb-6 mt-2">
+            <Button color="normal" onClick={handleSubmitVote}>
+              투표하기
+            </Button>
+          </div>
+        )}
+
+        <p>마감기한 : {getDate(endDt, 'YYYY. MM. DD')}</p>
+      </div>
     </div>
   );
 }
+
+const VoteResult = ({
+  endDt,
+  content,
+  voteOptions,
+}: Pick<VotePost, 'endDt' | 'content'> & {
+  voteOptions: Record<string, boolean>;
+}) => (
+  <div className="mb-25 border-main-board-border rounded-auth flex flex-col gap-8 border-[1px] px-4 py-8 font-light">
+    {content}
+    <p className="flex gap-x-2">
+      <span>{voteOptions.duplicateYn ? '복수 투표' : '단일 항목 투표'}</span>·
+      <span>
+        {voteOptions.optionAddYn ? '항목 추가 허용' : '항목 추가 불가'}
+      </span>
+    </p>
+    <span>종료 : {getDate(endDt, 'YYYY. MM. DD')}</span>
+  </div>
+);

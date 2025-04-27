@@ -7,6 +7,7 @@ import type {
   VotePost,
 } from '~/shared/types';
 import { BOARD } from '~/shared/constants';
+
 import { PeerReviewContent, VoteContent } from '~/features/project-board/ui';
 
 interface ProjectPostContentProps {
@@ -31,17 +32,17 @@ export default function ProjectPostContent({
 
   const renderContentByType = () => {
     if (isPeerReviewPost(content)) {
-      return <PeerReviewContent content={content} contentType={boardTitle} />;
+      return (
+        <PeerReviewContent
+          content={content}
+          contentType={boardTitle as '회의플래너' | '동료평가'}
+        />
+      );
     } else if (isVotePost(content)) {
-      return <VoteContent content={content} />;
+      return <VoteContent {...content} />;
     }
-    return null;
+    return <div className="mb-25 text-md font-light">{textContent}</div>;
   };
 
-  return (
-    <div className="mb-25 text-md font-light">
-      {textContent}
-      {renderContentByType()}
-    </div>
-  );
+  return <>{renderContentByType()}</>;
 }

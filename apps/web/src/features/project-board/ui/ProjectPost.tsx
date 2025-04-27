@@ -20,10 +20,6 @@ export default function ProjectPost() {
   const { data } = useFetchPostDetail(postId!);
   const { content, comments, category } = data || boardDetailedDataList[0];
 
-  console.log(
-    `postId: ${postId}\ncomment\n${comments.map((comment) => comment.content).join('\n')}`,
-  ); /**페이지별 댓글 데이터가 공유되는 것 같아 참고 코드 작성해 두었습니다. 서버 쪽 오류로 추정, 오류 해결 시 삭제 예정 */
-
   return (
     <>
       {data && (
