@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 
 import { Button, Input } from '@soup/design-system';
 
-import { Modal, UserItem } from '~/shared/ui';
+import { Modal } from '~/shared/ui';
 import { useModal, useModalState } from '~/shared/hooks';
 import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
 import { TEMPLATE } from '~/features/project/model';
@@ -17,7 +17,6 @@ export default function CreateGroupBoardModal() {
   const { register, handleSubmit, watch, setValue } = useForm();
   const { title, image } = watch();
   const isFormValid = title?.length > 0;
-  const users = Array.from({ length: 7 }, (_, i) => i);
 
   const handleImageInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -101,9 +100,7 @@ export default function CreateGroupBoardModal() {
                 description="클래식 등급의 멤버만 표시됩니다."
               >
                 <div className="h-31 rounded-auth bg-lock scrollbar-hide grid w-full grid-cols-3 gap-3 overflow-y-scroll p-[14px]">
-                  {users.map((user) => (
-                    <UserItem id={`${user}`} key={user} />
-                  ))}
+                  {/** UserItem 추가예정.. */}
                 </div>
               </Modal.Section>
             </div>
