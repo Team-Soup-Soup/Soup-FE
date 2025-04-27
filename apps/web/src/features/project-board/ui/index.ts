@@ -14,3 +14,4 @@ export { default as CreateNormalPost } from './CreateNormalPost';
 export { default as CreatePostModal } from './CreatePostModal';
 export { default as PeerReviewModal } from './PeerReviewModal';
 export { default as MeetingModal } from './MeetingModal';
+export { default as StarSelector } from './StarSelector';
