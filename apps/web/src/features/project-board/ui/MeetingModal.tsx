@@ -38,4 +38,8 @@ const MeetingJoin = () => (
   </div>
 );
 
-const MeetingResult = () => <>결과다</>;
+const MeetingResult = () => (
+  <div>
+    <MeetingTimeSelector />
+  </div>
+);

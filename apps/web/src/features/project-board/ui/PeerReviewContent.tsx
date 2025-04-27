@@ -23,9 +23,10 @@ export default function PeerReviewContent({
     if (isEnded) {
       if (contentType === '동료평가') openModal(BOARD_MODAL.PEER_REVIEW_RESULT);
       if (contentType === '회의플래너') openModal(BOARD_MODAL.MEETING_RESULT);
+    } else {
+      if (contentType === '동료평가') openModal(BOARD_MODAL.PEER_REVIEW_JOIN);
+      if (contentType === '회의플래너') openModal(BOARD_MODAL.MEETING_JOIN);
     }
-    if (contentType === '동료평가') openModal(BOARD_MODAL.PEER_REVIEW_JOIN);
-    if (contentType === '회의플래너') openModal(BOARD_MODAL.MEETING_JOIN);
   };
 
   return (
