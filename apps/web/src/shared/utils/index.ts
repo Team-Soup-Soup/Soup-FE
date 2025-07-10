@@ -5,3 +5,4 @@ export * from './string';
 export * from './fetchLoginStatus';
 export * from './fetchJoinedRoom';
 export * from './logout';
+export * from './cookie';

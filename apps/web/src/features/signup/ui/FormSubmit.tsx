@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 
-import { Button, Checkbox } from '@soup/design-system';
+import { Checkbox } from '@soup/design-system';
+import { Button } from '~/shared/ui';
 
 export default function FormSubmit() {
   const [checked, setChecked] = useState(false);
 
   return (
-    <div className="absolute bottom-0 left-0 w-full p-16">
+    <div className="absolute bottom-0 left-0 w-full bg-white p-16 pt-0">
       <Checkbox
         id="signup-agreement"
         className="mb-4"
@@ -19,11 +20,12 @@ export default function FormSubmit() {
         }
       />
       <Button
-        color="normal"
+        intent="squared"
+        status="point"
         size="lg"
         type="submit"
         disabled={!checked}
-        className="bg-point hover:bg-point-dark auth-button disabled:bg-main-board-border rounded-[10px] font-semibold text-white disabled:pointer-events-none"
+        className="w-full"
       >
         회원가입 하기
       </Button>

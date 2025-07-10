@@ -1,21 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Input } from '@soup/design-system';
 
+import { Button } from '~/shared/ui';
 import { UserInfo } from '~/features/find-account/types';
 import { handleFormSubmit } from '~/features/find-account/model';
+import { useFetchFindId, useFetchFindPw } from '../api';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface FindAccountFormProp {
   id: 'ID' | 'PW';
 }
 
 export default function FindAccountForm({ id }: FindAccountFormProp) {
+  const queryClient = useQueryClient();
+  const [errorPw, setErrorPw] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<UserInfo>();
+
+  const { refetch: fetchFindId, isSuccess: sent } = useFetchFindId(
+    watch('email'),
+  );
+
+  const {
+    mutate: fetchFindPw,
+    isSuccess: sentPw,
+    reset,
+  } = useFetchFindPw(watch('username'), watch('email'));
+
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ['findId'] });
+    reset();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const renderError = () => {
+    if (errors) {
+      return (
+        <p className="bottom-18 text-important absolute font-light">
+          {errors.email?.message}
+        </p>
+      );
+    } else if (errorPw) {
+      return (
+        <p className="bottom-18 text-important absolute font-light">
+          아이디 또는 이메일이 올바르지 않습니다
+        </p>
+      );
+    }
+  };
 
   return (
     <div className="mt-30 gap-y-30 flex flex-col">
@@ -45,22 +84,30 @@ export default function FindAccountForm({ id }: FindAccountFormProp) {
             })}
           />
         </div>
-        {/* {sent && (
-          <p className="bottom-18 text-point absolute font-light">
-            메일이 전송되었습니다.
-          </p>
-        )} */}
-        {/* 전역상태 사용해서 검증이후 표시 필요할듯*/}
-        {errors && (
-          <p className="bottom-18 text-important absolute font-light">
-            {errors.email?.message}
-          </p>
-        )}
-        <input
-          className="auth-button bg-point hover:bg-point-dark text-white"
-          type="submit"
-          value="전송"
-        />
+        {sent ||
+          (sentPw && (
+            <p className="bottom-18 text-point absolute font-light">
+              메일이 전송되었습니다.
+            </p>
+          ))}
+
+        {renderError()}
+
+        <Button
+          size="lg"
+          status="point"
+          disabled={sent || sentPw}
+          intent="squared"
+          onClick={() => {
+            if (id === 'ID') {
+              fetchFindId();
+            } else {
+              fetchFindPw(undefined, { onError: () => setErrorPw(true) });
+            }
+          }}
+        >
+          전송
+        </Button>
       </form>
     </div>
   );

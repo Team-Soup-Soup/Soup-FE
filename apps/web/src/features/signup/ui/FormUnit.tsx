@@ -16,7 +16,12 @@ export default function FormUnit({
   register,
 }: Omit<FormUnitProps, 'watch'>) {
   return (
-    <div className="relative flex w-full flex-col items-start">
+    <div
+      className={cn(
+        id === 'PW' && 'mb-8',
+        'relative flex w-full flex-col items-start',
+      )}
+    >
       <p
         className={cn(
           'font-light, text-important absolute top-[1px] text-sm',
