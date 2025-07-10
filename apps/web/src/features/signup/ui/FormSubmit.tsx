@@ -7,7 +7,7 @@ export default function FormSubmit() {
   const [checked, setChecked] = useState(false);
 
   return (
-    <div className="absolute bottom-0 left-0 w-full p-16">
+    <div className="absolute bottom-0 left-0 w-full bg-white p-16 pt-0">
       <Checkbox
         id="signup-agreement"
         className="mb-4"
