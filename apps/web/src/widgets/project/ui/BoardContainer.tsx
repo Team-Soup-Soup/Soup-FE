@@ -15,7 +15,7 @@ import { Loader } from '~/assets/images';
 export default function BoardContainer() {
   const [selected, setSelected] = useState<BoardItem>('01');
   return (
-    <div className="w-125 h-menu-height flex flex-col gap-y-4">
+    <div className="h-menu-height flex min-w-[494px] flex-1 flex-col gap-y-4">
       <BoardView selected={selected} />
       <BoardButtons setSelected={setSelected} />
     </div>
@@ -45,7 +45,7 @@ function BoardView({ selected }: { selected: BoardItem }) {
         {data &&
           data.data.slice(0, 4).map(({ postId, category, title, createAt }) => (
             <button
-              className="text-md flex h-fit w-full cursor-pointer justify-between font-light focus:outline-none"
+              className="text-md flex h-fit w-full cursor-pointer justify-between gap-[16px] font-light focus:outline-none"
               key={postId}
               onClick={() =>
                 navigate(getPath(location.pathname, `board/${postId}`))
@@ -59,7 +59,7 @@ function BoardView({ selected }: { selected: BoardItem }) {
               >
                 {BOARD[category as BoardItem].title}
               </div>
-              <div className="w-53 overflow-hidden text-ellipsis text-nowrap text-start">
+              <div className="w-full overflow-hidden text-ellipsis text-nowrap text-start">
                 {title}
               </div>
               <div className="text-light flex">
@@ -116,7 +116,7 @@ const BoardButton = ({
 }) => {
   return (
     <button
-      className="rounded-auth border-main-board-border box-shadow-4 flex h-full cursor-pointer gap-x-2 text-nowrap border-[1px] p-2 font-light focus:outline-none"
+      className="rounded-auth border-main-board-border box-shadow-4 flex h-full min-w-fit flex-1 cursor-pointer justify-center gap-x-2 overflow-hidden text-nowrap border-[1px] p-2 font-light focus:outline-none"
       onClick={onClick}
     >
       <img src={BOARD[label].icon} alt={label} />
