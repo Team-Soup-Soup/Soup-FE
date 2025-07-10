@@ -1,16 +1,25 @@
 import { cn } from '@soup/utils';
-import React, { PropsWithChildren, useEffect } from 'react';
+import React, {
+  type MouseEvent,
+  type PropsWithChildren,
+  useEffect,
+} from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
+
 import { useModal } from '../hooks';
 import type { ModalItem } from '../types';
 
-interface ModalProps extends PropsWithChildren {
+interface ModalProps
+  extends PropsWithChildren,
+    VariantProps<typeof ModalVariants> {
   modalKey: ModalItem;
   title?: string;
   className?: string;
   coloredBg?: boolean;
-  size: 'sm' | 'md' | 'lg';
 }
-interface ModalHeaderProps extends PropsWithChildren {
+interface ModalHeaderProps
+  extends PropsWithChildren,
+    VariantProps<typeof ModalHeaderVariants> {
   title: string;
   className?: string;
 }
@@ -27,7 +36,46 @@ interface ModalFooterProps extends PropsWithChildren {
   className?: string;
 }
 
+const ModalVariants = cva(
+  'border-main-board-border scrollbar-hide flex min-w-[500px] flex-col rounded-[20px] border-[1px] bg-white',
+  {
+    variants: {
+      intent: {
+        home: 'border-m text-m hover:bg-m-hover active:bg-m-hover border-[1px]',
+        primary: 'bg-white px-[40px] pb-[20px] min-h-[196px]',
+        disabled: 'bg-[#D8D8D8] text-white',
+        loginFailed: 'bg-white p-[30px]',
+      },
+      size: {
+        sm: 'h-[356px]',
+        md: 'h-[85%]',
+        lg: 'h-[85%]',
+      },
+    },
+    defaultVariants: {
+      intent: 'primary',
+      size: 'md',
+    },
+  },
+);
+
+const ModalHeaderVariants = cva(
+  'mb-[17px] flex flex-shrink-0 place-items-start items-center text-start',
+  {
+    variants: {
+      intent: {
+        primary: 'h-[64px] text-light',
+        loginFailed: 'h-fit text-dark font-extralight',
+      },
+    },
+    defaultVariants: {
+      intent: 'primary',
+    },
+  },
+);
+
 export default function Modal({
+  intent,
   modalKey,
   className,
   children,
@@ -48,6 +96,12 @@ export default function Modal({
     return () => document.removeEventListener('keydown', escKeyModalClose);
   }, [closeModal, modalKey]);
 
+  const handleBackdropClick = (e: MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      closeModal(modalKey);
+    }
+  };
+
   return (
     <div
       id={modalKey}
@@ -55,13 +109,13 @@ export default function Modal({
         'bg-black/12.5 fixed inset-0 z-30 flex items-center justify-center',
         coloredBg ? 'bg-black/12.5' : 'bg-transparent',
       )}
+      onClick={handleBackdropClick}
     >
       <div
         className={cn(
-          'border-main-board-border scrollbar-hide flex min-h-[196px] min-w-[500px] flex-col rounded-[20px] border-[1px] bg-white px-[40px] pb-[20px]',
+          ModalVariants({ size, intent }),
           className,
           coloredBg ? 'box-shadow' : 'box-shadow-4',
-          size === 'sm' ? 'h-[356px]' : 'h-[85%]',
         )}
       >
         {children}
@@ -70,26 +124,17 @@ export default function Modal({
   );
 }
 
-function ModalHeader({ title, className, children }: ModalHeaderProps) {
+function ModalHeader({ intent, title, className, children }: ModalHeaderProps) {
   return (
     <>
-      <p
-        className={cn(
-          'text-light mb-[17px] flex h-[64px] flex-shrink-0 place-items-start items-center text-start',
-          className,
-        )}
-      >
-        {title}
-      </p>
+      <p className={cn(ModalHeaderVariants({ intent }), className)}>{title}</p>
       {children}
     </>
   );
 }
 function ModalBody({ className, children }: ModalBodyProps) {
   return (
-    <div className={cn('flex min-h-[124px] flex-col', className)}>
-      {children}
-    </div>
+    <div className={cn('flex size-full flex-col', className)}>{children}</div>
   );
 }
 
