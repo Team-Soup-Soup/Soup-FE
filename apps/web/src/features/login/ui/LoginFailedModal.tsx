@@ -12,7 +12,7 @@ import { loginErrorAtom } from '~/features/login/model';
 export default function LoginFailedModal() {
   const { closeModal } = useModal();
   const { isOpen } = useModalState({ key: MODAL.LOGIN_FAILED });
-  const { wrongCnt, wrongType } = useAtomValue(loginErrorAtom);
+  const { wrongCnt } = useAtomValue(loginErrorAtom);
 
   return (
     isOpen && (
@@ -21,21 +21,25 @@ export default function LoginFailedModal() {
         modalKey={MODAL.LOGIN_FAILED}
         coloredBg={false}
         className="flex max-h-[200px]"
+        intent="loginFailed"
       >
-        <Modal.Body className="min-h-full justify-center font-light">
-          <Modal.Header title={`로그인 실패 ${wrongCnt}/5`} />
-          <u>잘못된 {wrongType}</u>
+        <Modal.Body className="font-light">
+          <Modal.Header
+            title={`로그인 실패 ${wrongCnt}/5`}
+            intent="loginFailed"
+          />
+          <u>잘못된 아이디 또는 비밀번호</u>
           <p>4회 이상 추가 실패 시 30분 잠금</p>
-          <Modal.Footer className="m-0 flex justify-end">
-            <Button
-              className="w-[100px]"
-              color="normal"
-              onClick={() => closeModal(MODAL.LOGIN_FAILED)}
-            >
-              확인
-            </Button>
-          </Modal.Footer>
         </Modal.Body>
+        <Modal.Footer className="m-0 flex justify-end">
+          <Button
+            className="w-[100px]"
+            color="normal"
+            onClick={() => closeModal(MODAL.LOGIN_FAILED)}
+          >
+            확인
+          </Button>
+        </Modal.Footer>
       </Modal>
     )
   );
