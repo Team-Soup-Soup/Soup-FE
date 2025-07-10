@@ -3,12 +3,16 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Header, Radio } from '@soup/design-system';
 
 import { MODAL } from '~/shared/constants';
-import { useModal, useModalState } from '~/shared/hooks';
+import { useModal, useModalState, useClickOutside } from '~/shared/hooks';
 import { alarmList, projectList } from '~/mocks';
 
 export default function AlarmModal() {
   const { closeModal } = useModal();
   const { isOpen } = useModalState({ key: MODAL.ALARM });
+  const modalRef = useClickOutside({
+    isOpen,
+    onClose: () => closeModal(MODAL.ALARM),
+  });
 
   const sort = ['전체', ...projectList.map(({ project }) => project)];
 
@@ -35,7 +39,10 @@ export default function AlarmModal() {
 
   return (
     isOpen && (
-      <div className="border-main-board-border box-shadow absolute left-[214px] top-[60px] z-30 h-[400px] min-w-[600px] max-w-[626px] rounded-[20px] border bg-white px-[40px]">
+      <div
+        ref={modalRef}
+        className="border-main-board-border box-shadow absolute left-[214px] top-[60px] z-30 h-[400px] min-w-[600px] max-w-[626px] rounded-[20px] border bg-white px-[40px]"
+      >
         <p className="text-light py-[20px] text-start">알림</p>
         <div className="font-light">
           <div className="mb-[20px] flex gap-[42px]">
