@@ -13,19 +13,19 @@ export default function FormInput({
   className = '',
   onChangeHandler,
 }: FormInputProps) {
-  const formConfig = FORM[id];
+  const { label, placeholder, button } = FORM[id];
   return (
     <Input
       id={id}
-      label={formConfig.label}
-      placeholder={formConfig.placeholder}
+      label={label}
+      placeholder={placeholder}
       className={cn(
-        formConfig.button ? 'flex-1' : 'w-full',
+        button ? 'flex-1' : 'w-full',
         disabled && 'text-main-board-border',
         className,
       )}
-      type={USER[id]}
       disabled={!!disabled}
+      showPasswordButton={id === 'PW'}
       {...register(USER[id], { required: true, onChange: onChangeHandler })}
     />
   );

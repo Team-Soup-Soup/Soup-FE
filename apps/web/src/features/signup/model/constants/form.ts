@@ -34,7 +34,7 @@ export const ERROR: Record<'ID' | 'EMAIL' | 'PW', FormError> = {
     AUTH_EXCEPTION: '*인증에 실패했어요. 다시 시도해 주세요.',
   },
   EMAIL: {
-    ACTION_NOT_COMPLETED: '*중복 확인 필요',
+    ACTION_NOT_COMPLETED: '*',
     AUTH_FAILURE: '*코드가 틀렸습니다.',
     AUTH_EXCEPTION: '*인증에 실패했어요. 다시 시도해 주세요.',
   },
