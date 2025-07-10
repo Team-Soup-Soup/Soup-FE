@@ -13,8 +13,13 @@ export default function LogoutModal() {
 
   return (
     isOpen && (
-      <Modal size="sm" modalKey={MODAL.LOGOUT} className="max-h-[200px]">
-        <Modal.Body className="h-full justify-center gap-y-20 font-light">
+      <Modal
+        coloredBg={false}
+        size="sm"
+        modalKey={MODAL.LOGOUT}
+        className="max-h-[200px]"
+      >
+        <Modal.Body className="justify-between font-light">
           <p>정말 로그아웃 하시겠습니까?</p>
           <Modal.Footer className="mt-0 flex justify-end gap-4">
             <Button
