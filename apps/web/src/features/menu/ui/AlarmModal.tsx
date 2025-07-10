@@ -56,10 +56,10 @@ export default function AlarmModal() {
               />
             ))}
           </div>
-          <div className="scrollbar-hide flex h-[258px] flex-col overflow-scroll">
+          <div className="scrollbar-hide divide-main-board-border flex h-[258px] flex-col divide-y-[1px] overflow-scroll">
             {alarmList.length ? (
               sortedAlarmList.map(({ project, sort, content, createdAt }) => (
-                <div className="border-light flex h-[68px] w-full flex-col gap-[2px] border-b py-[8px]">
+                <div className="flex h-[68px] w-full flex-shrink-0 cursor-pointer flex-col justify-between rounded-t-[10px] py-[12px] hover:bg-[#f8f8f8]">
                   <Header className="text-light">
                     <Header.Item>{project}</Header.Item>
                     <Header.Item>/</Header.Item>

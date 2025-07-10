@@ -32,7 +32,7 @@ export default function CreateProjectModal({
 
   return (
     isOpen && (
-      <Modal size="sm" title="프로젝트 생성" modalKey={MODAL.CREATE_PROJECT}>
+      <Modal size="md" title="프로젝트 생성" modalKey={MODAL.CREATE_PROJECT}>
         <Modal.Header title="프로젝트 생성" />
         <Modal.Body className="size-full">
           <form
@@ -61,8 +61,7 @@ export default function CreateProjectModal({
                 />
               </Modal.Section>
             </div>
-
-            <Modal.Footer className="justify-end">
+            <Modal.Footer className="mt-[54px] justify-end">
               <Button
                 size="lg"
                 color="normal"

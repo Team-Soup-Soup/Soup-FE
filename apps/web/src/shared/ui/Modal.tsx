@@ -48,7 +48,7 @@ const ModalVariants = cva(
       },
       size: {
         sm: 'h-[196px] p-[30px]',
-        md: 'h-[85%]',
+        md: 'h-fit px-[40px] pb-[30px]',
         lg: 'h-[85%]',
       },
     },
