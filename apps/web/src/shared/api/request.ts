@@ -11,6 +11,7 @@ export const REQUEST = {
   SEND_EMAIL_CODE: '/v1/email/auth/send',
   SEND_EMAIL_FIND_ID: '/v1/user/find/id',
   SEND_EMAIL_FIND_PW: '/v1/user/send/password',
+  SHARE_LINK: '/v1/share/link',
 };
 
 export const BOARD_REQUEST = {

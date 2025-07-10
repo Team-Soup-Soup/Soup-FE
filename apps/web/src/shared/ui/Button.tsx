@@ -10,12 +10,13 @@ interface ButtonProps
 }
 
 const ButtonVariants = cva(
-  'font-regular disabled:border-lock disabled:cursor-not-allowed disabled:bg-lock disabled:text-light cursor-pointer border duration-300 text-md ease-in-out rounded-[43px]',
+  'disabled:border-lock font-regular disabled:cursor-not-allowed disabled:bg-lock disabled:text-light cursor-pointer border duration-300 text-md ease-in-out rounded-[43px]',
   {
     variants: {
       intent: {
         squared: 'rounded-[10px]',
         primary: '',
+        shareLink: 'font-extralight disabled:border-light',
       },
       status: {
         point:
@@ -41,6 +42,7 @@ const ButtonVariants = cva(
 
 export default function Button({
   intent,
+  status,
   size,
   className,
   children,
@@ -48,7 +50,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={cn(ButtonVariants({ intent, size, className }))}
+      className={cn(ButtonVariants({ intent, status, size, className }))}
       {...rest}
     >
       {children}

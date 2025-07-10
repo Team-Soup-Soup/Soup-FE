@@ -66,6 +66,7 @@ const ModalHeaderVariants = cva(
       intent: {
         primary: 'h-[64px] text-light',
         loginFailed: 'h-fit text-dark font-extralight',
+        shareLink: 'h-[64px] text-light mb-0',
       },
     },
     defaultVariants: {

@@ -2,22 +2,25 @@ import React, { ChangeEvent, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 
-import { Button, Input } from '@soup/design-system';
+import { Input } from '@soup/design-system';
 
 import { MODAL, SHARE_LINK_MAX_LENGTH } from '~/shared/constants';
-import { useModal, useModalState } from '~/shared/hooks';
-import { Modal } from '~/shared/ui';
+import { useModal, useModalState, useProjectId } from '~/shared/hooks';
+import { Button, Modal } from '~/shared/ui';
 
 import ImageIcon from '~/assets/icons/image.svg';
+import { useSubmitShareLink } from '../api';
 
 export default function AddShareLinkModal() {
   const [file, setFile] = useState<File | undefined>(undefined);
   const { closeModal } = useModal();
   const { isOpen } = useModalState({ key: MODAL.CREATE_SHARE_LINK });
   const { register, handleSubmit, watch, setValue, reset } = useForm();
-  const { name, image } = watch();
+  const { name, image, link } = watch();
+  const projectId = useProjectId();
+  const { mutate: submitShareLink } = useSubmitShareLink(projectId);
 
-  const isFormValid = name?.length > 0;
+  const isFormValid = name?.length > 0 && image?.length > 0 && link?.length > 0;
 
   const handleImageInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -36,24 +39,27 @@ export default function AddShareLinkModal() {
   const formSubmit = () => {
     const formData = new FormData();
     formData.append('file', file!);
-    closeModal(MODAL.CREATE_SHARE_LINK);
-    reset();
+    formData.append('name', name!);
+    formData.append('link', link!);
+    formData.append('projectId', `${projectId}`);
+    submitShareLink(formData, {
+      onSuccess: () => {
+        closeModal(MODAL.CREATE_SHARE_LINK);
+        reset();
+      },
+    });
   };
 
   return (
     isOpen && (
-      <Modal
-        size="sm"
-        className="min-h-[400px]"
-        modalKey={MODAL.CREATE_SHARE_LINK}
-      >
+      <Modal size="md" modalKey={MODAL.CREATE_SHARE_LINK}>
         <form
           className="flex size-full flex-col"
           onSubmit={handleSubmit(formSubmit)}
         >
-          <Modal.Header title="공유링크" />
+          <Modal.Header title="공유링크" intent="shareLink" />
           <Modal.Body className="flex-1 justify-between">
-            <div className="flex flex-col gap-y-2">
+            <div className="flex flex-col gap-y-[8px]">
               <Modal.Section>
                 <label htmlFor="file">
                   <input
@@ -63,18 +69,20 @@ export default function AddShareLinkModal() {
                     onChange={handleImageInputChange}
                     className="hidden"
                   />
-                  <div className="flex h-full cursor-pointer items-center gap-x-2 pb-4">
+                  <div className="flex h-full cursor-pointer items-center gap-x-3 pb-4">
                     {image ? (
                       <div
-                        className="size-8 bg-cover bg-center"
+                        className="size-12 bg-cover bg-center"
                         style={{
                           backgroundImage: `url(${image})`,
                         }}
                       />
                     ) : (
-                      <img src={ImageIcon} alt="이미지" className="size-8" />
+                      <img src={ImageIcon} alt="이미지" className="size-12" />
                     )}
-                    <span className="text-light font-light">이미지 업로드</span>
+                    <span className="text-light font-light">
+                      이미지 {image ? '변경하기' : '등록하기'}
+                    </span>
                   </div>
                 </label>
               </Modal.Section>
@@ -100,14 +108,15 @@ export default function AddShareLinkModal() {
                 />
               </Modal.Section>
             </div>
-            <Modal.Footer className="flex justify-end">
+            <Modal.Footer className="mt-8 flex justify-end">
               <Button
-                color="normal"
-                className="focus:outline-none"
-                locked={!isFormValid}
+                status={isFormValid ? 'normal' : 'locked'}
+                intent="shareLink"
+                disabled={!isFormValid}
                 type="submit"
+                size="lg"
               >
-                확인
+                저장하기
               </Button>
             </Modal.Footer>
           </Modal.Body>
