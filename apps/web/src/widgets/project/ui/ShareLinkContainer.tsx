@@ -44,7 +44,7 @@ export default function ShareLinkContainer() {
           </p>
         </div>
       ) : (
-        <div className="flex size-full flex-col flex-wrap gap-4">
+        <div className="flex size-full flex-wrap gap-4">
           {data?.map((item) => (
             <div
               onClick={() => {
@@ -53,12 +53,11 @@ export default function ShareLinkContainer() {
               className="border-main-board-border size-[36px] overflow-hidden border-[1px] bg-white"
               key={item.linkId}
             >
-              {/* <img
-                src={`${process.env.REACT_APP_FILE_URL}/${item.files.url}`}
+              <img
+                src={`http://student-p.p-e.kr/download/${item.files.url}`}
                 alt="share-link"
                 className="size-full object-cover"
-              /> */}
-              {item.files.url}
+              />
             </div>
           ))}
         </div>
