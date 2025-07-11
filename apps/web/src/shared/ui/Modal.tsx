@@ -107,7 +107,7 @@ export default function Modal({
     <div
       id={modalKey}
       className={cn(
-        'bg-black/12.5 fixed inset-0 z-30 flex items-center justify-center',
+        'bg-black/12.5 fixed inset-0 z-[999] flex items-center justify-center',
         coloredBg ? 'bg-black/12.5' : 'bg-transparent',
       )}
       onClick={handleBackdropClick}
