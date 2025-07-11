@@ -13,7 +13,6 @@ import {
   AlarmModal,
   CreateProjectModal,
   SettingModal,
-  UpdateModal,
 } from '~/features/menu/ui';
 import { useQuery } from '@tanstack/react-query';
 
@@ -101,7 +100,6 @@ export default function Sidebar({
       <LogoutModal />
       <SettingModal />
       <AlarmModal />
-      <UpdateModal />
     </>
   );
 }
