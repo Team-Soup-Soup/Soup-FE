@@ -46,11 +46,11 @@ export default function ShareLinkContainer() {
       ) : (
         <div className="flex size-full flex-wrap gap-4">
           {data?.map((item) => (
-            <div
+            <button
               onClick={() => {
                 window.open(item.link, '_blank');
               }}
-              className="border-main-board-border size-[36px] overflow-hidden border-[1px] bg-white"
+              className="border-main-board-border size-[36px] cursor-pointer overflow-hidden border-[1px] bg-white outline-none"
               key={item.linkId}
             >
               <img
@@ -58,7 +58,7 @@ export default function ShareLinkContainer() {
                 alt="share-link"
                 className="size-full object-cover"
               />
-            </div>
+            </button>
           ))}
         </div>
       )}
