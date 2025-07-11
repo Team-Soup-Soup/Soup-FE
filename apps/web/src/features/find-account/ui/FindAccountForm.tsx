@@ -16,6 +16,7 @@ interface FindAccountFormProp {
 export default function FindAccountForm({ id }: FindAccountFormProp) {
   const queryClient = useQueryClient();
   const [errorPw, setErrorPw] = useState<boolean>(false);
+  const [errorId, setErrorId] = useState<boolean>(false);
 
   const {
     register,
@@ -34,14 +35,23 @@ export default function FindAccountForm({ id }: FindAccountFormProp) {
     reset,
   } = useFetchFindPw(watch('username'), watch('email'));
 
+  // 성공 시 에러 상태 초기화
+  useEffect(() => {
+    if (sentPw) {
+      setErrorPw(false);
+      setErrorId(false);
+    }
+  }, [sentPw]);
+
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: ['findId'] });
     reset();
+    setErrorPw(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderError = () => {
-    if (errors) {
+    if (errors.email?.message) {
       return (
         <p className="bottom-18 text-important absolute font-light">
           {errors.email?.message}
@@ -53,7 +63,14 @@ export default function FindAccountForm({ id }: FindAccountFormProp) {
           아이디 또는 이메일이 올바르지 않습니다
         </p>
       );
+    } else if (errorId) {
+      return (
+        <p className="bottom-18 text-important absolute font-light">
+          사용자를 찾을 수 없습니다
+        </p>
+      );
     }
+    return null;
   };
 
   return (
@@ -100,7 +117,11 @@ export default function FindAccountForm({ id }: FindAccountFormProp) {
           intent="squared"
           onClick={() => {
             if (id === 'ID') {
-              fetchFindId();
+              fetchFindId().then((res) => {
+                if (res.error) {
+                  setErrorId(true);
+                }
+              });
             } else {
               fetchFindPw(undefined, { onError: () => setErrorPw(true) });
             }

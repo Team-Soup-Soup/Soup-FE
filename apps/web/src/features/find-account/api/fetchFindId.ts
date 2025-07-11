@@ -15,5 +15,6 @@ export const useFetchFindId = (email: string) => {
     queryKey: ['findId'],
     queryFn: () => fetchFindId(email),
     enabled: false,
+    retry: false,
   });
 };
