@@ -30,7 +30,8 @@ export const BOARD_MODAL = {
 } as const;
 
 export const SETTING_ITEM = {
-  PROFILE: '내 계정',
+  PROFILE: '내 프로필',
+  PASSWORD: '비밀번호 변경',
   ALARM: '알림설정',
   WITHDRAW: '회원탈퇴',
 } as const;
@@ -38,6 +39,9 @@ export const SETTING_ITEM = {
 export const PROFILE = {
   IMAGE: 'image',
   NAME: 'name',
+} as const;
+
+export const PASSWORD = {
   NOW_PASSWORD: 'nowPassword',
   NEW_PASSWORD: 'newPassword',
   CHECK_PASSWORD: 'checkPassword',
