@@ -6,3 +6,15 @@ export type User = {
   username: string;
   joinDt: string;
 };
+
+export type UserInfo = {
+  userId: string;
+  name: string;
+  profileFileData: {
+    fileId: number;
+    fileGroupNo: number;
+    fileOriNm: string;
+    fileSysNm: string;
+    url: string;
+  };
+};
