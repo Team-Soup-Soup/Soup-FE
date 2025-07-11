@@ -24,14 +24,22 @@ export default function Profile({
   connecting,
   connectingClassName,
 }: ProfileProps) {
+  const imageUrl =
+    image === '-'
+      ? '/icons/icon-profile.svg'
+      : !image
+        ? '/icons/icon-profile.svg'
+        : ` http://student-p.p-e.kr/download/${image}`;
+
   return (
     <div className={cn('flex items-center gap-[10px]', className)}>
       <img
-        src={image || '/images/user_profile.webp'}
+        src={imageUrl}
         alt="프로필"
-        width={42}
-        height={42}
-        className={cn('rounded-full', imageClassName)}
+        className={cn(
+          'border-sub size-[42px] overflow-hidden rounded-full border object-cover object-center',
+          imageClassName,
+        )}
       />
       <div className="flex flex-col">
         <div className="flex items-center gap-[4px]">

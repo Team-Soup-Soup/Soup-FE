@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthRoutes, ProtectedRoutes } from '~/app/routes';
 import { ErrorPage } from '~/pages/error/ui';
 import { Providers } from '~/shared/utils';
+import { ToastContainer } from '~/shared/ui';
 
 const router = createBrowserRouter([
   { ...AuthRoutes, errorElement: <ErrorPage /> },
@@ -24,6 +25,7 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <Providers>
         <RouterProvider router={router} />
+        <ToastContainer />
       </Providers>
     </QueryClientProvider>
   </StrictMode>,

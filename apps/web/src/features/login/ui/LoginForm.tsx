@@ -5,16 +5,16 @@ import { Button, Input } from '@soup/design-system';
 
 import { LoginOption } from '~/features/login/ui';
 import { type UserInfo } from '~/features/login/types';
-import { useLogin } from '~/features/login/model';
 import { cn } from '@soup/utils';
+import { useFetchUserLogin } from '../api';
 
 export default function LoginForm() {
   const { register, handleSubmit, watch } = useForm<UserInfo>();
-  const { handleFormSubmit } = useLogin();
+  const { mutate: fetchUserLogin } = useFetchUserLogin();
   const isFormValid = watch('userId') && watch('password');
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
+    <form onSubmit={handleSubmit((data) => fetchUserLogin(data))}>
       <Input
         id="LoginUserId"
         label="아이디"

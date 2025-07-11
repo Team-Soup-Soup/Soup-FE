@@ -1,4 +1,10 @@
-import { BOARD_MODAL, MODAL, PROFILE, SETTING_ITEM } from '../constants';
+import {
+  BOARD_MODAL,
+  MODAL,
+  PASSWORD,
+  PROFILE,
+  SETTING_ITEM,
+} from '../constants';
 
 type NormalModal = (typeof MODAL)[keyof typeof MODAL];
 type BoardModal = (typeof BOARD_MODAL)[keyof typeof BOARD_MODAL];
@@ -7,6 +13,10 @@ export type ModalItem = NormalModal | BoardModal;
 
 export type ProfileSettingItem = {
   [key in (typeof PROFILE)[keyof typeof PROFILE]]: string;
+};
+
+export type PasswordSettingItem = {
+  [key in (typeof PASSWORD)[keyof typeof PASSWORD]]: string;
 };
 
 export type AlarmSettingItem = {

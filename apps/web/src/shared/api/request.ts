@@ -6,12 +6,14 @@ export const REQUEST = {
   REFRESH: '/v1/user/refresh',
   CHECK_VALID_ID: '/v1/user/valid/id',
   CHECK_VALID_EMAIL_CODE: '/v1/email/auth',
+  CHANGE_PASSWORD: '/v1/user/update/password',
   FETCH_JOINED_PROJECT: '/v1/project/join-project',
   FETCH_JOINED_USER_PROJECT: '/v1/project/join-user',
   SEND_EMAIL_CODE: '/v1/email/auth/send',
   SEND_EMAIL_FIND_ID: '/v1/user/find/id',
   SEND_EMAIL_FIND_PW: '/v1/user/send/password',
   SHARE_LINK: '/v1/share/link',
+  FETCH_USER_INFO: '/v1/user/profile',
 };
 
 export const BOARD_REQUEST = {

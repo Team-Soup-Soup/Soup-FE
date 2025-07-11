@@ -5,40 +5,35 @@ import { Button } from '@soup/design-system';
 
 import { Modal } from '~/shared/ui';
 import { MODAL, SETTING_ITEM } from '~/shared/constants';
-import { useModal, useModalState } from '~/shared/hooks';
+import { useModalState } from '~/shared/hooks';
 import type { ModalRef, SettingItem } from '~/shared/types';
 import ProfileSetting from './ProfileSetting';
 import AlarmSetting from './AlarmSetting';
 import WithdrawSetting from './WithdrawSetting';
+import PasswordSetting from './PasswordSetting';
 
 export default function SettingModal() {
   const { isOpen: openSetting } = useModalState({ key: MODAL.SETTING });
-  const { openModal, closeModal } = useModal();
 
   const [view, setView] = useState<SettingItem>(SETTING_ITEM.PROFILE);
 
   const profileRef = useRef<ModalRef>(null);
+  const passwordRef = useRef<ModalRef>(null);
   const securityRef = useRef<ModalRef>(null);
 
   const handleSaveButtonClick = async () => {
-    let isValid = false;
-
     if (view === SETTING_ITEM.PROFILE) {
       profileRef.current?.handleSubmit();
-      isValid = profileRef.current?.isValid ?? false;
+    } else if (view === SETTING_ITEM.PASSWORD) {
+      passwordRef.current?.handleSubmit();
     } else if (view === SETTING_ITEM.ALARM) {
       securityRef.current?.handleSubmit();
-      isValid = securityRef.current?.isValid ?? false;
-    }
-
-    if (isValid) {
-      closeModal(MODAL.SETTING);
-      openModal(MODAL.UPDATE);
     }
   };
 
   const render = {
     [SETTING_ITEM.PROFILE]: <ProfileSetting ref={profileRef} />,
+    [SETTING_ITEM.PASSWORD]: <PasswordSetting ref={passwordRef} />,
     [SETTING_ITEM.ALARM]: <AlarmSetting ref={securityRef} />,
     [SETTING_ITEM.WITHDRAW]: <WithdrawSetting />,
   };
@@ -51,12 +46,12 @@ export default function SettingModal() {
 
   return (
     openSetting && (
-      <Modal size="md" modalKey={MODAL.SETTING}>
+      <Modal size="lg" modalKey={MODAL.SETTING}>
         <Modal.Header
           title={view === SETTING_ITEM.WITHDRAW ? '회원탈퇴' : '설정'}
         >
           {view !== SETTING_ITEM.WITHDRAW && (
-            <ul className="mb-16 flex gap-[32px]">
+            <ul className="mb-[32px] flex gap-[32px]">
               {Object.values(SETTING_ITEM)
                 .filter((item) => item !== SETTING_ITEM.WITHDRAW)
                 .map((item) => (
@@ -76,7 +71,7 @@ export default function SettingModal() {
           )}
         </Modal.Header>
         <Modal.Body className="size-full justify-between font-light">
-          <div className="w-[520px]">{render[view]}</div>
+          <div className="h-full w-[520px]">{render[view]}</div>
           {view !== SETTING_ITEM.WITHDRAW && (
             <Modal.Footer className="justify-between">
               <button

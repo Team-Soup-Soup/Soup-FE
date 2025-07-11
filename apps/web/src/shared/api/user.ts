@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosHeaders, AxiosResponse } from 'axios';
 
 import { REQUEST, post } from '~/shared/api';
+import { getCookie, setCookie } from '../utils';
 
 interface RefreshTokenResponse {
   accessToken: string;
@@ -35,6 +36,9 @@ instance.interceptors.request.use(async (config) => {
     const parsed = JSON.parse(stored);
     const accessToken = parsed.accessToken;
     config.headers.Authorization = `Bearer ${accessToken}`;
+  } else {
+    const accessToken = getCookie('ACCESS_TOKEN');
+    config.headers.Authorization = `Bearer ${accessToken}`;
   }
   return config;
 });
@@ -43,11 +47,8 @@ instance.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     if (error.response?.status === 401) {
-      const stored = sessionStorage.getItem('userToken');
-
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        const refreshToken = parsed.accessToken;
+      const refreshToken = getCookie('REFRESH_TOKEN');
+      if (refreshToken) {
         try {
           const response = await post<
             { refreshToken: string },
@@ -58,13 +59,8 @@ instance.interceptors.response.use(
           });
           const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
             response.data;
-          sessionStorage.setItem(
-            'userToken',
-            `{
-            accessToken: ${newAccessToken},
-            refreshToken: ${newRefreshToken},
-          }`,
-          );
+          setCookie('ACCESS_TOKEN', newAccessToken);
+          setCookie('REFRESH_TOKEN', newRefreshToken);
         } catch (refreshError) {
           console.log(refreshError);
         }

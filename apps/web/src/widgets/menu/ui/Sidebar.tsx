@@ -8,12 +8,11 @@ import { MODAL, PATH } from '~/shared/constants';
 import { useModal } from '~/shared/hooks';
 import type { ModalItem } from '~/shared/types';
 import { IconButton, LogoutModal, Profile } from '~/shared/ui';
-import { fetchJoinedRoom, getPath } from '~/shared/utils';
+import { fetchJoinedRoom, getCookie, getPath } from '~/shared/utils';
 import {
   AlarmModal,
   CreateProjectModal,
   SettingModal,
-  UpdateModal,
 } from '~/features/menu/ui';
 import { useQuery } from '@tanstack/react-query';
 
@@ -80,7 +79,11 @@ export default function Sidebar({
           </div>
         </div>
         <div className="flex flex-col gap-8">
-          <Profile image="" name="홍길동" className="pl-[32px]" />
+          <Profile
+            image={getCookie('USER_PROFILE') || ''}
+            name={getCookie('USER_NAME') || ''}
+            className="pl-[32px]"
+          />
           <div className="flex justify-end gap-[16px] pr-[32px]">
             <button
               className="text-light hover:text-dark text-sm hover:cursor-pointer"
@@ -101,7 +104,6 @@ export default function Sidebar({
       <LogoutModal />
       <SettingModal />
       <AlarmModal />
-      <UpdateModal />
     </>
   );
 }
