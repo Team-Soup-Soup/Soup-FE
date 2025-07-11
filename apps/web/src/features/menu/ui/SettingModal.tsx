@@ -71,7 +71,7 @@ export default function SettingModal() {
           )}
         </Modal.Header>
         <Modal.Body className="size-full justify-between font-light">
-          <div className="w-[520px]">{render[view]}</div>
+          <div className="h-full w-[520px]">{render[view]}</div>
           {view !== SETTING_ITEM.WITHDRAW && (
             <Modal.Footer className="justify-between">
               <button
