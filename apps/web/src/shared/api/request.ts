@@ -13,6 +13,7 @@ export const REQUEST = {
   SEND_EMAIL_FIND_ID: '/v1/user/find/id',
   SEND_EMAIL_FIND_PW: '/v1/user/send/password',
   SHARE_LINK: '/v1/share/link',
+  FETCH_USER_INFO: '/v1/user/profile',
 };
 
 export const BOARD_REQUEST = {
