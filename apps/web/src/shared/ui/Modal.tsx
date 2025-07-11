@@ -42,7 +42,7 @@ const ModalVariants = cva(
     variants: {
       intent: {
         home: 'border-m text-m hover:bg-m-hover active:bg-m-hover border-[1px]',
-        primary: 'px-[40px] pb-[20px] min-h-[196px]',
+        primary: 'px-[40px] pb-[30px] min-h-[196px]',
         disabled: 'bg-[#D8D8D8] text-white',
         loginFailed: 'bg-white',
       },
