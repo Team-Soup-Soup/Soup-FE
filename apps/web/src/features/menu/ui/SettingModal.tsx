@@ -51,7 +51,7 @@ export default function SettingModal() {
           title={view === SETTING_ITEM.WITHDRAW ? '회원탈퇴' : '설정'}
         >
           {view !== SETTING_ITEM.WITHDRAW && (
-            <ul className="mb-16 flex gap-[32px]">
+            <ul className="mb-[32px] flex gap-[32px]">
               {Object.values(SETTING_ITEM)
                 .filter((item) => item !== SETTING_ITEM.WITHDRAW)
                 .map((item) => (

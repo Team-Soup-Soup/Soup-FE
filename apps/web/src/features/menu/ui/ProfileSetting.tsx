@@ -2,14 +2,11 @@ import { Input } from '@soup/design-system';
 import React, { ChangeEvent, useCallback, useImperativeHandle } from 'react';
 import type { ProfileSettingItem } from '~/shared/types';
 import { useForm } from 'react-hook-form';
-import {
-  PROFILE,
-  SETTING_MAX_LENGTH,
-  SETTING_MIN_LENGTH,
-} from '~/shared/constants';
+import { PROFILE, SETTING_MAX_LENGTH } from '~/shared/constants';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { cn } from '@soup/utils';
+import { Button } from '~/shared/ui';
+import { getCookie } from '~/shared/utils';
 
 interface ProfileSettingProps {
   ref: React.Ref<{
@@ -18,39 +15,24 @@ interface ProfileSettingProps {
   }>;
 }
 
-const schema = z
-  .object({
-    [PROFILE.IMAGE]: z.string(),
-    [PROFILE.NAME]: z
-      .string()
-      .max(
-        SETTING_MAX_LENGTH.NAME,
-        `이름은 ${SETTING_MAX_LENGTH.NAME}자 이내여야 해요`,
-      ),
-    [PROFILE.NOW_PASSWORD]: z.string().min(1, '현재 비밀번호를 입력해주세요'),
-    [PROFILE.NEW_PASSWORD]: z
-      .string()
-      .min(SETTING_MIN_LENGTH.PASSWORD, '올바르지 못한 비밀번호예요')
-      .regex(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_]).{8,}$/,
-        '올바르지 못한 비밀번호예요',
-      ),
-    [PROFILE.CHECK_PASSWORD]: z.string().min(SETTING_MIN_LENGTH.PASSWORD),
-  })
-  .refine(
-    (data) => {
-      return (
-        !data[PROFILE.CHECK_PASSWORD] ||
-        data[PROFILE.NEW_PASSWORD] === data[PROFILE.CHECK_PASSWORD]
-      );
-    },
-    {
-      message: '비밀번호가 일치하지 않아요',
-      path: [PROFILE.NEW_PASSWORD],
-    },
-  );
+const schema = z.object({
+  [PROFILE.IMAGE]: z.string(),
+  [PROFILE.NAME]: z
+    .string()
+    .max(
+      SETTING_MAX_LENGTH.NAME,
+      `이름은 ${SETTING_MAX_LENGTH.NAME}자 이내여야 해요`,
+    ),
+});
 
 export default function ProfileSetting({ ref }: ProfileSettingProps) {
+  const imageUrl =
+    getCookie('USER_PROFILE') === '-'
+      ? '/icons/icon-profile.svg'
+      : !getCookie('USER_PROFILE')
+        ? '/icons/icon-profile.svg'
+        : ` http://student-p.p-e.kr/download/${getCookie('USER_PROFILE')}`;
+
   const {
     handleSubmit,
     register,
@@ -60,7 +42,8 @@ export default function ProfileSetting({ ref }: ProfileSettingProps) {
     watch,
   } = useForm({
     defaultValues: {
-      image: '/images/user_profile.webp',
+      image: imageUrl,
+      name: getCookie('USER_NAME') || '',
     },
     mode: 'onChange',
     resolver: zodResolver(schema),
@@ -90,6 +73,11 @@ export default function ProfileSetting({ ref }: ProfileSettingProps) {
     (data: ProfileSettingItem) => {
       reset();
       console.log(data);
+      if (typeof window !== 'undefined' && window.toast) {
+        window.toast.success(
+          '[프로필 변경] 변경된 정보로 업데이트 되었습니다.',
+        );
+      }
     },
     [reset],
   );
@@ -97,23 +85,36 @@ export default function ProfileSetting({ ref }: ProfileSettingProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-[30px]">
-        <label htmlFor="file">
-          <input
-            id="file"
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleImageInputChange}
-          />
-          <img
-            id="file"
-            src={image}
-            alt="프로필"
-            width={73}
-            height={73}
-            className="rounded-full"
-          />
-        </label>
+        <div className="flex w-full justify-center">
+          <div className="flex flex-col items-center gap-[24px]">
+            <label htmlFor="file">
+              <input
+                id="file"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleImageInputChange}
+              />
+              <img
+                id="file"
+                src={image}
+                alt="프로필"
+                className="size-[185px] overflow-hidden rounded-full object-cover object-center"
+              />
+            </label>
+            <Button
+              status="normal"
+              onClick={() => {
+                document.getElementById('file')?.click();
+              }}
+              type="button"
+              className="w-fit"
+            >
+              프로필 변경
+            </Button>
+          </div>
+        </div>
+
         <div className="flex flex-col gap-[8px]">
           <Input
             id="name"
@@ -122,53 +123,19 @@ export default function ProfileSetting({ ref }: ProfileSettingProps) {
             value={name || ''}
             maxLength={SETTING_MAX_LENGTH.NAME}
             inputClassName="bg-lock border-none text-md px-[30px]"
-            placeholder="이름을 입력해주세요"
             {...register(PROFILE.NAME)}
           />
         </div>
         <div className="flex flex-col gap-[8px]">
           <Input
             id="id"
-            value="userId"
+            value={getCookie('USER_ID') || '아이디'}
             label="아이디"
-            inputClassName="border-main-board-border text-light bg-main-board size-full rounded-[10px] border p-[10px] font-light"
+            inputClassName="px-[30px] border-main-board-border text-light bg-main-board size-full rounded-[10px] border font-light"
             disabled
           />
         </div>
-        <div className="flex flex-col gap-[30px]">
-          <div className="flex flex-col gap-[8px]">
-            <Input
-              id={PROFILE.NOW_PASSWORD}
-              label="현재 비밀번호"
-              errorMessage={errors.nowPassword?.message}
-              placeholder="현재 비밀번호를 입력해주세요"
-              inputClassName="bg-lock border-none text-md px-[30px]"
-              showPasswordButton
-              {...register(PROFILE.NOW_PASSWORD)}
-            />
-          </div>
-          <div className="flex flex-col gap-[8px]">
-            <Input
-              id={PROFILE.NEW_PASSWORD}
-              label="새 비밀번호"
-              errorMessage={errors.newPassword?.message}
-              placeholder="새 비밀번호를 입력해주세요"
-              inputClassName="bg-lock border-none text-md px-[30px]"
-              showPasswordButton
-              {...register(PROFILE.NEW_PASSWORD)}
-            />
-            <Input
-              id={PROFILE.CHECK_PASSWORD}
-              placeholder="새 비밀번호를 다시 입력해주세요"
-              inputClassName="bg-lock border-none text-md px-[30px]"
-              showPasswordButton
-              {...register(PROFILE.CHECK_PASSWORD)}
-            />
-            <p className={cn('text-light text-start text-sm font-light')}>
-              영어 + 특수문자 + 숫자 조합으로 8자 이상 작성해주세요
-            </p>
-          </div>
-        </div>
+
         <button type="submit" className="hidden" disabled={!isValid} />
       </div>
     </form>
