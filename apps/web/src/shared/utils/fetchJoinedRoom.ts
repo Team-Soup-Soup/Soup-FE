@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { REQUEST, userGet } from '~/shared/api';
 
 type JoinedRoomResponse = JoinedRoom[];
@@ -12,4 +13,11 @@ export const fetchJoinedRoom = async () => {
     request: REQUEST.FETCH_JOINED_PROJECT,
   });
   return { data: response.data, length: response.data.length };
+};
+
+export const useFetchJoinedRoom = () => {
+  return useQuery({
+    queryKey: ['joinedRooms'],
+    queryFn: fetchJoinedRoom,
+  });
 };

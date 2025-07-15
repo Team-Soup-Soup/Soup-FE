@@ -8,13 +8,12 @@ import { MODAL, PATH } from '~/shared/constants';
 import { useModal } from '~/shared/hooks';
 import type { ModalItem } from '~/shared/types';
 import { IconButton, LogoutModal, Profile } from '~/shared/ui';
-import { fetchJoinedRoom, getCookie, getPath } from '~/shared/utils';
+import { getCookie, getPath, useFetchJoinedRoom } from '~/shared/utils';
 import {
   AlarmModal,
   CreateProjectModal,
   SettingModal,
 } from '~/features/menu/ui';
-import { useQuery } from '@tanstack/react-query';
 
 export default function Sidebar({
   isDefault = false,
@@ -27,10 +26,7 @@ export default function Sidebar({
     openModal(key);
   };
 
-  const { data, isFetched, isLoading, refetch } = useQuery({
-    queryKey: ['joinedRooms'],
-    queryFn: fetchJoinedRoom,
-  });
+  const { data, isFetched, isLoading, refetch } = useFetchJoinedRoom();
 
   return (
     <>
@@ -53,15 +49,16 @@ export default function Sidebar({
             <span>프로젝트</span>
           </div>
           <div className="text-md mx-[32px] my-[16px] flex flex-col items-start gap-4 font-light">
-            {isLoading && <span>프로젝트 데이터를 받아오는 중..</span>}
+            {isLoading && <span></span>}
             {isFetched &&
               data!.length > 0 &&
               data!.data.map(({ projectId, projectName }) => (
                 <NavLink
+                  tabIndex={-1}
                   key={projectId}
                   className={({ isActive }) =>
                     cn(
-                      'pl-3 hover:cursor-pointer',
+                      'pl-3 outline-none hover:cursor-pointer',
                       isActive &&
                         'border-point border-bold text-point border-l-3',
                     )
