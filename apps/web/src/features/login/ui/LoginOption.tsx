@@ -12,11 +12,13 @@ export default function LoginOption({ className }: { className?: string }) {
         <Link
           to={PATH.FIND_ID}
           className="text-light hover:text-dark cursor-pointer font-extralight"
+          tabIndex={-1}
         >
           아이디 찾기
         </Link>
         <Link
           to={PATH.FIND_PW}
+          tabIndex={-1}
           className="text-light hover:text-dark cursor-pointer font-extralight"
         >
           비밀번호 찾기

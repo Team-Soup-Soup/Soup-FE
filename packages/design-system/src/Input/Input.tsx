@@ -62,7 +62,8 @@ const Input = ({
         {showPasswordButton && (
           <button
             type="button"
-            className="absolute right-[10px] place-items-center hover:cursor-pointer"
+            className="absolute right-[10px] place-items-center outline-none hover:cursor-pointer"
+            tabIndex={-1}
             onClick={handlePasswordToggle}
           >
             {showPassword ? (
