@@ -29,8 +29,9 @@ export default function InvitePage() {
           loading="eager"
         />
         <div className="border-main-2-2 absolute left-1/2 top-1/2 grid h-[376px] w-[462px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-[20px] border bg-white">
-          <p className="text-center text-2xl font-bold">
-            {email}님이 프로젝트에 초대되었습니다.
+          <p className="text-center text-2xl font-light">
+            <span className="font-medium">{email}</span>님이 <br />
+            프로젝트에 초대되었습니다.
             <br />
             프로젝트에 참여하려면 로그인해주세요.
           </p>

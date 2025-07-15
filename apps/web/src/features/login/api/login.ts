@@ -3,10 +3,11 @@ import { UserInfo } from '~/features/login/types';
 import { useMutation } from '@tanstack/react-query';
 import { useFetchUserInfo, useModal } from '~/shared/hooks';
 import { useSetAtom } from 'jotai';
-import { setCookie } from '~/shared/utils';
+import { getCookie, setCookie } from '~/shared/utils';
 import { useNavigate } from 'react-router-dom';
 import { ERROR_CODE, loginErrorAtom } from '../model';
 import { MODAL, PATH } from '~/shared/constants';
+import { useFetchProjectJoin } from '~/features/project/api';
 
 interface UserLoginResponse {
   token: {
@@ -26,6 +27,7 @@ export const fetchUserLogin = async (data: UserInfo) => {
 
 export const useFetchUserLogin = () => {
   const { refetch: fetchUserInfo } = useFetchUserInfo();
+  const { refetch: fetchProjectJoin } = useFetchProjectJoin();
 
   const navigate = useNavigate();
   const setLoginAtom = useSetAtom(loginErrorAtom);
@@ -37,7 +39,11 @@ export const useFetchUserLogin = () => {
       setCookie('ACCESS_TOKEN', data.accessToken);
       setCookie('REFRESH_TOKEN', data.refreshToken);
       fetchUserInfo();
-      navigate(PATH.HOME);
+      if (getCookie('invitation')) {
+        fetchProjectJoin();
+      } else {
+        navigate(PATH.HOME);
+      }
     },
     onError: (error) => {
       const errorWithCause = error as ErrorWithCause;
