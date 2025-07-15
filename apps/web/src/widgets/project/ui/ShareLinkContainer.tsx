@@ -50,7 +50,8 @@ export default function ShareLinkContainer() {
               onClick={() => {
                 window.open(item.link, '_blank');
               }}
-              className="border-main-board-border size-[36px] cursor-pointer overflow-hidden border-[1px] bg-white outline-none"
+              title={item.linkTitle}
+              className="border-main-board-border size-[36px] cursor-pointer overflow-hidden rounded-[4px] border-[1px] bg-white outline-none"
               key={item.linkId}
             >
               <img
