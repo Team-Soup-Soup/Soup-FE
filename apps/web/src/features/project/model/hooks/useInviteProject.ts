@@ -4,11 +4,12 @@ import { z, ZodError } from 'zod';
 
 import { useModal } from '~/shared/hooks';
 import { MODAL } from '~/shared/constants';
-import { submitUserInvitation } from '~/features/project/api';
+import { useSubmitProjectInvitation } from '~/features/project/api';
 
 export default function useInviteProject() {
   const { projectId } = useParams();
   const { closeModal } = useModal();
+  const { mutate: submitProjectInvitation } = useSubmitProjectInvitation();
 
   const [inviteEmails, setInviteEmails] = useState<string[]>(['']);
   const [emailErrors, setEmailErrors] = useState<string[]>([]);
@@ -54,10 +55,24 @@ export default function useInviteProject() {
     setEmailErrors(errors);
 
     if (errors.every((error) => error === '')) {
-      console.log(inviteEmails, projectId);
-      await submitUserInvitation(inviteEmails, Number(projectId));
-      closeModal(MODAL.INVITE_PROJECT);
-      setInviteEmails(['']);
+      submitProjectInvitation(
+        {
+          inviteEmails,
+          projectId: Number(projectId),
+        },
+        {
+          onSuccess: () => {
+            closeModal(MODAL.INVITE_PROJECT);
+            setInviteEmails(['']);
+            window.toast.success('[프로젝트 초대] 초대 메일이 전송되었습니다.');
+          },
+          onError: () => {
+            window.toast.error(
+              '[프로젝트 초대] 초대 메일 전송에 실패했습니다.',
+            );
+          },
+        },
+      );
     }
   };
   return {
