@@ -13,4 +13,5 @@ export const PATH = {
   GROUP_BOARD: ':groupBoardId',
   SCHEDULE: 'schedule',
   ERROR: '/error',
+  INVITE: '/invite',
 } as const;

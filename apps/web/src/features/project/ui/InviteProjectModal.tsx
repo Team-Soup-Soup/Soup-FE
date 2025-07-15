@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Button, Input } from '@soup/design-system';
+import { Input } from '@soup/design-system';
 
 import { MODAL } from '~/shared/constants';
 import { useModalState } from '~/shared/hooks';
-import { IconButton, Modal } from '~/shared/ui';
+import { Button, IconButton, Modal } from '~/shared/ui';
 
 import { useInviteProject } from '~/features/project/model';
 
@@ -20,16 +20,17 @@ export default function InviteProjectModal() {
 
   return (
     isOpen && (
-      <Modal size="sm" modalKey={MODAL.INVITE_PROJECT}>
-        <Modal.Header title="초대하기" />
+      <Modal size="md" modalKey={MODAL.INVITE_PROJECT}>
+        <Modal.Header title="초대하기" intent="shareLink" />
         <Modal.Body className="gap-[8px]">
           <p className="font-light">이메일</p>
-          <div className="scrollbar-hide flex h-60 flex-col gap-[8px] overflow-scroll">
+          <div className="scrollbar-hide flex flex-col gap-[8px] overflow-scroll">
             {inviteEmails.map((email, index) => (
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-2" key={index}>
                   <Input
                     className="w-full"
+                    inputClassName="bg-main-2-1 border-main-2-1 focus:border-main-2-1"
                     key={index}
                     value={email}
                     type="email"
@@ -57,10 +58,12 @@ export default function InviteProjectModal() {
         </Modal.Body>
         <Modal.Footer className="mt-8 flex justify-end">
           <Button
+            size="lg"
             type="submit"
-            className="w-[100px]"
-            color="normal"
+            status="normal"
+            intent="shareLink"
             onClick={handleSubmit}
+            disabled={inviteEmails.length === 0}
           >
             전송하기
           </Button>
