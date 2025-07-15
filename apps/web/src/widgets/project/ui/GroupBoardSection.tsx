@@ -4,14 +4,17 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import AddIcon from '~/assets/icons/plus.svg';
 import { CreateGroupBoardModal } from '~/features/project/ui';
 import { MODAL } from '~/shared/constants';
-import { useModal } from '~/shared/hooks';
-import { getPath } from '~/shared/utils';
+import { useModal, useProjectId } from '~/shared/hooks';
+import type { Role } from '~/shared/types';
+import { getCookie, getPath } from '~/shared/utils';
 
 export default function GroupBoardSection() {
   const groupBoard = ['제네럴프론트'];
   const { openModal } = useModal();
   const navigate = useNavigate();
   const location = useLocation();
+  const projectId = useProjectId();
+  const projectAuth = getCookie(`projectAuth${projectId}`) as Role;
 
   return (
     <>
@@ -38,12 +41,14 @@ export default function GroupBoardSection() {
                 </div>
               </div>
             ))}
-            <div
-              className="rounded-auth border-main-board-border box-shadow-4 bg-normal-dark grid h-full w-[450px] flex-shrink-0 cursor-pointer place-items-center border-[1px]"
-              onClick={() => openModal(MODAL.CREATE_GROUP_BOARD)}
-            >
-              <img src={AddIcon} className="size-15" />
-            </div>
+            {projectAuth === 'M' && (
+              <div
+                className="rounded-auth border-main-board-border box-shadow-4 bg-normal-dark grid h-full w-[450px] flex-shrink-0 cursor-pointer place-items-center border-[1px]"
+                onClick={() => openModal(MODAL.CREATE_GROUP_BOARD)}
+              >
+                <img src={AddIcon} className="size-15" />
+              </div>
+            )}
           </div>
         )}
       </div>
