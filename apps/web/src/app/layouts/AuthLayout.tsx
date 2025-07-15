@@ -1,4 +1,3 @@
-import AuthPageImg from '~/assets/images/login-signup-image.png';
 import { Outlet } from 'react-router-dom';
 
 export default function AuthLayout(): React.ReactElement {
@@ -10,7 +9,7 @@ export default function AuthLayout(): React.ReactElement {
         </div>
       </div>
       <img
-        src={AuthPageImg}
+        src="/images/login-signup-image.png"
         className="hidden size-full bg-cover bg-center xl:block"
         loading="eager"
       />
