@@ -1,6 +1,6 @@
 export type User = {
   participantId: number;
-  userRole: 'M' | 'C' | 'S';
+  userRole: Role;
   userRoleDesc: string;
   userId: string;
   username: string;
@@ -18,3 +18,5 @@ export type UserInfo = {
     url: string;
   };
 };
+
+export type Role = 'M' | 'C' | 'S';

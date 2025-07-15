@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 
 import { MODAL } from '~/shared/constants';
-import { useModal, useModalState } from '~/shared/hooks';
-import { ProfileLevel, User } from '~/shared/types';
+import { useModal, useModalState, useProjectId } from '~/shared/hooks';
+import type { ProfileLevel, Role, User } from '~/shared/types';
 import { Profile } from '~/shared/ui';
+import { getCookie } from '~/shared/utils';
 
 interface ManageButtonProps {
   content: string;
@@ -14,7 +15,10 @@ export default function ProjectManageModal({ data }: { data: User[] }) {
   const { isOpen } = useModalState({ key: MODAL.MANAGE_PROJECT });
   const { openModal, closeModal } = useModal();
 
-  const LEVEL: Record<'M' | 'S' | 'C', ProfileLevel> = {
+  const projectId = useProjectId();
+  const projectAuth = getCookie(`projectAuth${projectId}`) as Role;
+
+  const LEVEL: Record<Role, ProfileLevel> = {
     M: 'master',
     S: 'subMaster',
     C: 'classic',
@@ -58,14 +62,18 @@ export default function ProjectManageModal({ data }: { data: User[] }) {
         <div className="flex flex-col gap-[12px]">
           <div>기타</div>
           <div className="flex flex-col">
-            <ManageButton
-              content="멤버별 편집"
-              onClick={() => openModal(MODAL.MANAGE_MEMBER)}
-            />
-            <ManageButton
-              content="프로젝트 이름/설명 변경하기"
-              onClick={() => openModal(MODAL.UPDATE_PROJECT)}
-            />
+            {projectAuth === 'M' && (
+              <ManageButton
+                content="멤버별 편집"
+                onClick={() => openModal(MODAL.MANAGE_MEMBER)}
+              />
+            )}
+            {(projectAuth === 'M' || projectAuth === 'S') && (
+              <ManageButton
+                content="프로젝트 이름/설명 변경하기"
+                onClick={() => openModal(MODAL.UPDATE_PROJECT)}
+              />
+            )}
             <ManageButton
               content=" 프로젝트 나가기"
               onClick={() => openModal(MODAL.LEVEL_PROJECT)}
