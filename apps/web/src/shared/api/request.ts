@@ -16,6 +16,7 @@ export const REQUEST = {
   FETCH_USER_INFO: '/v1/user/profile',
   FETCH_TOGGLE_SETTING: '/v1/user/setting/profile',
   UPDATE_TOGGLE_SETTING: '/v1/user/update/notification',
+  JOIN_PROJECT: '/v1/project/join',
 };
 
 export const BOARD_REQUEST = {
