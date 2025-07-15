@@ -43,7 +43,7 @@ export default function ProfileSetting({ ref }: ProfileSettingProps) {
   } = useForm({
     defaultValues: {
       image: imageUrl,
-      name: getCookie('USER_NAME') || '',
+      name: decodeURIComponent(getCookie('USER_NAME') || ''),
     },
     mode: 'onChange',
     resolver: zodResolver(schema),

@@ -1,7 +1,9 @@
 import { useForm } from 'react-hook-form';
 import React, { useCallback, useImperativeHandle } from 'react';
-import type { AlarmSettingItem } from '~/shared/types';
 import ToggleController from './ToggleController';
+import { getCookie } from '~/shared/utils';
+import { ToggleSetting } from '../types';
+import { useUpdateToggleSetting } from '../api';
 
 interface AlarmSettingProps {
   ref: React.Ref<{
@@ -11,18 +13,25 @@ interface AlarmSettingProps {
 }
 
 export default function AlarmSetting({ ref }: AlarmSettingProps) {
+  const { postComment, boardComment, boardQuestion, myQuestionAnswer } =
+    JSON.parse(
+      decodeURIComponent(getCookie('toggleSetting') as string),
+    ) as ToggleSetting;
+
+  const { mutate: updateToggleSetting } = useUpdateToggleSetting();
+
   const {
     handleSubmit,
     formState: { isValid },
     control,
     trigger,
-  } = useForm({
+  } = useForm<ToggleSetting>({
     mode: 'onChange',
     defaultValues: {
-      postComment: true,
-      boardComment: false,
-      boardQuestion: true,
-      questionComment: true,
+      postComment: postComment ?? true,
+      boardComment: boardComment ?? true,
+      boardQuestion: boardQuestion ?? true,
+      myQuestionAnswer: myQuestionAnswer ?? true,
     },
   });
 
@@ -32,13 +41,14 @@ export default function AlarmSetting({ ref }: AlarmSettingProps) {
   }));
 
   const onSubmit = useCallback(
-    async (data: AlarmSettingItem) => {
+    async (data: ToggleSetting) => {
       const isValidForm = await trigger();
 
       if (isValidForm) {
-        console.log(data);
+        updateToggleSetting(data);
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [trigger],
   );
 
@@ -79,8 +89,8 @@ export default function AlarmSetting({ ref }: AlarmSettingProps) {
                 <label className="text-light text-sm">내 질문</label>
                 <ToggleController
                   label="답글 알림"
-                  name="questionComment"
-                  id="questionComment"
+                  name="myQuestionAnswer"
+                  id="myQuestionAnswer"
                   control={control}
                 />
               </div>

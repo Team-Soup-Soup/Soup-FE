@@ -81,7 +81,7 @@ export default function Sidebar({
         <div className="flex flex-col gap-8">
           <Profile
             image={getCookie('USER_PROFILE') || ''}
-            name={getCookie('USER_NAME') || ''}
+            name={decodeURIComponent(getCookie('USER_NAME') || '')}
             className="pl-[32px]"
           />
           <div className="flex justify-end gap-[16px] pr-[32px]">

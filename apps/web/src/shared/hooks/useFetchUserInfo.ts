@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { REQUEST, userGet } from '../api';
 import type { UserInfo } from '../types';
 import { setCookie } from '../utils';
+import { useFetchToggleSetting } from '~/features/menu/api';
 
 const fetchUserInfo = async () => {
   const response = await userGet<UserInfo>({
@@ -11,6 +12,8 @@ const fetchUserInfo = async () => {
 };
 
 export const useFetchUserInfo = () => {
+  const { refetch: fetchToggleSetting } = useFetchToggleSetting();
+
   return useQuery({
     queryKey: ['userInfo'],
     queryFn: fetchUserInfo,
@@ -19,6 +22,7 @@ export const useFetchUserInfo = () => {
       setCookie('USER_ID', data.userId);
       setCookie('USER_NAME', data.name);
       setCookie('USER_PROFILE', data.profileFileData.url);
+      fetchToggleSetting();
     },
   });
 };
