@@ -52,6 +52,9 @@
   --radius-auth: 10px;
   --radius-20: 20px;
   --spacing-menu-height: 262px;
+
+  --color-main-2-1: #f5f4f1;
+  --color-main-2-2: #dad4cf;
 }
 
 :root {
