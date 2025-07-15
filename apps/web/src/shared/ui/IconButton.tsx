@@ -31,7 +31,7 @@ export default function IconButton({
         <img
           src={icon}
           alt={name}
-          className={cn(iconClassName, 'group-hover:hidden')}
+          className={cn(iconClassName, hoverIcon && 'group-hover:hidden')}
         />
         {hoverIcon && (
           <img
