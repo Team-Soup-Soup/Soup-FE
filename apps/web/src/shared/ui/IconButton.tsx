@@ -4,6 +4,7 @@ import React, { ButtonHTMLAttributes } from 'react';
 interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   name: string;
   icon: string;
+  hoverIcon?: string;
   buttonClassName?: string;
   iconClassName?: string;
 }
@@ -11,6 +12,7 @@ interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export default function IconButton({
   name,
   icon,
+  hoverIcon,
   onClick,
   disabled = false,
   buttonClassName,
@@ -20,13 +22,24 @@ export default function IconButton({
     <>
       <button
         className={cn(
-          'hover:cursor-pointer focus:outline-none',
+          'group hover:cursor-pointer focus:outline-none',
           buttonClassName,
         )}
         onClick={onClick}
         disabled={disabled}
       >
-        <img src={icon} alt={name} className={cn(iconClassName)} />
+        <img
+          src={icon}
+          alt={name}
+          className={cn(iconClassName, 'group-hover:hidden')}
+        />
+        {hoverIcon && (
+          <img
+            src={hoverIcon}
+            alt={name}
+            className={cn(iconClassName, 'hidden group-hover:block')}
+          />
+        )}
       </button>
     </>
   );

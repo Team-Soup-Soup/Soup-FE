@@ -47,7 +47,7 @@ export default function ProjectHeader({
             <div className="bg-lock mr-3 h-[6px] w-[540px] rounded-sm"></div>0%
           </div>
         </div>
-        <div className="flex h-fit gap-[12px]">
+        <div className="flex h-fit items-center gap-[12px]">
           <div className="avatar-group -space-x-6">
             {data.map(({ username }) => (
               <div className="avatar" key={username}>
@@ -59,8 +59,10 @@ export default function ProjectHeader({
           </div>
           <IconButton
             name="manageModal"
-            icon="/icons/more_vertical.svg"
+            icon="/icons/icon-more-vertical.svg"
+            hoverIcon="/icons/icon-more-vertical-hover.svg"
             onClick={handleManageModal}
+            className="hover:cursor-pointer"
           />
         </div>
       </div>
