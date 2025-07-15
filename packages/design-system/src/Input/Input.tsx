@@ -28,6 +28,7 @@ const Input = ({
   children,
   placeholder,
   searchHandler,
+  type,
   ...rest
 }: InputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -35,6 +36,22 @@ const Input = ({
 
   const handlePasswordToggle = () => {
     setShowPassword(!showPassword);
+  };
+
+  // type 결정 로직
+  const getInputType = () => {
+    if (showPasswordButton) {
+      return showPassword ? 'text' : 'password';
+    }
+    return type || 'text';
+  };
+
+  // maxLength 처리
+  const getInputValue = () => {
+    if (maxLength && value) {
+      return String(value).slice(0, maxLength);
+    }
+    return value;
   };
 
   return (
@@ -56,7 +73,7 @@ const Input = ({
       <div className="relative inline-flex items-center">
         {maxLength && (
           <span className="text-light absolute right-[10px] place-items-center">
-            {String(value).length}/{maxLength}자
+            {String(value || '').length}/{maxLength}자
           </span>
         )}
         {showPasswordButton && (
@@ -76,8 +93,9 @@ const Input = ({
         <input
           id={id}
           ref={inputRef}
-          value={value}
-          type={showPasswordButton && !showPassword ? 'password' : 'text'}
+          value={getInputValue()}
+          type={getInputType()}
+          maxLength={maxLength || undefined}
           className={cn(
             'border-main-board-border focus:border-point size-full rounded-[10px] border p-[14px] font-light focus:outline-none',
             isSearch && 'pl-[44px]',
