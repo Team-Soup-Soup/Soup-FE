@@ -14,6 +14,8 @@ export const REQUEST = {
   SEND_EMAIL_FIND_PW: '/v1/user/send/password',
   SHARE_LINK: '/v1/share/link',
   FETCH_USER_INFO: '/v1/user/profile',
+  FETCH_TOGGLE_SETTING: '/v1/user/setting/profile',
+  UPDATE_TOGGLE_SETTING: '/v1/user/update/notification',
 };
 
 export const BOARD_REQUEST = {
