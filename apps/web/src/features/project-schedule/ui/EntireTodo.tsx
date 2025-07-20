@@ -5,9 +5,9 @@ import { Checkbox } from '@soup/design-system';
 export default function EntireTodo() {
   return (
     <div className="mb-15 flex h-fit w-full flex-col gap-y-3">
-      <div className="flex w-full flex-col gap-y-10">
+      <div className="flex w-full items-center justify-between">
         <p className="text-lg font-semibold">할일 리스트</p>
-        <div className="flex gap-x-6">
+        <div className="mr-10 flex gap-x-6">
           <Checkbox id="whole" label="전체" />
           <Checkbox id="pm" label="기획자" />
           <Checkbox id="dev" label="개발자" />
