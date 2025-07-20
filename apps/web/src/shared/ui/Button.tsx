@@ -21,7 +21,7 @@ const ButtonVariants = cva(
       status: {
         point:
           'bg-point text-white border-point hover:bg-point-dark font-semibold',
-        sub: 'bg-sub text-point border-point hover:bg-sub-dark',
+        sub: 'bg-white text-point border-point hover:bg-sub-dark',
         normal:
           'bg-normal hover:bg-normal-dark border-main-board-border text-dark',
         locked: 'cursor-not-allowed bg-lock text-light hover:bg-lock',
@@ -30,6 +30,7 @@ const ButtonVariants = cva(
         lg: 'py-[12px] px-[28px]',
         md: 'py-[8px] px-[20px]',
         sm: 'px-[12px] text-sm',
+        fit: 'w-fit h-fit',
       },
     },
     defaultVariants: {
