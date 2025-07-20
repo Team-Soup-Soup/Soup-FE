@@ -6,3 +6,4 @@ export * from './post';
 export * from './votePost';
 export * from './peerReviewPost';
 export * from './meetingPost';
+export * from './fetchSearchResult';
