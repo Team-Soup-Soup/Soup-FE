@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 export default function AuthLayout(): React.ReactElement {
   return (
     <div className="grid h-screen grid-cols-1 overflow-hidden xl:grid-cols-2">
-      <div className="grid size-full place-items-center py-20">
+      <div className="box-border grid h-screen w-full place-items-center py-20">
         <div className="border-dash-board-border w-170 rounded-auth box-shadow box-border h-full border-[1px]">
           <Outlet />
         </div>
