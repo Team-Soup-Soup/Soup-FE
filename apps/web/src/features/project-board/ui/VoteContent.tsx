@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { Button, Checkbox } from '@soup/design-system';
+import { Checkbox } from '@soup/design-system';
 import { cn } from '@soup/utils';
 
 import PlusIcon from '~/assets/icons/plus.svg';
 
+import { Button } from '~/shared/ui';
 import { VotePost } from '~/shared/types';
 import { getDate } from '~/shared/utils';
 
@@ -29,6 +30,7 @@ export default function VoteContent({
     addOption,
     option,
     setOption,
+    selectedOption,
   } = useVoteContent({ voteId: voteId });
 
   const voteOptions = {
@@ -106,16 +108,26 @@ export default function VoteContent({
             )}
             {addOption ? (
               <div className="mb-6 mt-2 flex gap-x-4">
-                <Button color="sub" onClick={handleConfirm}>
+                <Button
+                  className="disabled:border-main-2-2 font-normal"
+                  status="point"
+                  disabled={option.length === 0}
+                  onClick={handleConfirm}
+                >
                   확인
                 </Button>
-                <Button color="normal" onClick={handleCancel}>
+                <Button status="normal" onClick={handleCancel}>
                   취소
                 </Button>
               </div>
             ) : (
               <div className="mb-6 mt-2">
-                <Button color="normal" onClick={handleSubmitVote}>
+                <Button
+                  className="disabled:border-main-2-2 font-normal"
+                  status="point"
+                  disabled={selectedOption.length === 0}
+                  onClick={handleSubmitVote}
+                >
                   투표하기
                 </Button>
               </div>

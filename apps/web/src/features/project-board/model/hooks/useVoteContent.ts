@@ -46,5 +46,6 @@ export default function useVoteContent({ voteId }: Pick<VotePost, 'voteId'>) {
     addOption,
     option,
     setOption,
+    selectedOption,
   };
 }
