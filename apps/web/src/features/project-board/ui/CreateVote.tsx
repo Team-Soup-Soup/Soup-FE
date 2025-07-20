@@ -96,7 +96,7 @@ export default function CreateVote() {
                 {...register('content', { required: '제목을 입력해 주세요' })}
               />
               <p className="text-light text-end">
-                생성/완료된 투표는 <u>게시판으로 자동 게시</u>되며,
+                생성/완료된 투표는 <u>게시판으로 자동 게시</u>되며,&nbsp;
                 <u>수정 불가능</u>
                 합니다.
               </p>
