@@ -16,7 +16,7 @@ const ButtonVariants = cva(
       intent: {
         squared: 'rounded-[10px]',
         primary: '',
-        shareLink: 'font-extralight disabled:border-main-2-2',
+        shareLink: 'font-normal text-[14px] disabled:border-main-2-2',
       },
       status: {
         point:

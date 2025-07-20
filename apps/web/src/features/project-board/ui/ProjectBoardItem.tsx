@@ -1,3 +1,4 @@
+import { cn } from '@soup/utils';
 import React from 'react';
 
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -19,7 +20,9 @@ export default function ProjectBoardItem({
 
   return (
     <div
-      className="hover:bg-hover rounded-auth border-main-board-border text-md box-shadow-4 grid h-14 w-full cursor-pointer grid-cols-[1fr_8fr_1fr_1fr_1fr] items-center gap-x-8 overflow-hidden border-[1px] px-6 py-[10px] font-light"
+      className={cn(
+        'hover:bg-hover rounded-auth border-main-board-border text-md box-shadow-4 grid h-14 w-full cursor-pointer grid-cols-[1fr_8fr_1fr_1fr_1fr] items-center gap-x-8 overflow-hidden border-[1px] px-6 py-[10px] font-light',
+      )}
       onClick={() =>
         navigate(getPath(location.pathname.split('/search')[0], `${postId}`))
       }

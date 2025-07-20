@@ -3,9 +3,9 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
-import { Button, Input, Toggle } from '@soup/design-system';
+import { Input, Toggle } from '@soup/design-system';
 
-import { Modal } from '~/shared/ui';
+import { Button, Modal } from '~/shared/ui';
 import { useModal } from '~/shared/hooks';
 import { MODAL, TITLE_MAX_LENGTH } from '~/shared/constants';
 
@@ -97,10 +97,12 @@ export default function CreateNormalPost({
           </div>
           <Modal.Footer className="justify-end">
             <Button
+              className="mt-4"
+              intent="shareLink"
               size="lg"
-              color="normal"
+              status="normal"
               type="submit"
-              locked={!isFormValid}
+              disabled={!isFormValid}
             >
               게시하기
             </Button>
