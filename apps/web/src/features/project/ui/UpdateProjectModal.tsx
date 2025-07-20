@@ -40,7 +40,7 @@ export default function UpdateProjectModal() {
 
   return (
     isOpen && (
-      <Modal size="sm" modalKey={MODAL.UPDATE_PROJECT}>
+      <Modal size="md" modalKey={MODAL.UPDATE_PROJECT}>
         <Modal.Header title="프로젝트 이름/설명 변경하기" />
         <Modal.Body className="h-full justify-between">
           <form onSubmit={handleSubmit(handleFormSubmit)}>
