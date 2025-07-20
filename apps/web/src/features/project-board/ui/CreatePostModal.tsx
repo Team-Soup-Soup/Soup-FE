@@ -24,11 +24,7 @@ export default function CreatePostModal({ type }: { type: BoardItem }) {
 
   return (
     isOpen && (
-      <Modal
-        size={title === '동료평가' ? 'sm' : 'md'}
-        title={title}
-        modalKey={MODAL.CREATE_POST}
-      >
+      <Modal size={'md'} title={title} modalKey={MODAL.CREATE_POST}>
         <Modal.Header title={title} />
         {COMPONENTS[title]}
       </Modal>

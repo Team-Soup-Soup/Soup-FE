@@ -76,7 +76,7 @@ export default function CreateVote() {
         onSubmit={handleSubmit(formSubmit)}
         className="size-full overflow-hidden"
       >
-        <Modal.Body className="scrollbar-hide h-full overflow-scroll">
+        <Modal.Body className="scrollbar-hide h-full max-h-[80vh] overflow-scroll">
           <div className="scrollbar-hide flex h-full flex-col gap-y-8 overflow-scroll">
             <Modal.Section title="제목">
               <Input

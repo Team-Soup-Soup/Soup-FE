@@ -105,6 +105,7 @@ export default function CreateMeeting() {
         </div>
         <Modal.Footer className="justify-end">
           <Button
+            className="mt-4"
             size="lg"
             color="normal"
             type="submit"
