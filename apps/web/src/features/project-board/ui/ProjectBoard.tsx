@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import { Input, Pagination, Radio } from '@soup/design-system';
+import { Pagination, Radio } from '@soup/design-system';
 
 import { useFetchProjectBoardList } from '~/widgets/project/api';
 
@@ -14,12 +14,12 @@ import {
   PROJECT_BOARD_COLUMN,
   PROJECT_BOARD_ROW,
 } from '~/features/project-board/model';
+import { SearchIcon } from '~/assets/icons';
 
 export default function ProjectBoard() {
   const navigate = useNavigate();
-  const location = useLocation();
   const { projectId } = useParams();
-  const [selected, setSelected] = useState<string>('');
+  const [selected, setSelected] = useState<string[]>([]);
   const [value, setValue] = useState<string>('');
   const [page, setPage] = useState<number>(1);
 
@@ -28,10 +28,22 @@ export default function ProjectBoard() {
     page,
     row: PROJECT_BOARD_ROW,
   });
+
+  const location = useLocation();
   const currentLocation = location.pathname;
 
   const handleSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setValue(e.target.value);
+  };
+
+  const handleRadioChange = (label: string) => {
+    setSelected((prev) => {
+      if (prev.includes(label)) {
+        return prev.filter((item) => item !== label);
+      } else {
+        return [...prev, label];
+      }
+    });
   };
 
   return (
@@ -45,28 +57,42 @@ export default function ProjectBoard() {
                 key={BOARD[label].title}
                 id={BOARD[label].title}
                 label={BOARD[label].title}
-                checked={selected === label}
-                onChange={() => setSelected(label)}
+                checked={selected.includes(label)}
+                onChange={() => handleRadioChange(label)}
+                multiple={true}
               />
             ))}
           </div>
-          <Input
-            isSearch
-            value={value}
-            onChange={handleSearch}
-            searchHandler={() =>
-              navigate(getPath(currentLocation, `search?q=${value}`))
-            }
-          />
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              navigate(getPath(currentLocation, `search?q=${value}`));
+            }}
+            className="group relative"
+          >
+            <input
+              value={value}
+              onChange={handleSearch}
+              type="text"
+              placeholder="검색어를 입력하세요"
+              className="border-main-board-border group-focus:border-point focus:border-point size-full h-full w-full rounded-[10px] border p-[8px] pl-[38px] font-light focus:outline-none"
+            />
+            <SearchIcon
+              width={20}
+              height={20}
+              color="currentColor"
+              className="text-point absolute left-3 top-1/2 -translate-y-1/2 transform"
+            />
+          </form>
         </div>
       </div>
       <ProjectBoardHeader />
       <div className="relative flex size-full flex-col gap-y-1">
         {data &&
           data.data.map((data: BoardContent) => {
-            if (selected === '')
+            if (selected.length === 0)
               return <ProjectBoardItem key={data.postId} {...data} />;
-            if (data.category === selected)
+            if (selected.includes(data.category))
               return <ProjectBoardItem key={data.postId} {...data} />;
           })}
         {data && data.count === 0 && (
@@ -74,7 +100,7 @@ export default function ProjectBoard() {
             게시판에 글이 없어요
           </div>
         )}
-        <div className="absolute bottom-0 flex h-fit w-full items-center justify-center">
+        <div className="absolute bottom-0 flex h-fit w-full items-center justify-center bg-white">
           {data && data.count !== 0 && (
             <Pagination
               current={page}
@@ -91,7 +117,7 @@ export default function ProjectBoard() {
 }
 
 const ProjectBoardHeader = () => (
-  <div className="rounded-auth bg-lock h-13 mb-4 grid w-full grid-cols-[1fr_8fr_1fr_1fr_1fr] gap-x-8 overflow-hidden px-6 font-light">
+  <div className="rounded-auth bg-lock h-13 mb-4 grid w-full flex-shrink-0 grid-cols-[1fr_8fr_1fr_1fr_1fr] gap-x-8 overflow-hidden px-6 font-light">
     <div className="w-25 flex items-center text-nowrap px-[10px] text-center">
       카테고리
     </div>

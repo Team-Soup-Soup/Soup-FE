@@ -41,7 +41,7 @@ export default function ProjectPostComment({
   };
 
   return (
-    <div className="hover:bg-lock rounded-auth relative cursor-pointer overflow-visible">
+    <div className="hover:bg-hover rounded-auth relative cursor-pointer overflow-visible">
       <MoreOptionModal
         commentId={commentId}
         hidden={hidden}
