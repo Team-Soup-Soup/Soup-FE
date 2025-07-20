@@ -6,6 +6,7 @@ export interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   radioClassname?: string;
   name?: string;
+  multiple?: boolean;
 }
 
 const Radio = ({
@@ -16,17 +17,18 @@ const Radio = ({
   className,
   checked,
   onChange,
+  multiple = false,
   ...rest
 }: RadioProps) => {
   const radioRef = useRef(null);
 
   return (
-    <div className={cn('flex items-center gap-2', className)}>
+    <div className={cn('flex flex-shrink-0 items-center gap-2', className)}>
       <input
         ref={radioRef}
         id={id}
         name={name}
-        type="radio"
+        type={multiple ? 'checkbox' : 'radio'}
         checked={checked}
         onChange={onChange}
         className={cn(
