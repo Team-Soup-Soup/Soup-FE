@@ -1,8 +1,14 @@
 import React from 'react';
 import { MODAL } from '~/shared/constants';
 import { useModal } from '~/shared/hooks';
+import { Schedule } from '~/shared/types';
 
-export default function ScheduleItem() {
+interface ScheduleItemProps {
+  schedule: Schedule;
+}
+
+export default function ScheduleItem({ schedule }: ScheduleItemProps) {
+  const { title, content, color } = schedule;
   const { openModal } = useModal();
   const handleEditClick = () => {
     openModal(MODAL.CREATE_SCHEDULE);
@@ -12,16 +18,15 @@ export default function ScheduleItem() {
   };
 
   return (
-    <div className="collapse-arrow border-main-board-border collapse w-full cursor-pointer rounded-[8px] border-[1px] bg-red-300/20">
+    <div
+      className="collapse-arrow border-main-board-border collapse w-full cursor-pointer rounded-[8px] border-[1px]"
+      style={{ backgroundColor: color }}
+    >
       <input type="radio" name="my-accordion-2" defaultChecked />
-      <div className="collapse-title font-light">1차 와프</div>
+      <div className="collapse-title font-light">{title}</div>
       <div className="collapse-content bg-white">
         <div className="flex flex-col pt-4">
-          <div className="flex items-center pt-4">
-            줌회의
-            <br />
-            URL: ASD7-w386-df39
-          </div>
+          <div className="flex items-center pt-4">{content}</div>
           <div className="flex w-full items-center justify-end">
             <div className="flex gap-x-2">
               <button

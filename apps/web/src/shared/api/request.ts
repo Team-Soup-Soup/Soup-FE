@@ -29,3 +29,7 @@ export const BOARD_REQUEST = {
   PEER_REVIEW_POST: '/v1/review',
   MEETING_POST: '/v1/meeting',
 };
+
+export const SCHEDULE_REQUEST = {
+  SCHEDULE: '/v1/schedule',
+};

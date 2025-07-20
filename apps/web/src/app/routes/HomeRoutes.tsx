@@ -4,9 +4,10 @@ import { type RouteObject } from 'react-router-dom';
 import { HomeLayout } from '~/app/layouts';
 import { PATH } from '~/shared/constants';
 import { ProjectBoardRoutes } from '~/app/routes/ProjectBoardRoutes';
-import { fetchJoinedRoom } from '~/shared/utils';
+import { fetchJoinedRoom, getDate } from '~/shared/utils';
 import { LoadingPage } from '~/shared/ui';
 import { HomePage } from '~/pages/home/ui';
+import { fetchSchedule } from '~/shared/utils/fetchSchedule';
 
 const ProjectPage = lazy(() => import('~/pages/project/ui/ProjectPage'));
 const SchedulePage = lazy(() => import('~/pages/schedule/ui/SchedulePage'));
@@ -36,6 +37,14 @@ export const HomeRoutes: RouteObject = {
           element: <GroupBoardPage />,
         },
         {
+          loader: ({ params }) => {
+            const { projectId } = params;
+            return fetchSchedule(
+              projectId!,
+              getDate(new Date().toISOString(), 'YYYY-MM'),
+            );
+          },
+          hydrateFallbackElement: <LoadingPage />,
           path: PATH.SCHEDULE,
           element: <SchedulePage />,
         },
