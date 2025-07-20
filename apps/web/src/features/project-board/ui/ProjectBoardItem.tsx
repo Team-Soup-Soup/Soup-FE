@@ -19,13 +19,13 @@ export default function ProjectBoardItem({
 
   return (
     <div
-      className="rounded-auth border-main-board-border text-md box-shadow-4 grid h-14 w-full cursor-pointer grid-cols-[1fr_8fr_1fr_1fr_1fr] items-center gap-x-8 overflow-hidden border-[1px] px-6 py-[10px] font-light"
+      className="hover:bg-hover rounded-auth border-main-board-border text-md box-shadow-4 grid h-14 w-full cursor-pointer grid-cols-[1fr_8fr_1fr_1fr_1fr] items-center gap-x-8 overflow-hidden border-[1px] px-6 py-[10px] font-light"
       onClick={() =>
         navigate(getPath(location.pathname.split('/search')[0], `${postId}`))
       }
     >
       <div
-        className="w-25 text-nowrap px-[10px] py-1 text-center"
+        className="w-25 text-nowrap rounded-[4px] px-[10px] py-0.5 text-center"
         style={{ backgroundColor: `${BOARD[category].color}` }}
       >
         {BOARD[category].title}
