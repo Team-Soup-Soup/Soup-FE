@@ -50,11 +50,14 @@ const Pagination = ({
       {...rest}
     >
       <div className="flex gap-[8px]">
-        <button onClick={() => handlePageChange(1)} className="size-[24px]">
+        <button
+          onClick={() => handlePageChange(1)}
+          className="size-[24px] cursor-pointer"
+        >
           <ChevronsLeft />
         </button>
         <button
-          className="size-[24px]"
+          className="size-[24px] cursor-pointer"
           onClick={() => handlePageChange(Math.max(current - 1, 1))}
         >
           <ChevronLeft />
@@ -65,7 +68,7 @@ const Pagination = ({
           <button
             key={page}
             className={cn(
-              'text-light size-[42px] gap-[10px] font-normal leading-6 tracking-[-0.5%]',
+              'text-light size-[42px] cursor-pointer gap-[10px] font-normal leading-6 tracking-[-0.5%]',
               current === page &&
                 'text-dark border-lock-dark rounded-lg border',
             )}
@@ -77,13 +80,13 @@ const Pagination = ({
       </div>
       <div className="flex gap-[8px]">
         <button
-          className="size-[24px]"
+          className="size-[24px] cursor-pointer"
           onClick={() => handlePageChange(Math.min(totalPage, current + 1))}
         >
           <ChevronRight />
         </button>
         <button
-          className="size-[24px]"
+          className="size-[24px] cursor-pointer"
           onClick={() => handlePageChange(totalPage)}
         >
           <ChevronsRight />
