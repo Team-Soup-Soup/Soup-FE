@@ -87,7 +87,7 @@ export default function AddShareLinkModal({
     if (file) {
       formData.append('file', file);
     }
-    formData.append('name', name!);
+    formData.append('title', name!);
     formData.append('link', link!);
     formData.append('projectId', `${projectId}`);
     formData.append('linkId', `${defaultValues?.linkId}`);
