@@ -71,10 +71,10 @@ export default function EntireSchedule({ data }: EntireScheduleProps) {
             </div>
             <div className="flex flex-col gap-y-3">
               {currentData.schedules[
-                getDate(selectedDate.toISOString(), 'DD')
+                getDate(selectedDate.toISOString(), 'D')
               ] ? (
                 currentData.schedules[
-                  getDate(selectedDate.toISOString(), 'DD')
+                  getDate(selectedDate.toISOString(), 'D')
                 ].map((schedule) => (
                   <ScheduleItem key={schedule.scheduleId} schedule={schedule} />
                 ))
