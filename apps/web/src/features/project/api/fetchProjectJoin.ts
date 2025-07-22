@@ -11,9 +11,9 @@ type Invitation = {
   signature: string;
 };
 
-const fetchProjectJoin = async () => {
+export const fetchProjectJoin = async () => {
   const { projectId, email, expiredAt, signature } = JSON.parse(
-    getCookie('invitation') as string,
+    decodeURIComponent(getCookie('invitation')!),
   ) as Invitation;
 
   const response = await userGet({

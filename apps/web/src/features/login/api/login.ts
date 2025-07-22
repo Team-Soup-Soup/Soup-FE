@@ -39,6 +39,7 @@ export const useFetchUserLogin = () => {
       setCookie('ACCESS_TOKEN', data.accessToken);
       setCookie('REFRESH_TOKEN', data.refreshToken);
       fetchUserInfo();
+
       if (getCookie('invitation')) {
         fetchProjectJoin();
       } else {
