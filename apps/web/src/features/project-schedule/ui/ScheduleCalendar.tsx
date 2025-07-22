@@ -37,11 +37,6 @@ export default function ScheduleCalendar({
   const formattedDay = [...firstWeek, ...wholeDay, ...lastWeek];
   const selectedDay = date.getDate();
 
-  // 날짜를 DD 형식으로 포맷하는 함수
-  const formatDayKey = (day: number) => {
-    return String(day).padStart(2, '0');
-  };
-
   return (
     <div className="m-10">
       <div className="flex w-full justify-center text-lg">
@@ -84,7 +79,7 @@ export default function ScheduleCalendar({
             d !== '' &&
             index >= firstWeek.length &&
             index < firstWeek.length + wholeDay.length;
-          const dayKey = isCurrentMonth ? formatDayKey(d as number) : '';
+          const dayKey = isCurrentMonth ? String(d) : '';
           const schedules =
             isCurrentMonth && data && data[dayKey] ? data[dayKey] : [];
 
