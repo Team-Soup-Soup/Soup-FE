@@ -1,22 +1,48 @@
-import React from 'react';
+import { cn } from '@soup/utils';
+import React, { useReducer, useState } from 'react';
 
 import LinkAddIcon from '~/assets/icons/share-link-add.svg';
 import LinkDeleteIcon from '~/assets/icons/share-link-delete.svg';
+
 import { useFetchShareLink } from '~/features/project/api';
 import { AddShareLinkModal } from '~/features/project/ui';
+
 import { MODAL } from '~/shared/constants';
 import { useModal, useProjectId } from '~/shared/hooks';
 import { IconButton } from '~/shared/ui';
+import { useDeleteSharedLink } from '../api';
+import type { ShareLink } from '~/features/project/types';
 
 export default function ShareLinkContainer() {
-  const { openModal } = useModal();
+  const [isEditMode, setIsEditMode] = useReducer(
+    (prev: boolean) => !prev,
+    false,
+  );
+  const [selectedLink, setSelectedLink] = useState<ShareLink | undefined>(
+    undefined,
+  );
+
   const projectId = useProjectId();
-  const { data } = useFetchShareLink(projectId);
+  const { openModal } = useModal();
+  const { data, refetch: refetchShareLink } = useFetchShareLink(projectId);
+  const { mutate: deleteSharedLink } = useDeleteSharedLink();
+
   const handleAddClick = () => {
     openModal(MODAL.CREATE_SHARE_LINK);
   };
-  const handleDeleteClick = () => {
-    openModal(MODAL.DELETE_SHARE_LINK);
+
+  const handleUpdateLink = (link: ShareLink) => {
+    setSelectedLink(link);
+    openModal(MODAL.CREATE_SHARE_LINK);
+  };
+
+  const handleDeleteClick = () => setIsEditMode();
+
+  const handleDeleteLink = (linkId: number) => {
+    deleteSharedLink(
+      { linkId, projectId },
+      { onSuccess: () => refetchShareLink() },
+    );
   };
 
   return (
@@ -46,25 +72,49 @@ export default function ShareLinkContainer() {
       ) : (
         <div className="flex size-full flex-wrap gap-4">
           {data?.map((item) => (
-            <button
-              onClick={() => {
-                window.open(item.link, '_blank');
-              }}
-              title={item.linkTitle}
-              className="border-main-board-border size-[36px] cursor-pointer overflow-hidden rounded-[4px] border-[1px] bg-white outline-none"
-              key={item.linkId}
-            >
-              <img
-                src={`http://student-p.p-e.kr/download/${item.files.url}`}
-                alt="share-link"
-                className="size-full object-cover"
-              />
-            </button>
+            <div className="relative size-[36px]" key={item.linkId}>
+              {isEditMode && (
+                <button
+                  onClick={() => handleDeleteLink(item.linkId)}
+                  className="border-main-board-border absolute -right-1 -top-1 z-10 flex size-6 cursor-pointer items-center justify-center rounded-full border-[1px] bg-white"
+                >
+                  <img
+                    src="/icons/icon-plus.svg"
+                    alt="delete"
+                    className="size-full"
+                  />
+                </button>
+              )}
+              <button
+                onClick={() => {
+                  if (isEditMode) {
+                    handleUpdateLink(item);
+                  } else {
+                    window.open(item.link, '_blank');
+                  }
+                }}
+                title={item.linkTitle}
+                className={cn(
+                  'border-main-board-border size-[36px] cursor-pointer overflow-hidden rounded-[4px] border-[1px] bg-white outline-none',
+                  isEditMode && 'shake',
+                )}
+              >
+                <img
+                  src={`http://student-p.p-e.kr/download/${item.files.url}`}
+                  alt="share-link"
+                  className="size-full object-cover"
+                />
+              </button>
+            </div>
           ))}
         </div>
       )}
-
-      <AddShareLinkModal />
+      <AddShareLinkModal
+        isEditMode={isEditMode}
+        setEditMode={setIsEditMode}
+        defaultValues={selectedLink}
+        setSelectedLink={setSelectedLink}
+      />
     </div>
   );
 }

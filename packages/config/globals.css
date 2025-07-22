@@ -145,6 +145,29 @@
   font-style: normal;
 }
 
+.shake {
+  display: inline-block;
+  animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  50% {
+    transform: translateX(2px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari, and Opera */
   .scrollbar-hide::-webkit-scrollbar {
