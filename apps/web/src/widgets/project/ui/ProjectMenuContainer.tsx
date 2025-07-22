@@ -2,7 +2,6 @@ import React from 'react';
 
 import {
   RoomButtons,
-  MenuHeader,
   BoardContainer,
   PlanContainer,
   ShareLinkContainer,
@@ -11,7 +10,7 @@ import {
 export default function ProjectMenuContainer() {
   return (
     <div className="flex h-fit w-full flex-col">
-      <MenuHeader />
+      <div className="border-lock mb-10 h-fit border-b-[2px]" />
       <div className="flex flex-wrap gap-6">
         <RoomButtons />
         <BoardContainer />
