@@ -19,12 +19,10 @@ export const fetchProjectJoin = async () => {
   const response = await userGet({
     request: REQUEST.JOIN_PROJECT,
     params: {
-      rq: {
-        projectId: projectId,
-        email: email,
-        expiredAt: expiredAt,
-        signature: signature,
-      },
+      projectId: projectId,
+      email: email,
+      expiredAt: expiredAt,
+      signature: signature,
     },
   });
 
