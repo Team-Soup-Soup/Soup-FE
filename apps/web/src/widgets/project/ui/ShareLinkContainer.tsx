@@ -36,7 +36,10 @@ export default function ShareLinkContainer() {
     openModal(MODAL.CREATE_SHARE_LINK);
   };
 
-  const handleDeleteClick = () => setIsEditMode();
+  const handleDeleteClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsEditMode();
+  };
 
   const handleDeleteLink = (linkId: number) => {
     deleteSharedLink(

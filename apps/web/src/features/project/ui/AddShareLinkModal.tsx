@@ -112,7 +112,6 @@ export default function AddShareLinkModal({
       onSuccess: () => {
         closeModal(MODAL.CREATE_SHARE_LINK);
         refetchShareLink();
-        setEditMode(false);
         setSelectedLink(undefined);
         reset();
       },
